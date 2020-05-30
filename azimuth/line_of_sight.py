@@ -204,7 +204,3 @@ def generate_elevation(folderoutput):
                         time.sleep(3)
                     except Exception as e:
                         print(str(e))
-
-
-if __name__ == "__main__":
-    generate_elevation('../lineofsight_graphs')

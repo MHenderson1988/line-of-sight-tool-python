@@ -61,7 +61,3 @@ def convert_grids(file):
         writer = csv.writer(csvfile)
         writer.writerows(my_list)
         print("Writing wind_farms.csv: 100%")
-
-
-if __name__ == '__main__':
-    convert_grids_xy('../inputdata/grid.csv')
