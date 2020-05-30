@@ -1,14 +1,15 @@
 # Very basic window.  Return values as a list
+
 if __name__ == "__main__":
 
     import PySimpleGUI as sg
     import threading
-    from getheight import generate_elevation
-    from gridconverter import *
-    from kmlgenerator import generatekml
+    from azimuth.line_of_sight import generate_elevation
+    from azimuth.grid_converter import *
+    from azimuth.kml_generator import generate_kml
 
     layout = [
-        [sg.Text('Please select the location of the windfarm file to process: ')],
+        [sg.Text('Please select the location of the wind farm file to process: ')],
         [sg.InputText('', size=(30, 1), key='fileLocation'), sg.FileBrowse()],
         [sg.Text('Are the coordinates in Northings and Eastings or OSGrid/WGS84 (Latitude/Longitude)?: ')],
         [sg.Radio('Northings and Eastings', 'Radio1', key='xy', default='True'),
@@ -21,7 +22,7 @@ if __name__ == "__main__":
         [sg.Output(size=(80, 10))]
     ]
 
-    window = sg.Window('Prestwick Azimuth').Layout(layout)
+    window = sg.Window('Azimuth').Layout(layout)
 
 
     def thread_function_generate():
@@ -35,13 +36,13 @@ if __name__ == "__main__":
             break
         if event == 'Convert':
             file = values['fileLocation']
-            if values['xy'] == True:
-                convertgridsxy(file)
+            if values['xy']:
+                convert_grids_xy(file)
             else:
-                convertgrids(file)
+                convert_grids(file)
         if event == 'Create':
             output = values['folderoutput']
-            generatekml(output)
+            generate_kml(output)
         if event == 'Generate':
             x = threading.Thread(target=thread_function_generate)
             x.start()
