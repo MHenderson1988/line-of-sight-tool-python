@@ -3,11 +3,13 @@ import csv
 
 from OSGridConverter import grid2latlong
 from pyproj import Proj, transform
+from locations import Locations
 
 
 # Converts Eastings and Northings to Latitude and Longitude and overwrites .csv file
+# Returns a list of Location objects
 def convert_grids_xy(file):
-    my_list = []
+    location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
@@ -16,19 +18,16 @@ def convert_grids_xy(file):
             x, y = transform(in_proj, out_proj, x, y)
             lat, long = y, x
             height, name = row[2], row[3]
-            to_write = lat, long, height, name
-            my_list.append(to_write)
-            print(to_write)
+            new_location = Locations(lat, long, height, name)
+            location_list.append(new_location)
 
-        with open(file, "w", newline='') as csvfile:
-            print("Writing .csv: 0%")
-            writer = csv.writer(csvfile)
-            writer.writerows(my_list)
-            print("Writing .csv: 100%")
+    print(location_list)
+
+    return location_list
 
 
 def convert_grids(file):
-    my_list = []
+    location_list = []
     alpha = string.ascii_letters
 
     with open(file) as csvfile:
@@ -43,17 +42,13 @@ def convert_grids(file):
                 lat, long = float(row[0]), float(row[1])
                 lat, long = format(lat, '4f'), format(long, '4f')
                 height, name = row[2], row[3]
+            # Create a new Locations objects
+            new_location = Locations(lat, long, height, name)
+            location_list.append(new_location)
 
-            to_write = lat, long, height, name
-            my_list.append(to_write)
-            print(to_write)
+    return location_list
 
-    with open(file, "w", newline='') as csvfile:
-        print("Writing .csv: 0%")
-        writer = csv.writer(csvfile)
-        writer.writerows(my_list)
-        print("Writing .csv: 100%")
 
 # For testing
 if __name__ == '__main__':
-    convert_grids_xy('input_data/grid.csv')
+    convert_grids_xy('..\inputdata\grid.csv')

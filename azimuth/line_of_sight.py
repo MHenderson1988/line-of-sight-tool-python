@@ -1,4 +1,3 @@
-import csv
 import json
 import math
 import time
@@ -8,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from circle import Circle
+from locations import Locations
 
 
 def calc_start_angle(start_y, centre_y, start_x, centre_x):
@@ -22,7 +22,7 @@ def calc_end_angle(end_y, centre_y, end_x, centre_x):
 
 # Extract data from radar and turbine csv files
 
-def generate_elevation(folderoutput):
+def generate_elevation(folderoutput, api_key):
     with open('../inputdata/radars.csv') as csvfile:  # Get radar data
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
@@ -109,7 +109,7 @@ def generate_elevation(folderoutput):
                     try:
                         print("Sending request")
                         # SEND REQUEST
-                        api_key = ""  # Your google elevation api key here
+                        api_key = api_key  # Your google elevation api key here
                         samples = '&samples=' + str(s)
                         radar_pos = str(radar_long) + ',' + str(radar_lat)
                         turbine_pos = str(wind_farm_long) + ',' + str(wind_farm_lat)
