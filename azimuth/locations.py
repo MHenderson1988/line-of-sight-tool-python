@@ -5,18 +5,6 @@ class Locations:
         self.height = a_height
         self.name = a_name
 
-    def get_latitude(self):
-        return self.latitude
-
-    def get_longitude(self):
-        return self.longitude
-
-    def get_height(self):
-        return self.height
-
-    def get_name(self):
-        return self.name
-
     def set_latitude(self, a_latitude):
         self.latitude = a_latitude
 

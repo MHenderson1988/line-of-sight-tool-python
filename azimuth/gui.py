@@ -4,7 +4,7 @@ if __name__ == "__main__":
 
     import PySimpleGUI as sg
     import threading
-    from azimuth.line_of_sight import generate_elevation
+    from azimuth.line_of_sight_calculations import generate_elevation
     from azimuth.grid_converter import *
     from azimuth.kml_generator import generate_kml
 
@@ -16,6 +16,8 @@ if __name__ == "__main__":
          sg.Radio('OSGrid/WGS84', 'Radio1', key='wgs')],
         [sg.Text('Select folder to output .kml and elevation profiles: ')],
         [sg.InputText('', size=(30, 1), key='folderoutput'), sg.FolderBrowse()],
+        [sg.Text('Google elevation api key: ')],
+        [sg.InputText('', size=(30, 1), key='api_key')],
         [sg.Text('Step 1: Convert grids to a readable Lat/Long format (WGS84)', size=(50, 1)), sg.Button('Convert')],
         [sg.Text('Step 2: Create a Google Earth Pro .kml file (Optional)', size=(50, 1)), sg.Button('Create')],
         [sg.Text('Step 3: Generate line of sight assessment graphs', size=(50, 1)), sg.Button('Generate')],
@@ -26,7 +28,7 @@ if __name__ == "__main__":
 
 
     def thread_function_generate():
-        output = values['folderoutput']
+        output = values['folderoutput','api_key']
         generate_elevation(output)
 
 
