@@ -4,15 +4,36 @@ class Locations:
         self.longitude = a_longitude
         self.height = a_height
         self.name = a_name
+        self.coordinates = str(self.latitude) + ',' + str(self.longitude)
 
-    def set_latitude(self, a_latitude):
-        self.latitude = a_latitude
+    @property
+    def latitude(self):
+        return self._latitude
 
-    def set_longitude(self, a_longitude):
-        self.longitude = a_longitude
+    @latitude.setter
+    def latitude(self, a_latitude):
+        self._latitude = a_latitude
 
-    def set_height(self, a_height):
-        self.height = a_height
+    @property
+    def longitude(self):
+        return self._longitude
 
-    def set_name(self, a_name):
-        self.name = a_name
+    @longitude.setter
+    def longitude(self, a_longitude):
+        self._longitude = a_longitude
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, a_height):
+        self._height = a_height
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, a_name):
+        self._name = a_name

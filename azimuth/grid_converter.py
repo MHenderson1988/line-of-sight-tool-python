@@ -16,13 +16,14 @@ def convert_grids_xy(file):
             x, y = row[0], row[1]
             in_proj = Proj('epsg:27700')
             out_proj = Proj('epsg:4326')
-            x,y = transform(in_proj,out_proj, x, y, always_xy='true')
+            x, y = transform(in_proj, out_proj, x, y, always_xy='true')
             lat, long = float(y), float(x)
             height, name = row[2], row[3]
             new_location = Locations(lat, long, height, name)
             location_list.append(new_location)
 
     return location_list
+
 
 # Converts from eastings and nothings to lat and long or leaves in lat and long
 def convert_grids(file):

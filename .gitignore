@@ -1,5 +1,6 @@
 inputdata/
 lineofsight_graphs/
+output/
 .idea/
 # Byte-compiled / optimized / DLL files
 __pycache__/

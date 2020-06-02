@@ -8,10 +8,10 @@ class Circle:
         self.circumference = 2 * np.pi * self.radius
         self.diameter = self.radius * 2
         self.arc_length = length_of_arc
-        self.degrees = self.calc_Degrees()
-        self.radians = self.calc_Radians()
+        self.degrees = self.calc_degrees()
+        self.radians = self.calc_radians()
         self.chord_length = self.calc_chord_length()
-        self.sagitta = self.calc_Sagitta()
+        self.sagitta = self.calc_sagitta()
         self.arc_height = self.calc_arc_height()
         self.segment_area = self.calc_segment_area()
         self.centre_to_chord = self.calc_centre_to_chord()
@@ -62,12 +62,12 @@ class Circle:
 
     # calculate the central angle, in degrees, by using the arc_length
     # Gives angle in degrees at centre of the circle between the two points (beginning and end points of arc_length)
-    def calc_Degrees(self):
+    def calc_degrees(self):
         self.degrees = (self.arc_length / (np.pi * self.diameter)) * 360
         return self.degrees
 
     # calculate the central angle in radians, between two points on the circle
-    def calc_Radians(self):  # Where theta is the angle between both points at the centre of the circle
+    def calc_radians(self):  # Where theta is the angle between both points at the centre of the circle
         self.radians = np.radians(self.degrees)  # Convert degrees to radians to work with chord_length formula
         return self.radians
 
@@ -87,7 +87,7 @@ class Circle:
     # calculates the sagitta of the arc segment.  The sagitta is the horizontal line which extends from the bottom
     # of the circle to the chord of the segment
     # Confirmed correct against online calculator https://www.liutaiomottola.com/formulae/sag.htm
-    def calc_Sagitta(self):
+    def calc_sagitta(self):
         self.sagitta = self.radius - (np.sqrt((self.radius ** 2) - ((self.chord_length / 2) ** 2)))
         return self.sagitta
 
