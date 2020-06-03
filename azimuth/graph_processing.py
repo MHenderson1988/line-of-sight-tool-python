@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2):
+def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder):
     min_elev = min(elevation_data)
     mean_elev = round((sum(elevation_data) / len(elevation_data)), 3)
     max_elev = max(elevation_data)
@@ -31,5 +31,5 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2):
 
     filename = obj_1.name + ' to ' + obj_2.name
 
-    plt.savefig('../output/' + filename)
+    plt.savefig(output_folder + '/' + filename)
     plt.close()
