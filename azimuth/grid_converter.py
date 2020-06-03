@@ -1,63 +1,41 @@
-import csv
 import string
+import csv
 
 from OSGridConverter import grid2latlong
-from pyproj import Proj, transform
+from pyproj import transform, Proj
+from location import Location
 
 
+# Converts Eastings and Northings to Latitude and Longitude and overwrites .csv file
+# Returns a list of Location objects
+# To be implemented
 def convert_grids_xy(file):
-    my_list = []
+    location_list = []
     with open(file) as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
+        reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
         for row in reader:
-            in_proj = Proj(init='epsg:27700')
-            out_proj = Proj(init='epsg:4326')
             x, y = row[0], row[1]
-            x, y = transform(in_proj, out_proj, x, y)
-            lat = y
-            long = x
-            height = row[2]
-            name = row[3]
-            to_write = lat, long, height, name
-            my_list.append(to_write)
-            print(to_write)
+            in_proj = Proj('epsg:27700')
+            out_proj = Proj('epsg:4326')
+            x, y = transform(in_proj, out_proj, x, y, always_xy='true')
+            lat, long = float(y), float(x)
+            height, name = row[2], row[3]
+            new_location = Location(lat, long, height, name)
+            location_list.append(new_location)
 
-        with open('../inputdata/wind_farms.csv', "w", newline='') as csvfile:
-            print("Writing wind_farms.csv: 0%")
-            writer = csv.writer(csvfile)
-            writer.writerows(my_list)
-            print("Writing wind_farms.csv: 100%")
+    return location_list
 
 
+# Turns a standard lat and long .csv file into Location objects
 def convert_grids(file):
-    my_list = []
-    alpha = string.ascii_letters
-
+    location_list = []
     with open(file) as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
+        reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
         for row in reader:
-            if row[0].startswith(tuple(alpha)):
-                location = grid2latlong(row[0])
-                lat = float(location.latitude)
-                long = float(location.longitude)
-                lat = format(lat, '4f')
-                long = format(long, '4f')
-                height = row[1]
-                name = row[2]
-            else:
-                lat = float(row[0])
-                long = float(row[1])
-                lat = format(lat, '4f')
-                long = format(long, '4f')
-                height = row[2]
-                name = row[3]
+            lat, long = float(row[0]), float(row[1])
+            height, name = float(row[2]), row[3]
+            # Create a new Locations objects
+            new_location = Location(lat, long, height, name)
+            location_list.append(new_location)
 
-            to_write = lat, long, height, name
-            my_list.append(to_write)
-            print(to_write)
-
-    with open('../inputdata/wind_farms.csv', "w", newline='') as csvfile:
-        print("Writing wind_farms.csv: 0%")
-        writer = csv.writer(csvfile)
-        writer.writerows(my_list)
-        print("Writing wind_farms.csv: 100%")
+    return location_list
