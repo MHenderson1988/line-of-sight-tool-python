@@ -23,10 +23,10 @@ def receive_request_google_elevation(response_from_send_request):
 
 # This will retrieve the elevation from the response
 # Returns a list of elevations between the two points.
-def process_response(return_from_receive_request):
+def process_response(return_from_receive_request, earth_surface_values):
     response_len = len(return_from_receive_request['results'])
     elev_list = []
     for j in range(response_len):
-        elev_list.append(return_from_receive_request['results'][j]['elevation'])
+        elev_list.append(return_from_receive_request['results'][j]['elevation'] + earth_surface_values[j])
     # Add or reduce height to simulate curve of earth at 7.98 inch per mile
     return elev_list

@@ -1,25 +1,15 @@
 import matplotlib.pyplot as plt
 
 
-def calculate_mean_elevation(elevation_data):
-    return round((sum(elevation_data) / len(elevation_data)), 3)
-
-
-def calculate_minimum_elevation(elevation_data):
-    return min(elevation_data)
-
-
-def calculate_maximum_elevation(elevation_data):
-    return max(elevation_data)
-
-
 def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2):
-    min_elev = calculate_maximum_elevation(elevation_data)
-    mean_elev = calculate_mean_elevation(elevation_data)
-    max_elev = calculate_minimum_elevation(elevation_data)
+    min_elev = min(elevation_data)
+    mean_elev = round((sum(elevation_data) / len(elevation_data)), 3)
+    max_elev = max(elevation_data)
 
     start_los = elevation_data[0] + float(obj_1.height)
     end_los = elevation_data[-1] + float(obj_2.height)
+
+    # Adjust elevation height for curvature of the earth
 
     base_reg = 0
     plt.figure(figsize=(10, 4))
