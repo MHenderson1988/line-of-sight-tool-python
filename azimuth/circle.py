@@ -1,3 +1,8 @@
+# The circle class accepts two arguments, the radius of the circle and the length of arc between the locations
+# which are being assessed.  This generates a representation of the Earth's curvature which will be represented on the
+# final graph.  This is important to represent as the curvature of the Earth makes a big difference to whether
+# or not, line of sight exists between locations.
+
 import numpy as np
 
 

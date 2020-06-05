@@ -1,4 +1,4 @@
-from grid_converter import *
+from location_reference_converter import *
 from unittest import *
 
 class TestGridConverter(TestCase):

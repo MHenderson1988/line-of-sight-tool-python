@@ -1,4 +1,6 @@
-import string
+# The location_reference_converter.py class allows for the translation of cartesian references into
+# latitude and longitude.
+
 import csv
 
 from OSGridConverter import grid2latlong
@@ -6,8 +8,7 @@ from pyproj import transform, Proj
 from location import Location
 
 
-# Converts Eastings and Northings to Latitude and Longitude and overwrites .csv file
-# Returns a list of Location objects
+# Converts Eastings and Northings to Latitude and Longitude and returns a list of location objects
 # To be implemented
 def convert_grids_xy(file):
     location_list = []
