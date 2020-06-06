@@ -4,9 +4,8 @@ import json
 
 
 # This will send the request to the API
-def send_request_google_elevation(pos_1, pos_2, number_samples, api_key):
+def send_request_google_elevation(url):
     print("Sending request...")
-    url = construct_url(pos_1, pos_2, api_key, number_samples)
     response = urllib.request.Request(url, headers={'Content-Type': 'application/json'})
     fp = urllib.request.urlopen(response)
     return fp
@@ -16,8 +15,10 @@ def send_request_google_elevation(pos_1, pos_2, number_samples, api_key):
 def construct_url(pos_1, pos_2, number_samples, api_key):
     print("Preparing request...")
     api_address = 'https://maps.googleapis.com/maps/api/elevation/json?path='
-    print(api_address)
-    return api_address + pos_1 + '|' + pos_2 + '&samples=' + str(number_samples) + '&key=' + api_key
+    url_to_send = api_address + pos_1 + '|' + pos_2 + '&samples=' + str(number_samples) + '&key=' + api_key
+    print(url_to_send)
+    sent_request = send_request_google_elevation(url_to_send)
+    return sent_request
 
 
 # This will receive data from the google elevation API
