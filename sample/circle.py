@@ -34,24 +34,14 @@ class Circle:
     def calc_arc_length(self):
         return (self.calc_degrees() / 360) * self.calc_diameter() * np.pi
 
-    # Calculates the sagitta of the arc segment.  The sagitta is the horizontal line which extends from the bottom
-    # of the circle to the chord of the segment
+    # Calculates the Sagitta of the arc segment.  The Sagitta is the distance from the centre of the arc
+    # to the centre of the chord
     # Confirmed correct against online calculator https://www.liutaiomottola.com/formulae/sag.htm
     def calc_sagitta(self):
         return self.radius - (np.sqrt((self.radius ** 2) - ((self.calc_chord_length() / 2) ** 2)))
 
-    # Calculate the height of the arc
-    # Radius - sagitta of the segment
+    # Calculate the distance between the chord of the segment and the centre of the circle
     def calc_arc_height(self):
-        return self.radius - self.calc_sagitta()
-
-    # Calculates the area of the circular segment/arc).
-    def calc_segment_area(self):
-        return (self.calc_radians() - np.sin(self.calc_radians()) / 2) * self.radius ** 2
-
-    # Calculate the height of the arc showing distance FROM the centre of the circle
-    # Radius - sagitta of the segment
-    def calc_centre_to_chord(self):
         return self.radius - self.calc_sagitta()
 
     # Calculate centre point of circle

@@ -47,8 +47,9 @@ def run_program(input_file_one, input_file_two, output_folder, api_key, samples)
             y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1)
 
             # Construct api url and extract the elevation data
-            send_data = data_handling.construct_url(i.coordinates, x.coordinates, samples, api_key)
-            received_data = data_handling.receive_request_google_elevation(send_data)
-            elevation_data = data_handling.process_response(received_data, y_values)
+            elevation_data = data_handling.send_and_receive_data(i.coordinates, x.coordinates, samples, api_key,
+                                                                 y_values)
             create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder)
+
+            # Rest for a moment to prevent the api being bombarded with requests.
             time.sleep(2)
