@@ -1,17 +1,20 @@
 import location_reference_converter
 import line_of_sight_calculations
 import data_handling
-import numpy as np
 import time
 import circle
 
 from haversine import haversine, Unit
 from graph_processing import *
+from validation_handling import *
 
 
 def run_program(input_file_one, input_file_two, output_folder, api_key, samples):
     # This will have options in future for different units of measurement
     earth_radius = 3440.065  # in nm
+
+    # Validate the number of samples requested
+    validate_google_sample_number(samples)
 
     # Create a list of location objects from both .csv files
     first_location_list = location_reference_converter.convert_grids(input_file_one)
