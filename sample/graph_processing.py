@@ -1,6 +1,20 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
+# Returns a numpy array containing the y-axis values for the curvature of the earth
+def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circle_object):
+    y_values_list = []
+    for j in range(len(list_of_x_axis_values)):
+        y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_height()
+        y = y * 1852  # Converts to nautical miles
+        y_values_list.append(y)
+    y_values_np = np.array(y_values_list)
+
+    return y_values_np
+
+
+# Creates the graph displaying the line of sight analysis between the two points
 def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder):
     min_elev = min(elevation_data)
     mean_elev = round((sum(elevation_data) / len(elevation_data)), 3)
@@ -8,8 +22,6 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
 
     start_los = elevation_data[0] + float(obj_1.height)
     end_los = elevation_data[-1] + float(obj_2.height)
-
-    # Adjust elevation height for curvature of the earth
 
     base_reg = 0
     plt.figure(figsize=(10, 4))
@@ -27,9 +39,9 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.grid()
     plt.legend(fontsize='small')
 
-    print('Saving...')
-
     filename = obj_1.name + ' to ' + obj_2.name
+    print('Saving  ' + filename + '...')
 
     plt.savefig(output_folder + '/' + filename)
     plt.close()
+    print('Saved.')
