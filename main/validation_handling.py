@@ -9,6 +9,8 @@ def validate_longitude_latitude(a_long, a_lat):
         raise ValueError("Latitude exceeds it's limits.  Please enter a valid latitude between -90 and 90 degrees")
     elif not isinstance(a_long, float) or not isinstance(a_lat, float):
         raise TypeError("Latitude and longitude must be given in decimal format eg - 55.231, -4.532")
+    else:
+        return True
 
 
 def validate_google_sample_number(a_number):
@@ -16,3 +18,5 @@ def validate_google_sample_number(a_number):
         raise ValueError("Number of samples must be a whole number greater than 0")
     elif not isinstance(a_number, int):
         raise TypeError("Number of samples must be a whole number greater than 0")
+    else:
+        return True

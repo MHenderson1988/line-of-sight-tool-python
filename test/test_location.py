@@ -1,5 +1,6 @@
 from unittest import TestCase
-from location import *
+
+from main.location import Location
 
 
 class TestLocation(TestCase):
@@ -10,7 +11,7 @@ class TestLocation(TestCase):
         print(location.name)
 
     def test_latitude(self):
-        location = Location (44.3432, +4.4543, 30, "House 2")
+        location = Location(44.3432, +4.4543, 30, "House 2")
         latitude = location.latitude
         self.assertEqual(44.3432, latitude)
 

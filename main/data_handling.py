@@ -1,6 +1,6 @@
 # This file contains functions which will allow the data to be sent to the elevation API
-import urllib.request
 import json
+import urllib.request
 
 
 # This will create the url to be sent to the api

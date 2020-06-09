@@ -30,8 +30,8 @@ if __name__ == "__main__":
         output_folder = values['folder_output']
         api = values['api_key']
         amount_samples = int(values['samples'])
-        print(first_file,second_file,output_folder,api,amount_samples)
-        run_program(first_file,second_file,output_folder,api,amount_samples)
+        print(first_file, second_file, output_folder, api, amount_samples)
+        run_program(first_file, second_file, output_folder, api, amount_samples)
 
 
     while True:

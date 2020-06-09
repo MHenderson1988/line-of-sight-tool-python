@@ -3,9 +3,8 @@
 
 import csv
 
-from OSGridConverter import grid2latlong
-from pyproj import transform, Proj
 from location import Location
+from pyproj import transform, Proj
 from validation_handling import validate_longitude_latitude
 
 

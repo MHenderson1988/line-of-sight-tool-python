@@ -1,5 +1,6 @@
 from unittest import TestCase
-from validation_handling import *
+
+from main.validation_handling import validate_longitude_latitude, validate_google_sample_number
 
 
 class TestValidationHandling(TestCase):

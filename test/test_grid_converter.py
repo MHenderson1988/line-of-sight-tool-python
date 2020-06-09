@@ -1,5 +1,6 @@
-from location_reference_converter import *
 from unittest import *
+
+from main.location_reference_converter import convert_grids
 
 
 class TestGridConverter(TestCase):

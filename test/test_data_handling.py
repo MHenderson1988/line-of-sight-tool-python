@@ -1,6 +1,6 @@
-import unittest
-import urllib.request
-import data_handling
+from unittest import *
+
+from main import data_handling
 
 
 class TestDataHandling(TestCase):

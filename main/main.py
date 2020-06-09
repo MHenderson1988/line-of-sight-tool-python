@@ -1,12 +1,11 @@
-import location_reference_converter
-import line_of_sight_calculations
-import data_handling
 import time
-import circle
 
+import numpy as np
 from haversine import haversine, Unit
-from graph_processing import *
-from validation_handling import *
+
+from main import location_reference_converter, line_of_sight_calculations, circle, data_handling
+from main.graph_processing import earth_curve_y_axis, create_graph
+from main.validation_handling import validate_google_sample_number
 
 
 def run_program(input_file_one, input_file_two, output_folder, api_key, samples):
