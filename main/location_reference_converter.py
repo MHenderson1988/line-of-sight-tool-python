@@ -3,13 +3,14 @@
 
 import csv
 
-from location import Location
 from pyproj import transform, Proj
-from validation_handling import validate_longitude_latitude
-
 
 # Converts Eastings and Northings to Latitude and Longitude and returns a list of location objects
 # To be implemented
+from main.location import Location
+from main.validation_handling import validate_longitude_latitude
+
+
 def convert_grids_xy(file):
     location_list = []
     with open(file) as csvfile:

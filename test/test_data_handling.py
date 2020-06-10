@@ -1,5 +1,7 @@
 from unittest import *
 
+from mock import patch, Mock
+
 from main import data_handling
 
 
@@ -8,3 +10,15 @@ class TestDataHandling(TestCase):
         url = data_handling.construct_url('55.123,-4.123', '55.111,-4.111', '200', '123')
         self.assertEqual('https://maps.googleapis.com/maps/api/elevation/json?path=55.123,-4.123|55.111,'
                          '-4.111&samples=200&key=123', url)
+
+    @patch('main.data_handling.urllib.request.urlopen')
+    def test_send_request_google_elevation(self, mock_http_client):
+        mock_http_client.return_value = "Hello"
+        response = data_handling.send_request_google_elevation('https://hello.com/api/38427363')
+        self.assertEqual("Hello", response)
+
+    def test_receive_request_google_elevation(self):
+        mock_response = Mock()
+        mock_response.read.return_value = str.encode("{\"Number\": [1, 2, 3]}")
+        json_string = data_handling.receive_request_google_elevation(mock_response)
+        self.assertEqual("{\'Number\': [1, 2, 3]}", str(json_string))
