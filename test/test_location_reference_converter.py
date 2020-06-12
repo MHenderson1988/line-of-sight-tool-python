@@ -1,20 +1,28 @@
 from unittest import TestCase
 
 from main.location import Location
-from main.location_reference_converter import convert_decimal_lat_long, convert_easting_northing
+from main.location_reference_converter import convert_decimal_lat_long, convert_easting_northing, \
+    convert_british_national_grid
 
 
 class TestLocationReferenceConverter(TestCase):
     def test_convert_easting_northing(self):
         list_to_test = []
-        a_test_location = Location(54.906163249976245, -1.3819796963744007, 150, "Fawcett street")
+        a_test_location = Location(54.906163, -1.381980, 150, "Fawcett street")
         list_to_test.append(a_test_location)
         returned_list = convert_easting_northing('test_osbg36.csv')
-        self.assertTrue(list_to_test.__eq__(returned_list[0]))
+        self.assertEqual(a_test_location.latitude, round(returned_list[0].latitude, 6))
 
     def test_convert_decimal_lat_long(self):
         list_to_test = []
         a_test_location = Location(55.053203, -1.6918945, 200, "House 1")
         list_to_test.append(a_test_location)
         returned_list = convert_decimal_lat_long('test_decimal_degrees.csv')
-        self.assertTrue(list_to_test.__eq__(returned_list[0]))
+        self.assertEqual(a_test_location.latitude, returned_list[0].latitude)
+
+    def test_convert_british_national_grid(self):
+        list_to_test = []
+        a_test_location = Location(54.906163, -1.3819797, 200, "House 1")
+        list_to_test.append(a_test_location)
+        returned_list = convert_british_national_grid('test_bng.csv')
+        self.assertEqual(round(a_test_location.longitude, 4), round(returned_list[0].longitude, 4))
