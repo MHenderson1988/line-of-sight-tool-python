@@ -3,31 +3,28 @@
 
 import csv
 
-from pyproj import transform, Proj
+from pyproj import Transformer
 
 from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
 
-def convert_grids_xy(file):
+def convert_easting_northing(file):
     location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
         for row in reader:
-            x, y = row[0], row[1]
-            in_proj = Proj('epsg:27700')
-            out_proj = Proj('epsg:4326')
-            x, y = transform(in_proj, out_proj, x, y, always_xy='true')
-            lat, long = float(y), float(x)
-            height, name = row[2], row[3]
-            new_location = Location(lat, long, height, name)
-            location_list.append(new_location)
-
+            transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
+            x, y = transformer.transform(row[0], row[1])
+            location = Location(x, y, row[2], row[3])
+            location_list.append(location)
     return location_list
 
 
-# Turns a standard lat and long .csv file into Location objects
-def convert_grids(file):
+# This is what the google elevation api accepts.  Therefore a decimal lat long will simply be written to a new
+# Location class object and WILL NOT undergo any conversion.
+# Returns a list of Location objects
+def convert_decimal_lat_long(file):
     location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')

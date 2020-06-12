@@ -5,7 +5,7 @@ from main.location_reference_converter import convert_grids
 
 class TestGridConverter(TestCase):
     def test_convert_grids(self):
-        a_list = convert_grids('test.csv')
+        a_list = convert_grids('test_decimal_degrees.csv')
         lat = a_list[0].latitude
         long = a_list[0].longitude
         height = a_list[0].height

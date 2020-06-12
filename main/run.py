@@ -16,8 +16,8 @@ def run_program(input_file_one, input_file_two, output_folder, api_key, samples)
     validate_google_sample_number(samples)
 
     # Create a list of location objects from both .csv files
-    first_location_list = location_reference_converter.convert_grids(input_file_one)
-    second_location_list = location_reference_converter.convert_grids(input_file_two)
+    first_location_list = location_reference_converter.convert_decimal_lat_long(input_file_one)
+    second_location_list = location_reference_converter.convert_decimal_lat_long(input_file_two)
 
     # Iterate through the locations in the first .csv file
     for i in first_location_list:
