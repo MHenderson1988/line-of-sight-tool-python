@@ -10,6 +10,22 @@ from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
 
+# This method verifies which conversion method to call.  Returns a list of Location objects in decimal lat-long format.
+
+def conversion_type(file, coordinate_type):
+    if coordinate_type == "decimal":
+        list_to_return = convert_decimal_lat_long(file)
+        return list_to_return
+    elif coordinate_type == "xy":
+        list_to_return = convert_easting_northing(file)
+        return list_to_return
+    elif coordinate_type == "bng":
+        list_to_return = convert_british_national_grid(file)
+        return list_to_return
+    else:
+        return 0
+
+
 # This converts easting and northing grid references to latitude and longitude.  Creates a Location
 # object for each position and returns a list of Location objects.  Currently only tests accurate to 6 decimal degrees
 
