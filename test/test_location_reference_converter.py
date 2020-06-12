@@ -22,7 +22,7 @@ class TestLocationReferenceConverter(TestCase):
 
     def test_convert_british_national_grid(self):
         list_to_test = []
-        a_test_location = Location(54.906163, -1.3819797, 200, "Fawcett street")
+        a_test_location = Location(51.503532, -0.12779641, 200, "10 Downing street")
         list_to_test.append(a_test_location)
         returned_list = convert_british_national_grid('csv/test_bng.csv')
         print(returned_list[0].latitude, returned_list[0].longitude)
