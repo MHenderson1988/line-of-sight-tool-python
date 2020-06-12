@@ -1,10 +1,10 @@
 # Very basic window.  Return values as a list
+from main.run import run_program
 
 if __name__ == "__main__":
 
     import PySimpleGUI as sg
     import threading
-    from main import run_program
 
     layout = [
         [sg.Text('First batch of locations to process: ')],

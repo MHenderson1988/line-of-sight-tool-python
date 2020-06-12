@@ -35,7 +35,7 @@ def send_request_google_elevation(url):
 
 # This method takes a urlopen object, of json content type, as its argument.  The object is then decoded into utf8
 # and returns a decoded string of json data as a string object.
-def receive_request_google_elevation(response_from_send_request, earth_surface_values):
+def receive_request_google_elevation(response_from_send_request):
     print("Receiving elevation data...")
     res_byte = response_from_send_request.read()
     res_str = res_byte.decode("utf8")
