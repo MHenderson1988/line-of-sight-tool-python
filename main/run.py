@@ -8,7 +8,7 @@ from main.graph_processing import earth_curve_y_axis, create_graph
 from main.validation_handling import validate_google_sample_number
 
 
-def run_program(input_file_one, input_file_two, output_folder, api_key, samples):
+def run_program(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type, second_file_type):
     # This will have options in future for different units of measurement
     earth_radius = 3440.065  # in nm
 
@@ -16,8 +16,8 @@ def run_program(input_file_one, input_file_two, output_folder, api_key, samples)
     validate_google_sample_number(samples)
 
     # Create a list of location objects from both .csv files
-    first_location_list = location_reference_converter.convert_decimal_lat_long(input_file_one)
-    second_location_list = location_reference_converter.convert_decimal_lat_long(input_file_two)
+    first_location_list = location_reference_converter.conversion_type(input_file_one, first_file_type)
+    second_location_list = location_reference_converter.conversion_type(input_file_two, second_file_type)
 
     # Iterate through the locations in the first .csv file
     for i in first_location_list:
