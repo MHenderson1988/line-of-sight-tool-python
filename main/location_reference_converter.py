@@ -10,6 +10,9 @@ from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
 
+# This converts easting and northing grid references to latitude and longitude.  Creates a Location
+# object for each position and returns a list of Location objects.  Currently only tests accurate to 6 decimal degrees
+
 def convert_easting_northing(file):
     location_list = []
     with open(file) as csvfile:
@@ -44,7 +47,7 @@ def convert_decimal_lat_long(file):
 
 # This function takes an Ordinance Survey National Grid Reference (British National Grid) and converts it to a
 # decimal lat and long.  This conversion is then used to make a new Location object which is added to a list.
-# A list of Location objects is returned.  This is currently only accurate to 4 decimal places.
+# A list of Location objects is returned.  This currently only passes tests to 4 decimal places / 11.1m.
 
 def convert_british_national_grid(file):
     location_list = []
@@ -55,6 +58,6 @@ def convert_british_national_grid(file):
             latitude = grid_converter.latitude
             longitude = grid_converter.longitude
             height, name = float(row[1]), row[2]
-            new_location = Location(round(latitude, 4), round(longitude, 4), height, name)
+            new_location = Location(latitude, longitude, height, name)
             location_list.append(new_location)
     return location_list
