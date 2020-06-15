@@ -1,10 +1,10 @@
 # Very basic window.  Return values as a list
-from main.run import run_program
 
 if __name__ == "__main__":
 
     import PySimpleGUI as sg
     import threading
+    from main.run import run_program
 
     layout = [
         [sg.Text('First batch of locations to process: ')],
@@ -19,6 +19,7 @@ if __name__ == "__main__":
          sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
         [sg.Text('Select and output folder: ')],
         [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
+        [sg.Text('Generate .kml file for viewing in Google Earth'), sg.CBox('', key='kml_checkbox')],
         [sg.Text('Google elevation api key: ')],
         [sg.InputText('', size=(60, 1), key='api_key')],
         [sg.Text('How many samples between points?: ')],
@@ -29,6 +30,7 @@ if __name__ == "__main__":
 
     window = sg.Window('Azimuth').Layout(layout)
 
+
     # This method confirms the user's declared coordinate data type for the first locations .csv file and returns
     # a string which will be used to select the appropriate conversion script.
     def get_radio_1():
@@ -38,6 +40,7 @@ if __name__ == "__main__":
             return "xy"
         if values['bng_1']:
             return "bng"
+
 
     # This method confirms the user's declared coordinate data type for the first locations .csv file and returns
     # a string which will be used to select the appropriate conversion script.
@@ -50,6 +53,14 @@ if __name__ == "__main__":
         if values['bng_2']:
             return "bng"
 
+    # This method determines if the checkbox is ticked
+    def get_kml_checkbox():
+        if values['kml_checkbox']:
+            return "kml_true"
+        else:
+            return "kml_false"
+
+
     # This method gathers the values from the GUI fields and passes them to the script which runs the program
 
     def thread_function_generate():
@@ -58,10 +69,11 @@ if __name__ == "__main__":
         second_file = values['second_file_location']
         second_file_type = get_radio_2()
         output_folder = values['folder_output']
+        check_box = get_kml_checkbox()
         api = values['api_key']
         amount_samples = int(values['samples'])
-        print(first_file, second_file, output_folder, api, amount_samples, first_file_type, second_file_type)
-        run_program(first_file, second_file, output_folder, api, amount_samples, first_file_type, second_file_type)
+        print(first_file, second_file, output_folder, check_box, api, amount_samples, first_file_type, second_file_type)
+        run_program(first_file, second_file, output_folder,check_box, api, amount_samples, first_file_type, second_file_type)
 
 
     while True:
