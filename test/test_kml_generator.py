@@ -8,7 +8,7 @@ class TestKmlGenerator(TestCase):
     def test_create_kml_file(self):
         location_list = [(Location(55.55, -1.45, 150, "point1")), (Location(55.55, -1.44, 150, "point2"))]
         location_list_2 = [(Location(54.54, -1.45, 150, "point1_2")), (Location(54.54, -1.44, 150, "point2_2"))]
-        create_kml_file(location_list, location_list_2, "Folder 1", "Folder 2")
+        create_kml_file(location_list, location_list_2, "Folder 1", "Folder 2", 'csv/')
 
     def test_initalise_folders(self):
         kml_object, folder_one, folder_two, line_of_sight_folder = initialise_folders("Location one", "Location two")

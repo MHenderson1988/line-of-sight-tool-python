@@ -9,14 +9,15 @@ import simplekml
 # and one for the line of sight lines.  Takes two lists of location objects (The ones to be compared) and the names of
 # folders to store them in, as its arguments.
 
-def create_kml_file(first_location_list, second_location_list, first_folder_name, second_folder_name):
+def create_kml_file(first_location_list, second_location_list, first_folder_name, second_folder_name, output_folder):
     kml_object, kml_folder_list_one, kml_folder_list_two, kml_folder_linestring = initialise_folders(first_folder_name,
                                                                                                      second_folder_name)
     first_location_points = create_points(first_location_list, kml_folder_list_one)
     second_location_points = create_points(second_location_list, kml_folder_list_two)
     linestrings = create_linestrings(first_location_list, second_location_list, kml_folder_linestring)
-    kml_object.save('../test/kmltest.kml')
-    return print(".kml file saved.")
+    save_string = output_folder + "/line of sight analysis.kml"
+    kml_object.save(save_string)
+    return print(".kml file saved to - " + save_string)
 
 
 # Returns a simpleKML object, a KML folder for the first AND second locations, and a folder for the line of sight
@@ -38,7 +39,7 @@ def create_points(location_list, which_folder):
     for i in range(len(location_list)):
         loc_one_lat, loc_one_long = location_list[i].latitude, location_list[i].longitude
         loc_one_height, loc_one_name = location_list[i].height, location_list[i].name
-        point = which_folder.newpoint(name=loc_one_name, coords=[(loc_one_lat, loc_one_long, loc_one_height)])
+        point = which_folder.newpoint(name=loc_one_name, coords=[(loc_one_long, loc_one_lat, loc_one_height)])
         point.altitudemode = simplekml.AltitudeMode.relativetoground
         point.extrude = 1
         points_list.append(point)

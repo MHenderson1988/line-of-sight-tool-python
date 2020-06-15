@@ -51,14 +51,14 @@ def run_program(input_file_one, input_file_two, output_folder, check_box, api_ke
             y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1)
 
             # Construct api url and extract the elevation data
-            elevation_data = data_handling.send_and_receive_data(i.coordinates_string, x.coordinates_string, samples, api_key,
-                                                                 y_values)
+            elevation_data = data_handling.send_and_receive_data(i.coordinates_string, x.coordinates_string, samples,
+                                                                 api_key, y_values)
             create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder)
 
             # Rest for a moment to prevent the api being bombarded with requests.
             time.sleep(2)
 
     if check_box == "kml_true":
-        create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations")
+        create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations", output_folder)
     else:
         return "Complete"

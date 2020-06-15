@@ -1,8 +1,7 @@
 import json
+
 from unittest import *
-
 from mock import patch, Mock
-
 from main import data_handling
 
 
@@ -12,7 +11,7 @@ class TestDataHandling(TestCase):
         self.assertEqual('https://maps.googleapis.com/maps/api/elevation/json?path=55.123,-4.123|55.111,'
                          '-4.111&samples=200&key=123', url)
 
-    @patch('main.data_handling.urllib.request.urlopen')
+    @patch('urllib.request.urlopen')
     def test_send_request_google_elevation(self, mock_http_client):
         mock_http_client.return_value = "Hello"
         response = data_handling.send_request_google_elevation('https://hello.com/api/38427363')
