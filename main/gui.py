@@ -19,7 +19,8 @@ if __name__ == "__main__":
          sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
         [sg.Text('Select and output folder: ')],
         [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
-        [sg.Text('Generate .kml file?'), sg.CBox('', key='kml_checkbox')],
+        [sg.Text('Generate .kml file'), sg.CBox('', key='kml_checkbox'),
+         sg.Text('Download elevation data'), sg.CBox('', key='elevation_checkbox')],
         [sg.Text('Google elevation api key: ')],
         [sg.InputText('', size=(60, 1), key='api_key')],
         [sg.Text('How many samples between points?: ')],
@@ -60,6 +61,13 @@ if __name__ == "__main__":
             return "kml_true"
         else:
             return "kml_false"
+
+    # This method determines if the user wishes to download elevation data to be used for graphing
+    def get_elevation_checkbox():
+        if values['elevation_checkbox']:
+            return "elevation_true"
+        else:
+            return "elevation_false"
 
 
     # This method gathers the values from the GUI fields and passes them to the script which runs the program
