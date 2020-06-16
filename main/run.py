@@ -5,12 +5,12 @@ from haversine import haversine, Unit
 
 from main import location_reference_converter, line_of_sight_calculations, circle, data_handling
 from main.graph_processing import earth_curve_y_axis, create_graph
-from main.validation_handling import validate_google_sample_number
 from main.kml_generator import create_kml_file
+from main.validation_handling import validate_google_sample_number
 
 
-def run_program(input_file_one, input_file_two, output_folder, check_box, api_key, samples, first_file_type,
-                second_file_type):
+def run_program(input_file_one, input_file_two, output_folder, generate_kml, api_key, samples,
+                first_file_type, second_file_type):
     # This will have options in future for different units of measurement
     earth_radius = 3440.065  # in nm
 
@@ -58,7 +58,8 @@ def run_program(input_file_one, input_file_two, output_folder, check_box, api_ke
             # Rest for a moment to prevent the api being bombarded with requests.
             time.sleep(2)
 
-    if check_box == "kml_true":
+    if generate_kml == "kml_true":
         create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations", output_folder)
+        return ".kml file generated."
     else:
-        return "Complete"
+        return "Skipping .kml generation."

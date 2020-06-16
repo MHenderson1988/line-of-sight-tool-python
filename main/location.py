@@ -4,6 +4,6 @@ class Location:
         self.longitude = a_longitude
         self.height = a_height
         self.name = a_name
-        # This is used for the kml generator which takes long lat not lat long
-        self.coordinates = self.longitude, self.latitude, self.height
+        self.coordinates = self.latitude, self.longitude, self.height
         self.coordinates_string = str(self.latitude) + ',' + str(self.longitude)
+        self.coordinates_yx = self.longitude, self.latitude, self.height

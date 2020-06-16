@@ -31,4 +31,8 @@ class TestLocation(TestCase):
 
     def test_coordinates_string(self):
         location = Location(55.32323, -4.37837, 80, "House 1")
-        self.assertEqual("55.32323,-4.37837,80", location.coordinates_string)
+        self.assertEqual("55.32323,-4.37837", location.coordinates_string)
+
+    def test_coordinates_yx(self):
+        location = Location(55.32323, -4.37837, 80, "House 1")
+        self.assertEqual((-4.37837, 55.32323, 80), location.coordinates_yx)

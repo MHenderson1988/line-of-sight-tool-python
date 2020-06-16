@@ -1,7 +1,8 @@
 import json
-
 from unittest import *
+
 from mock import patch, Mock
+
 from main import data_handling
 
 

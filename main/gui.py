@@ -19,7 +19,7 @@ if __name__ == "__main__":
          sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
         [sg.Text('Select and output folder: ')],
         [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
-        [sg.Text('Generate .kml file for viewing in Google Earth'), sg.CBox('', key='kml_checkbox')],
+        [sg.Text('Generate .kml file?'), sg.CBox('', key='kml_checkbox')],
         [sg.Text('Google elevation api key: ')],
         [sg.InputText('', size=(60, 1), key='api_key')],
         [sg.Text('How many samples between points?: ')],
@@ -53,6 +53,7 @@ if __name__ == "__main__":
         if values['bng_2']:
             return "bng"
 
+
     # This method determines if the checkbox is ticked
     def get_kml_checkbox():
         if values['kml_checkbox']:
@@ -69,11 +70,11 @@ if __name__ == "__main__":
         second_file = values['second_file_location']
         second_file_type = get_radio_2()
         output_folder = values['folder_output']
-        check_box = get_kml_checkbox()
+        generate_kml = get_kml_checkbox()
         api = values['api_key']
         amount_samples = int(values['samples'])
-        print(first_file, second_file, output_folder, check_box, api, amount_samples, first_file_type, second_file_type)
-        run_program(first_file, second_file, output_folder,check_box, api, amount_samples, first_file_type, second_file_type)
+        run_program(first_file, second_file, output_folder, generate_kml,
+                    api, amount_samples, first_file_type, second_file_type)
 
 
     while True:

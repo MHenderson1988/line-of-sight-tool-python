@@ -53,8 +53,8 @@ def create_linestrings(location_list_one, location_list_two, linestring_folder):
     linestring_list = []
     for x in range(len(location_list_one)):
         for i in range(len(location_list_two)):
-            first_coordinates = location_list_one[x].coordinates
-            second_coordinates = location_list_two[i].coordinates
+            first_coordinates = location_list_one[x].coordinates_yx
+            second_coordinates = location_list_two[i].coordinates_yx
             linestring = linestring_folder.newlinestring(
                 name=(location_list_one[x].name + ', ' + location_list_two[i].name))
             linestring.coords = [first_coordinates, second_coordinates]

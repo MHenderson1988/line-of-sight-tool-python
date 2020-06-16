@@ -18,7 +18,7 @@ class TestKmlGenerator(TestCase):
         location_list = [Location(55.55, -1.45, 150, "point1"), Location(55.54, -1.44, 150, "point2")]
         kml_object, folder_one, folder_two, line_of_sight_folder = initialise_folders("Location one", "Location two")
         list_of_points = create_points(location_list, folder_one)
-        self.assertEqual('55.55,-1.45,150', str(list_of_points[0].coords))
+        self.assertEqual('-1.45,55.55,150', str(list_of_points[0].coords))
 
     def test_create_linestrings(self):
         kml_object, folder_one, folder_two, line_of_sight_folder = initialise_folders("Location one", "Location two")
