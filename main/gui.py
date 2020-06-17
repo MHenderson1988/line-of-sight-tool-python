@@ -4,7 +4,7 @@ if __name__ == "__main__":
 
     import PySimpleGUI as sg
     import threading
-    from main.run import run_program
+    from main.run import run_kml_process_only, run_google_api_process_only, run_kml_and_graphing_process
 
     layout = [
         [sg.Text('First batch of locations to process: ')],
@@ -62,6 +62,7 @@ if __name__ == "__main__":
         else:
             return "kml_false"
 
+
     # This method determines if the user wishes to download elevation data to be used for graphing
     def get_elevation_checkbox():
         if values['elevation_checkbox']:
@@ -70,19 +71,38 @@ if __name__ == "__main__":
             return "elevation_false"
 
 
-    # This method gathers the values from the GUI fields and passes them to the script which runs the program
-
-    def thread_function_generate():
+    # This method requires all fields to be completed and runs both the KML and google elevation processes.
+    def run_google_graphing_and_kml():
         first_file = values['first_file_location']
         first_file_type = get_radio_1()
         second_file = values['second_file_location']
         second_file_type = get_radio_2()
         output_folder = values['folder_output']
-        generate_kml = get_kml_checkbox()
         api = values['api_key']
         amount_samples = int(values['samples'])
-        run_program(first_file, second_file, output_folder, generate_kml,
-                    api, amount_samples, first_file_type, second_file_type)
+        run_kml_and_graphing_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
+                                     second_file_type)
+
+    # This method only requires the input and output files and folders and their CRS types.
+    def run_kml():
+        first_file = values['first_file_location']
+        first_file_type = get_radio_1()
+        second_file = values['second_file_location']
+        second_file_type = get_radio_2()
+        output_folder = values['folder_output']
+        run_kml_process_only(first_file,second_file,output_folder,first_file_type, second_file_type)
+
+    # This method requires all fields to be completed and runs the google api graphing process only.
+    def run_google_graphing_only()
+        first_file = values['first_file_location']
+        first_file_type = get_radio_1()
+        second_file = values['second_file_location']
+        second_file_type = get_radio_2()
+        output_folder = values['folder_output']
+        api = values['api_key']
+        amount_samples = int(values['samples'])
+        run_google_api_process_only(first_file, second_file, output_folder, api, amount_samples, first_file_type,
+                                     second_file_type)
 
 
     while True:
