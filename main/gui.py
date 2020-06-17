@@ -83,6 +83,7 @@ if __name__ == "__main__":
         run_kml_and_graphing_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
                                      second_file_type)
 
+
     # This method only requires the input and output files and folders and their CRS types.
     def run_kml():
         first_file = values['first_file_location']
@@ -90,7 +91,8 @@ if __name__ == "__main__":
         second_file = values['second_file_location']
         second_file_type = get_radio_2()
         output_folder = values['folder_output']
-        run_kml_process_only(first_file,second_file,output_folder,first_file_type, second_file_type)
+        run_kml_process_only(first_file, second_file, output_folder, first_file_type, second_file_type)
+
 
     # This method requires all fields to be completed and runs the google api graphing process only.
     def run_google_graphing_only()
@@ -102,7 +104,7 @@ if __name__ == "__main__":
         api = values['api_key']
         amount_samples = int(values['samples'])
         run_google_api_process_only(first_file, second_file, output_folder, api, amount_samples, first_file_type,
-                                     second_file_type)
+                                    second_file_type)
 
 
     while True:
