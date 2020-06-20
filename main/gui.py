@@ -30,7 +30,7 @@ layout = [
 window = sg.Window('Azimuth').Layout(layout)
 
 
-# This method confirms the user's declared coordinate data type for the first locations .csv file and returns
+# This method confirms the user's declared coordinate data type for the first locations .data file and returns
 # a string which will be used to select the appropriate conversion script.
 def get_radio_1():
     if values['decimal_1']:
@@ -41,7 +41,7 @@ def get_radio_1():
         return "bng"
 
 
-# This method confirms the user's declared coordinate data type for the first locations .csv file and returns
+# This method confirms the user's declared coordinate data type for the first locations .data file and returns
 # a string which will be used to select the appropriate conversion script.
 
 def get_radio_2():

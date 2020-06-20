@@ -1,4 +1,6 @@
-from unittest import *
+import os
+
+from unittest import TestCase
 
 from main.circle import Circle
 
