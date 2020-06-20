@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
-    <Document id="49">
+    <Document id="1">
         <open>1</open>
-        <Folder id="50">
+        <Folder id="2">
             <name>Folder 1</name>
-            <Placemark id="54">
+            <Placemark id="6">
                 <name>point1</name>
-                <Point id="53">
+                <Point id="5">
                     <coordinates>-1.45,55.55,150</coordinates>
                     <extrude>1</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </Point>
             </Placemark>
-            <Placemark id="56">
+            <Placemark id="8">
                 <name>point2</name>
-                <Point id="55">
+                <Point id="7">
                     <coordinates>-1.44,55.55,150</coordinates>
                     <extrude>1</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </Point>
             </Placemark>
         </Folder>
-        <Folder id="51">
+        <Folder id="3">
             <name>Folder 2</name>
-            <Placemark id="58">
+            <Placemark id="10">
                 <name>point1_2</name>
-                <Point id="57">
+                <Point id="9">
                     <coordinates>-1.45,54.54,150</coordinates>
                     <extrude>1</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </Point>
             </Placemark>
-            <Placemark id="60">
+            <Placemark id="12">
                 <name>point2_2</name>
-                <Point id="59">
+                <Point id="11">
                     <coordinates>-1.44,54.54,150</coordinates>
                     <extrude>1</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </Point>
             </Placemark>
         </Folder>
-        <Folder id="52">
+        <Folder id="4">
             <name>Lines of sight</name>
-            <Placemark id="62">
+            <Placemark id="14">
                 <name>point1, point1_2</name>
-                <LineString id="61">
+                <LineString id="13">
                     <coordinates>-1.45,55.55,150 -1.45,54.54,150</coordinates>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </LineString>
             </Placemark>
-            <Placemark id="64">
+            <Placemark id="16">
                 <name>point1, point2_2</name>
-                <LineString id="63">
+                <LineString id="15">
                     <coordinates>-1.45,55.55,150 -1.44,54.54,150</coordinates>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </LineString>
             </Placemark>
-            <Placemark id="66">
+            <Placemark id="18">
                 <name>point2, point1_2</name>
-                <LineString id="65">
+                <LineString id="17">
                     <coordinates>-1.44,55.55,150 -1.45,54.54,150</coordinates>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </LineString>
             </Placemark>
-            <Placemark id="68">
+            <Placemark id="20">
                 <name>point2, point2_2</name>
-                <LineString id="67">
+                <LineString id="19">
                     <coordinates>-1.44,55.55,150 -1.44,54.54,150</coordinates>
                     <altitudeMode>relativeToGround</altitudeMode>
                 </LineString>
