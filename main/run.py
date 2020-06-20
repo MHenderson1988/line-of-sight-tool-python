@@ -17,15 +17,15 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
     # Validate the number of samples requested
     validate_google_sample_number(samples)
 
-    # Create a list of location objects from both .data files
+    # Create a list of location objects from both .csv files
     first_location_list = location_reference_converter.conversion_type(input_file_one, first_file_type)
     second_location_list = location_reference_converter.conversion_type(input_file_two, second_file_type)
 
-    # Iterate through the locations in the first .data file
+    # Iterate through the locations in the first .csv file
     for i in first_location_list:
         # Retrieve the first Location object and store its coordinates
         pos_1 = (i.latitude, i.longitude)
-        # Iterate through the locations in the second .data file
+        # Iterate through the locations in the second .csv file
         for x in second_location_list:
             # Retrieve the second Location object and store its coordinates
             pos_2 = (x.latitude, x.longitude)

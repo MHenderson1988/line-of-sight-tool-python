@@ -1,4 +1,4 @@
-# This class reads both sets of location data from the .data files and transforms the comparisons into .kml
+# This class reads both sets of location data from the .csv files and transforms the comparisons into .kml
 # files.  Kml files are for use with Google Earth and will allow you to see 3D representations of the line of
 # sight analysis.  For best results please ensure 3D terrain is enable in Google Earth.
 
