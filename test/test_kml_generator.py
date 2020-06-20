@@ -32,4 +32,4 @@ class TestKmlGenerator(TestCase):
 
     @staticmethod
     def create_test_file_path():
-        return os.path.join(CURRENT_DIR, os.pardir, "test/data/")
+        return os.path.join(CURRENT_DIR, "data/")

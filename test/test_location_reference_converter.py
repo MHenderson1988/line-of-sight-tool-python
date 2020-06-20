@@ -42,4 +42,4 @@ class TestLocationReferenceConverter(TestCase):
 
     @staticmethod
     def create_test_file_path(filename):
-        return os.path.join(CURRENT_DIR, os.pardir, "test/data/" + filename)
+        return os.path.join(CURRENT_DIR, "data/" + filename)
