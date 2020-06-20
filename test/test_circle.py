@@ -1,5 +1,3 @@
-import os
-
 from unittest import TestCase
 
 from main.circle import Circle
