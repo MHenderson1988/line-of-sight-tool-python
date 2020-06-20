@@ -34,7 +34,7 @@ class TestCircle(TestCase):
 
     def test_calc_arc_height(self):
         c1 = Circle(1, 1)
-        self.assertEqual(0.878, round(c1.calc_arc_height(), 3))
+        self.assertEqual(0.870, round(c1.calc_arc_height(), 3))
 
     def test_calc_circular_centre_x(self):
         c1 = Circle(1, 1)
