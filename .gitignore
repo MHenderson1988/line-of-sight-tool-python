@@ -141,3 +141,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+/test/csv/line of sight analysis.kml
