@@ -15,7 +15,7 @@ def create_kml_file(first_location_list, second_location_list, first_folder_name
     first_location_points = create_points(first_location_list, kml_folder_list_one)
     second_location_points = create_points(second_location_list, kml_folder_list_two)
     linestrings = create_linestrings(first_location_list, second_location_list, kml_folder_linestring)
-    save_string = output_folder + "/line of sight analysis.kml"
+    save_string = output_folder + "/line_of_sight_analysis.kml"
     kml_object.save(save_string)
     return print(".kml file saved to - " + save_string)
 

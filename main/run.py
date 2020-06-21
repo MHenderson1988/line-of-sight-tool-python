@@ -9,8 +9,8 @@ from main.kml_generator import create_kml_file
 from main.validation_handling import validate_google_sample_number
 
 
-def run_program(input_file_one, input_file_two, output_folder, generate_kml, api_key, samples,
-                first_file_type, second_file_type):
+def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
+                                 second_file_type):
     # This will have options in future for different units of measurement
     earth_radius = 3440.065  # in nm
 
@@ -58,8 +58,5 @@ def run_program(input_file_one, input_file_two, output_folder, generate_kml, api
             # Rest for a moment to prevent the api being bombarded with requests.
             time.sleep(2)
 
-    if generate_kml == "kml_true":
-        create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations", output_folder)
-        return ".kml file generated."
-    else:
-        return "Skipping .kml generation."
+    create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations", output_folder)
+    return "Graphing and .kml processes complete."
