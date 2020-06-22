@@ -1,4 +1,4 @@
-from unittest import *
+from unittest import TestCase
 
 from main.line_of_sight_calculations import calc_start_angle, calc_end_angle
 
