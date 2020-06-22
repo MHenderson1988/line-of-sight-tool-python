@@ -11,12 +11,15 @@ layout = [
     [sg.InputText('', size=(60, 1), key='first_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "first_file_type", key='decimal_1', default=True, size=(20, 1)),
      sg.Radio('Eastings-Northings (X,Y)', "first_file_type", key='xy_1', size=(20, 1)),
-     sg.Radio('OS Grid Reference', "first_file_type", key='bng_1', size=(20, 1))],
+     sg.Radio('OS Grid Reference', "first_file_type", key='bng_1', size=(20, 1)),],
     [sg.Text('Second batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='second_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "second_file_type", key='decimal_2', default=True, size=(20, 1)),
      sg.Radio('Eastings-Northings (X,Y)', "second_file_type", key='xy_2', size=(20, 1)),
      sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
+    [sg.Text('Units for distance: '), sg.Combo(['Nautical miles', 'Km', 'Miles', 'Feet', 'Meters'],
+                                               default_value='Nautical miles'), sg.Text('Units for height: '),
+     sg.Combo(['Nautical miles', 'Km', 'Miles', 'Feet', 'Meters'], default_value='Meters')],
     [sg.Text('Select and output folder: ')],
     [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
     [sg.Text('Google elevation api key: ')],
@@ -59,11 +62,13 @@ def run_application():
     first_file_type = get_radio_1()
     second_file = values['second_file_location']
     second_file_type = get_radio_2()
+    distance_measurement = values[0]
+    height_measurement = values[1]
     output_folder = values['folder_output']
     api = values['api_key']
     amount_samples = int(values['samples'])
     run_graphing_and_kml_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
-                                 second_file_type)
+                                 second_file_type, distance_measurement, height_measurement)
 
 
 while True:
@@ -73,6 +78,7 @@ while True:
     if event == 'Run':
         x = threading.Thread(target=run_application())
         x.start()
+        print(values[0])
     if event is None:
         break
 window.Close()

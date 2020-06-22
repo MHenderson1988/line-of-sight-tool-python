@@ -1,14 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from main.distance_conversion import convert_nm_to_meters
+from main.unit_conversion import get_user_selected_unit_and_convert
 
 
 # Returns a numpy array containing the y-axis values for the curvature of the earth
-def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circle_object):
+def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circle_object, height_measurement):
     y_values_list = []
     for j in range(len(list_of_x_axis_values)):
         y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_height()
-        y_converted = convert_nm_to_meters(y)
+        y_converted = get_user_selected_unit_and_convert(y, height_measurement)
         y_values_list.append(y_converted)
     y_values_np = np.array(y_values_list)
 

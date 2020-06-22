@@ -7,12 +7,13 @@ from main import location_reference_converter, line_of_sight_calculations, circl
 from main.graph_processing import earth_curve_y_axis, create_graph
 from main.kml_generator import create_kml_file
 from main.validation_handling import validate_google_sample_number
+from main.unit_conversion import get_user_selected_unit_and_convert
 
 
 def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
-                                 second_file_type):
+                                 second_file_type, distance_measurement, height_measurement):
     # This will have options in future for different units of measurement
-    earth_radius = 3440.065  # in nm
+    earth_radius = get_user_selected_unit_and_convert(3440.065, distance_measurement)
 
     # Validate the number of samples requested
     validate_google_sample_number(samples)
@@ -48,7 +49,7 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             x_values = np.linspace(x1, x2, samples)
 
             # Create the y-axis values to draw the earth's curved surface
-            y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1)
+            y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1, height_measurement)
 
             # Construct api url and extract the elevation data
             elevation_data = data_handling.send_and_receive_data(i.coordinates_string, x.coordinates_string, samples,
