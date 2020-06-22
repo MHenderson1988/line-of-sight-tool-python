@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from main.distance_conversion import convert_nm_to_meters
 
 
 # Returns a numpy array containing the y-axis values for the curvature of the earth
@@ -7,8 +8,8 @@ def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circ
     y_values_list = []
     for j in range(len(list_of_x_axis_values)):
         y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_height()
-        y = y * 1852  # Converts to nautical miles
-        y_values_list.append(y)
+        y_converted = convert_nm_to_meters(y)
+        y_values_list.append(y_converted)
     y_values_np = np.array(y_values_list)
 
     return y_values_np
