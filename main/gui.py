@@ -19,7 +19,7 @@ layout = [
      sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
     [sg.Text('Units for distance: '), sg.Combo(['Nautical miles', 'Km', 'Miles', 'Feet', 'Meters'],
                                                default_value='Nautical miles'), sg.Text('Units for height: '),
-     sg.Combo(['Nautical miles', 'Km', 'Miles', 'Feet', 'Meters'], default_value='Meters')],
+     sg.Combo(['Feet', 'Meters'], default_value='Meters')],
     [sg.Text('Select and output folder: ')],
     [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
     [sg.Text('Google elevation api key: ')],

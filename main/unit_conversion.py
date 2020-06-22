@@ -1,5 +1,5 @@
 # Discovers the value of user input for units of height or distance
-def get_user_selected_unit_and_convert(value_to_convert, unit_of_measurement):
+def get_user_selected_unit_and_convert_distance(value_to_convert, unit_of_measurement):
     if unit_of_measurement == 'Nautical miles':
         return value_to_convert
     elif unit_of_measurement == 'Km':
@@ -9,9 +9,21 @@ def get_user_selected_unit_and_convert(value_to_convert, unit_of_measurement):
     elif unit_of_measurement == 'Feet':
         return convert_nm_to_feet(value_to_convert)
     elif unit_of_measurement == 'Meters':
-        return convert_nm_to_meters(value_to_convert)
+        return value_to_convert
     else:
         return "Error, please select a valid unit of output"
+
+
+def get_user_selected_unit_and_convert_height(value_to_convert, unit_of_measurement):
+    if unit_of_measurement == 'Meters':
+        return value_to_convert
+    elif unit_of_measurement == 'Feet':
+        return convert_meters_to_feet(value_to_convert)
+
+
+# This converts feet to nautical miles
+def convert_meters_to_feet(meter_value):
+    return meter_value * 3.28084
 
 
 # This converts a nautical mile value to meters
