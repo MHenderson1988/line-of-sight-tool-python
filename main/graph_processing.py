@@ -1,21 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from main.unit_conversion import get_user_selected_unit_and_convert_height
 
 
 # Returns a numpy array containing the y-axis values for the curvature of the earth
-def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circle_object):
+def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circle_object, height_measurement):
     y_values_list = []
     for j in range(len(list_of_x_axis_values)):
         y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_height()
-        y = y * 1852  # Converts to nautical miles
-        y_values_list.append(y)
+        y_converted = get_user_selected_unit_and_convert_height(y, height_measurement)
+        y_values_list.append(y_converted)
     y_values_np = np.array(y_values_list)
 
     return y_values_np
 
 
 # Creates the graph displaying the line of sight analysis between the two points
-def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder):
+def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder, distance_measurement, height_measurement):
     min_elev = min(elevation_data)
     mean_elev = round((sum(elevation_data) / len(elevation_data)), 3)
     max_elev = max(elevation_data)
@@ -34,8 +35,8 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.fill_between(x_values, elevation_data, base_reg, alpha=0.1)
     plt.text(x_values[0], elevation_data[0], obj_1.name)
     plt.text(x_values[-1], elevation_data[-1], obj_2.name)
-    plt.xlabel("Distance(Nm)")
-    plt.ylabel("Elevation(m)")
+    plt.xlabel("Distance(" + distance_measurement + ")")
+    plt.ylabel("Elevation(" + height_measurement + ")")
     plt.grid()
     plt.legend(fontsize='small')
 
