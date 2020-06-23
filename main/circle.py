@@ -41,7 +41,7 @@ class Circle:
         return self.radius - (np.sqrt((self.radius ** 2) - ((self.calc_chord_length() / 2) ** 2)))
 
     # Calculate the distance between the chord of the segment and the centre of the circle
-    def calc_arc_height(self):
+    def calc_arc_apothem(self):
         return self.radius - self.calc_sagitta()
 
     # Calculate centre point of circle
