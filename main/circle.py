@@ -57,3 +57,17 @@ class Circle:
     # Calculate the diameter of the circle
     def calc_diameter(self):
         return self.radius * 2
+
+    # Returns the starting angle of the circular arc
+    # Takes two arguments, starting y and x coordinates
+    def calc_start_angle(self, start_y, start_x):
+        centre_y = self.calc_circular_centre_y()
+        centre_x = self.calc_circular_centre_x()
+        return np.arctan2(start_y - centre_y, start_x - centre_x)
+
+    # Returns the ending angle of the circular arc
+    # Takes two arguments, ending y and x coordinates
+    def calc_end_angle(self, end_y, end_x):
+        centre_y = self.calc_circular_centre_y()
+        centre_x = self.calc_circular_centre_x()
+        return np.arctan2(end_y - centre_y, end_x - centre_x)
