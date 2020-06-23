@@ -7,13 +7,12 @@ from main import location_reference_converter, line_of_sight_calculations, circl
 from main.graph_processing import earth_curve_y_axis, create_graph
 from main.kml_generator import create_kml_file
 from main.validation_handling import validate_google_sample_number
-from main.unit_conversion import get_user_selected_unit_and_convert_distance
 
 
 def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
-                                 second_file_type, distance_measurement, height_measurement):
+                                 second_file_type):
     # This will have options in future for different units of measurement
-    earth_radius = 3440.065
+    earth_radius = 3440.065 # in nautical miles
 
     # Validate the number of samples requested
     validate_google_sample_number(samples)
@@ -33,7 +32,6 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             # Calculate the great circle distance between both locations using the haversine formula
             # Currently this is returned in Nm but future functionality will allow other values
             great_circle_distance = haversine(pos_1, pos_2, unit=Unit.NAUTICAL_MILES)
-            great_circle_distance = get_user_selected_unit_and_convert_distance(great_circle_distance, distance_measurement)
 
             # Create a circle object to simulate curvature of the earth.
             c1 = circle.Circle(earth_radius, great_circle_distance)
@@ -50,12 +48,12 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             x_values = np.linspace(x1, x2, samples)
 
             # Create the y-axis values to draw the earth's curved surface
-            y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1, height_measurement)
+            y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1)
 
             # Construct api url and extract the elevation data
             elevation_data = data_handling.send_and_receive_data(i.coordinates_string, x.coordinates_string, samples,
                                                                  api_key, y_values)
-            create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder, distance_measurement, height_measurement)
+            create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder)
 
             # Rest for a moment to prevent the api being bombarded with requests.
             time.sleep(2)
