@@ -45,7 +45,7 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             x_values = np.linspace(x1, x2, samples)
 
             # Create the y-axis values to draw the earth's curved surface
-            y_values = earth_curve_y_axis(x_values, earth_radius, angle_list, c1)
+            y_values = c1.calculate_earth_surface_y_values(x_values, angle_list)
 
             # Construct api url and extract the elevation data
             elevation_data = data_handling.send_and_receive_data(i.coordinates_string, x.coordinates_string, samples,

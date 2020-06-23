@@ -81,11 +81,13 @@ class Circle:
     # Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
     # in nautical miles.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
     # effects line of sight visibility.
-    def calculate_earth_surface_y_values(self, list_of_x_axis_values, list_of_angles, circle_object):
+    def calculate_earth_surface_y_values(self, list_of_x_axis_values, list_of_angles):
         earth_radius = self.radius
         y_values_list = []
         for j in range(len(list_of_x_axis_values)):
-            y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_apothem()
+            # Calculate the y axis value (height) for the corresponding x value (distance).  Subtract the apothem
+            # of the circle to ensure the arc starts at coordinates 0,0 and ends at zero again on the y axis
+            y = earth_radius * np.sin(list_of_angles[j]) - self.calc_arc_apothem()
             # Convert nautical miles to meters for elevation
             y = y * 1852
             y_values_list.append(y)
