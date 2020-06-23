@@ -7,8 +7,7 @@ def earth_curve_y_axis(list_of_x_axis_values, earth_radius, list_of_angles, circ
     y_values_list = []
     for j in range(len(list_of_x_axis_values)):
         y = earth_radius * np.sin(list_of_angles[j]) - circle_object.calc_arc_apothem()
-        # Convert nautical miles to meters for elevation
-        y = y * 1852
+        y = y * 1852 # Convert nautical miles to meters for elevation
         y_values_list.append(y)
     y_values_np = np.array(y_values_list)
 
@@ -35,6 +34,7 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.fill_between(x_values, elevation_data, base_reg, alpha=0.1)
     plt.text(x_values[0], elevation_data[0], obj_1.name)
     plt.text(x_values[-1], elevation_data[-1], obj_2.name)
+    
     plt.xlabel("Distance (Nm)")
     plt.ylabel("Elevation(Meters)"),
     plt.grid()
