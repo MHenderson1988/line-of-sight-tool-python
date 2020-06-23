@@ -3,8 +3,8 @@ import time
 import numpy as np
 from haversine import haversine, Unit
 
-from main import location_reference_converter, line_of_sight_calculations, circle, data_handling
-from main.graph_processing import earth_curve_y_axis, create_graph
+from main import location_reference_converter, circle, data_handling
+from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
 from main.validation_handling import validate_google_sample_number
 
@@ -12,7 +12,7 @@ from main.validation_handling import validate_google_sample_number
 def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
                                  second_file_type):
     # This will have options in future for different units of measurement
-    earth_radius = 3440.065 # in nautical miles
+    earth_radius = 3440.065  # in nautical miles
 
     # Validate the number of samples requested
     validate_google_sample_number(samples)
@@ -40,10 +40,7 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             # Set start and end points for representation of the earths curvature
             x1, y1 = 0, 0
             x2, y2 = great_circle_distance, 0
-
-            start_angle = line_of_sight_calculations.calc_start_angle(y1, yc, x1, xc)
-            end_angle = line_of_sight_calculations.calc_end_angle(y2, yc, x2, xc)
-            angle_list = np.linspace(start_angle, end_angle, samples)
+            angle_list = np.linspace(c1.calc_start_angle(y1, x1), c1.calc_end_angle(y2, x2), samples)
 
             x_values = np.linspace(x1, x2, samples)
 

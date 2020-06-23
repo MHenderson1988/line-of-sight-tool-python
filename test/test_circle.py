@@ -49,7 +49,7 @@ class TestCircle(TestCase):
         self.assertEqual(2, c1.calc_diameter())
 
     def test_calc_start_angle(self):
-        c1 = Circle(1,1)
+        c1 = Circle(1, 1)
         print(c1.calc_start_angle(0, 0))
 
     def test_calc_end_angle(self):
