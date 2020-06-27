@@ -7,3 +7,4 @@ class Location:
         self.coordinates = self.latitude, self.longitude, self.height
         self.coordinates_string = str(self.latitude) + ',' + str(self.longitude)
         self.coordinates_yx = self.longitude, self.latitude, self.height
+        self.coordinates_latitude_longitude = self.latitude, self.longitude
