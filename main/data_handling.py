@@ -5,8 +5,8 @@ import json
 import urllib
 
 
-def send_and_receive_data(pos_1, pos_2, number_samples, api_key, y_values):
-    url = construct_url(pos_1, pos_2, number_samples, api_key)
+def send_and_receive_data_google_elevation(pos_1, pos_2, number_samples, api_key, y_values):
+    url = construct_url_google_elevation(pos_1, pos_2, number_samples, api_key)
     sent_request = send_request_google_elevation(url)
     received_data = receive_request_google_elevation(sent_request)
     elevation_data = process_response(received_data, y_values)
@@ -16,7 +16,7 @@ def send_and_receive_data(pos_1, pos_2, number_samples, api_key, y_values):
 # This method takes the coordinates of two Location objects, the number of points to be sampled between them and the
 # user's google elevation api key.  These arguments are used to create a valid google elevation api request url of the
 # path type.  Returns url as a string.
-def construct_url(pos_1, pos_2, number_samples, api_key):
+def construct_url_google_elevation(pos_1, pos_2, number_samples, api_key):
     print("Preparing request...")
     api_address = 'https://maps.googleapis.com/maps/api/elevation/json?path='
     url_to_send = api_address + pos_1 + '|' + pos_2 + '&samples=' + str(number_samples) + '&key=' + api_key
