@@ -18,12 +18,12 @@ class Circle:
     # Gives angle in degrees at centre of the circle between the two points (beginning and end points of arc_length)
     # Returns floating point
     def calc_degrees(self):
-        return (self.arc_length / (np.pi * self.calc_diameter())) * 360
+        return self.calc_radians() * 180 / np.pi
 
     # Calculate the central angle in radians, between two points on the circle
     # Returns floating point
     def calc_radians(self):  # Where theta is the angle between both points at the centre of the circle
-        return np.radians(self.calc_degrees())  # Convert degrees to radians to work with chord_length formula
+        return self.arc_length / self.radius  # Convert degrees to radians to work with chord_length formula
 
     # Returns the chord lengths of the arc, taking theta (angle in radians) as it's argument
     # The chord is the horizontal line which separates the arc segment from the rest of the circle
@@ -36,7 +36,7 @@ class Circle:
     # Confirmed using http://www.ambrsoft.com/Trigocalc/Sphere/Arc_.htm
     # Returns floating point
     def calc_arc_length(self):
-        return (self.calc_degrees() / 360) * self.calc_diameter() * np.pi
+        return self.arc_length
 
     # Calculates the Sagitta of the arc segment.  The Sagitta is the distance from the centre of the arc
     # to the centre of the chord

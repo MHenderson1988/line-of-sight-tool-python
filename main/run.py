@@ -35,12 +35,11 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
 
             # Create a circle object to simulate curvature of the earth.
             c1 = circle.Circle(earth_radius, great_circle_distance)
-            xc, yc = c1.calc_circular_centre_x(), c1.calc_circular_centre_y()
 
             # Set start and end points for representation of the earths curvature
             x1, y1 = 0, 0
             x2, y2 = great_circle_distance, 0
-            angle_list = np.linspace(c1.calc_start_angle(y1, x1), c1.calc_end_angle(y2, x2), samples)
+            angle_list = np.linspace(c1.calc_start_angle(0, 0), c1.calc_end_angle(0, great_circle_distance), samples)
 
             x_values = np.linspace(x1, x2, samples)
 
