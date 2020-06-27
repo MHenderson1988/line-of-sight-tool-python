@@ -3,7 +3,7 @@ import time
 import numpy as np
 from haversine import haversine, Unit
 
-from main import location_reference_converter, circle, data_handling
+from main import location_reference_converter, circle, data_handling_google_api
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
 from main.validation_handling import validate_google_sample_number
@@ -47,8 +47,10 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
             y_values = c1.calculate_earth_surface_y_values(x_values, angle_list)
 
             # Construct api url and extract the elevation data
-            elevation_data = data_handling.send_and_receive_data_google_elevation(i.coordinates_string, x.coordinates_string, samples,
-                                                                                  api_key, y_values)
+            elevation_data = data_handling_google_api.send_and_receive_data_google_elevation(
+                i.coordinates_lat_long_as_string,
+                x.coordinates_lat_long_as_string,
+                samples, api_key, y_values)
             create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder)
 
             # Rest for a moment to prevent the api being bombarded with requests.

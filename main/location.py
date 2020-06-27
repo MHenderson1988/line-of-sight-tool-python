@@ -4,7 +4,7 @@ class Location:
         self.longitude = a_longitude
         self.height = a_height
         self.name = a_name
-        self.coordinates = self.latitude, self.longitude, self.height
-        self.coordinates_string = str(self.latitude) + ',' + str(self.longitude)
-        self.coordinates_yx = self.longitude, self.latitude, self.height
-        self.coordinates_latitude_longitude = self.latitude, self.longitude
+        self.coordinates_lat_long_height = self.latitude, self.longitude, self.height
+        self.coordinates_lat_long_as_string = str(self.latitude) + ',' + str(self.longitude)
+        self.coordinates_long_lat_height = self.longitude, self.latitude, self.height
+        self.coordinates_lat_long = self.latitude, self.longitude

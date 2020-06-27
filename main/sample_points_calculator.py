@@ -20,7 +20,7 @@ def calculate_intervals(location_one, location_two, amount_of_samples):
 # last is the ending coordinates.
 def generate_path_coordinates_list(location_one, location_two, amount_of_samples):
     # Set the starting coordinates
-    start_coordinates = location_one.coordinates_latitude_longitude
+    start_coordinates = location_one.coordinates_lat_long
     # Add the starting coordinates to the list to be iterated over.
     path_list = [start_coordinates]
     # Calculate the interval to be added each pass, by calling the calculate_intervals function

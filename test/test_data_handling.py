@@ -3,25 +3,25 @@ from unittest import TestCase
 
 from mock import patch, Mock
 
-from main import data_handling
+from main import data_handling_google_api
 
 
 class TestDataHandling(TestCase):
     def test_construct_url(self):
-        url = data_handling.construct_url_google_elevation('55.123,-4.123', '55.111,-4.111', '200', '123')
+        url = data_handling_google_api.construct_url_google_elevation('55.123,-4.123', '55.111,-4.111', '200', '123')
         self.assertEqual('https://maps.googleapis.com/maps/api/elevation/json?path=55.123,-4.123|55.111,'
                          '-4.111&samples=200&key=123', url)
 
     @patch('urllib.request.urlopen')
     def test_send_request_google_elevation(self, mock_http_client):
         mock_http_client.return_value = "Hello"
-        response = data_handling.send_request_google_elevation('https://hello.com/api/38427363')
+        response = data_handling_google_api.send_request_google_elevation('https://hello.com/api/38427363')
         self.assertEqual("Hello", response)
 
     def test_receive_request_google_elevation(self):
         mock_response = Mock()
         mock_response.read.return_value = str.encode("{\"Number\": [1, 2, 3]}")
-        json_string = data_handling.receive_request_google_elevation(mock_response)
+        json_string = data_handling_google_api.receive_request_google_elevation(mock_response)
         self.assertEqual("{\'Number\': [1, 2, 3]}", str(json_string))
 
     def test_process_response(self):
@@ -50,5 +50,5 @@ class TestDataHandling(TestCase):
                     }'''
         sample_json_loads = json.loads(sample_json)
         expected_elevation_values = [2, 2]
-        elevation_list = data_handling.process_response(sample_json_loads, [1, 1])
+        elevation_list = data_handling_google_api.process_response(sample_json_loads, [1, 1])
         self.assertListEqual(expected_elevation_values, elevation_list)
