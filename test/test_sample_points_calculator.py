@@ -9,7 +9,7 @@ class TestSamplePointsCalculator(TestCase):
         location_one = Location(54.906163, -1.381980, 150, "Fawcett street")
         location_two = Location(51.503532, -0.127796, 150, "10 Downing street")
 
-        expected_latitude = -3.402631
-        expected_longitude = 1.254184
-        actual_latitude, actual_longitude = calculate_intervals(location_one, location_two)
-        self.assertEqual((expected_latitude, expected_longitude), (round(actual_latitude, 6), actual_longitude))
+        expected_latitude_interval = -0.017013155
+        expected_longitude_interval = 0.00627092
+        actual_latitude, actual_longitude = calculate_intervals(location_one, location_two, 200)
+        self.assertEqual((expected_latitude_interval, expected_longitude_interval), (actual_latitude, actual_longitude))
