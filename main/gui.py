@@ -11,7 +11,7 @@ layout = [
     [sg.InputText('', size=(60, 1), key='first_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "first_file_type", key='decimal_1', default=True, size=(20, 1)),
      sg.Radio('Eastings-Northings (X,Y)', "first_file_type", key='xy_1', size=(20, 1)),
-     sg.Radio('OS Grid Reference', "first_file_type", key='bng_1', size=(20, 1)), ],
+     sg.Radio('OS Grid Reference', "first_file_type", key='bng_1', size=(20, 1))],
     [sg.Text('Second batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='second_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "second_file_type", key='decimal_2', default=True, size=(20, 1)),
@@ -73,7 +73,6 @@ while True:
     if event == 'Run':
         x = threading.Thread(target=run_application())
         x.start()
-        print(values[0])
     if event is None:
         break
 window.Close()
