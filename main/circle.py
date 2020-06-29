@@ -47,7 +47,7 @@ class Circle:
     # Calculate the distance between the chord of the segment and the centre of the circle
     # Returns floating point
     def calc_arc_apothem(self):
-        return self.radius - self.calc_sagitta()
+        return round(self.radius - self.calc_sagitta(), 8)
 
     # Calculate centre point of circle
     # Returns floating point
@@ -64,14 +64,14 @@ class Circle:
     def calc_diameter(self):
         return self.radius * 2
 
-    # Returns the starting angle of the circular arc as float
+    # Returns the starting angle of the circular arc as float in radians
     # Takes two arguments, starting y and x coordinates
     def calc_start_angle(self, start_y, start_x):
         centre_y = self.calc_circular_centre_y()
         centre_x = self.calc_circular_centre_x()
         return np.arctan2(start_y - centre_y, start_x - centre_x)
 
-    # Returns the ending angle of the circular arc as float
+    # Returns the ending angle of the circular arc as float in radians
     # Takes two arguments, ending y and x coordinates
     def calc_end_angle(self, end_y, end_x):
         centre_y = self.calc_circular_centre_y()
@@ -88,8 +88,8 @@ class Circle:
             # Calculate the y axis value (height) for the corresponding x value (distance).  Subtract the apothem
             # of the circle to ensure the arc starts at coordinates 0,0 and ends at zero again on the y axis
             y = earth_radius * np.sin(list_of_angles[j]) - self.calc_arc_apothem()
-            # Convert nautical miles to meters for elevation
-            y = y * 1852
+            # Convert nautical miles to meters for elevation, rounding to make it tidier and easier to test
+            y = round(y * 1852, 5)
             y_values_list.append(y)
         y_values_np = np.array(y_values_list)
 
