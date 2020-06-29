@@ -19,7 +19,6 @@ layout = [
      sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
     [sg.Text('Select and output folder: ')],
     [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
-    [sg.Text('Choose API: '), sg.Combo((['Google Elevation', 'Open Elevation']), default_value='Google Elevation')],
     [sg.Text('Google elevation api key: ')],
     [sg.InputText('', size=(60, 1), key='api_key')],
     [sg.Text('How many samples between points?: ')],
