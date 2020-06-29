@@ -1,9 +1,7 @@
 from unittest import TestCase
 
 from mock import patch
-
-from main.data_handling_open_api import construct_json_post_data, construct_url_open_elevation, \
-    send_json_data_to_open_api
+from main.data_handling_open_api import construct_json_post_data, construct_url_open_elevation, send_json_data_to_open_api
 from main.location import Location
 
 
@@ -23,5 +21,5 @@ class TestDataHandlingOpenApi(TestCase):
         mock_http_client.return_value = "Hello"
         location_one = Location(55.55, -4.44, 150, "Position 1")
         location_two = Location(55.44, -4.33, 120, "Position 2")
-        mock_response = (send_json_data_to_open_api(location_one, location_two, 3))
+        mock_response = send_json_data_to_open_api(location_one, location_two, 3)
         self.assertEqual("Hello", mock_response)
