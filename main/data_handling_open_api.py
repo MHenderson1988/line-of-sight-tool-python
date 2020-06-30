@@ -43,8 +43,3 @@ def send_json_data_to_open_api(location_one, location_two, number_samples):
     # method has no limit to the requests.  Using the normal lookup method has a 1024 byte limit"
     api_response = requests.post(url, json_data)
     return api_response
-
-
-def decode_api_response(api_response):
-    opened_response = api_response.read()
-    return (opened_response)
