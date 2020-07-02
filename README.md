@@ -2,6 +2,14 @@
 This application allows the user to batch process multiple line of sight queries and output them in graphical form,
 using data from the Google Elevation API.  A .kml file is also produced for viewing in Google Earth.
 
+### History 
+I wrote this application after being frustrated at the lack of simple, free tools for processing large batches of
+line of sight calculations.  I watched a co-worker spend an entire shift re-entering the same data again and again over 
+100 hundred times and save the output as a screenshot which then had to be cropped in MS paint. 
+
+Originally it was used to compare airport radars to proposed wind turbine developments however I have modified the original
+to be used for any generic location or object you desire.  I hope this helps someone out.
+
 ## Installation
 
 ### Cloning
