@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="MHenderson88",  # Replace with your own username
+    name="geographic-line-of-sight",  # Replace with your own username
     version="1.0-alpha",
     author="Mark Henderson",
     author_email="mark.henderson1988@gmail.com",
