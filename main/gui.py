@@ -1,10 +1,10 @@
 # Very basic window.  Return values as a list
-
 import threading
 
 import PySimpleGUI as sg
 
 from main.run import run_graphing_and_kml_process
+from main.validation_handling import validate_google_sample_number
 
 layout = [
     [sg.Text('First batch of locations to process: ')],
@@ -62,6 +62,7 @@ def run_application():
     output_folder = values['folder_output']
     api = values['api_key']
     amount_samples = int(values['samples'])
+    validate_google_sample_number(amount_samples)
     run_graphing_and_kml_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
                                  second_file_type)
 
