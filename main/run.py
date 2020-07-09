@@ -6,6 +6,7 @@ from haversine import haversine, Unit
 from main import location_reference_converter, circle, data_handling_google_api
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
+from main.validation_handling import validate_longitude_latitude
 
 
 def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
@@ -21,11 +22,13 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
     for i in first_location_list:
         # Retrieve the first Location object and store its coordinates
         pos_1 = (i.latitude, i.longitude)
-
         # Iterate through the locations in the second .csv file
         for x in second_location_list:
             # Retrieve the second Location object and store its coordinates
             pos_2 = (x.latitude, x.longitude)
+            # Validate that both position's lat/long is a valid floating point number.
+            validate_longitude_latitude(pos_1[0], pos_1[1])
+            validate_longitude_latitude(pos_2[0], pos_2[1])
             # Calculate the great circle distance between both locations using the haversine formula
             # Currently this is returned in Nm but future functionality will allow other values
             great_circle_distance = haversine(pos_1, pos_2, unit=Unit.NAUTICAL_MILES)

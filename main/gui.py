@@ -1,5 +1,4 @@
 # Very basic window.  Return values as a list
-
 import threading
 
 import PySimpleGUI as sg
