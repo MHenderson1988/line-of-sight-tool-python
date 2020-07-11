@@ -1,11 +1,18 @@
 from unittest import TestCase
 
-from main.unit_conversion import metres_to_feet, nautical_miles_to_statute_miles, nautical_miles_to_kilometres
+from main.unit_conversion import metres_to_feet, nautical_miles_to_statute_miles, nautical_miles_to_kilometres, \
+    nautical_miles_to_feet, nautical_miles_to_metres
 
 
 class TestUnitConversion(TestCase):
-    def test_value_to_convert(self):
+    def test_metres_to_feet(self):
         self.assertEqual(3.281, metres_to_feet(1))
+
+    def test_nautical_miles_to_metres(self):
+        self.assertEqual(1852, nautical_miles_to_metres(1))
+
+    def test_nautical_miles_to_feet(self):
+        self.assertEqual(6076, nautical_miles_to_feet(1))
 
     def test_nautical_miles_to_statute_miles(self):
         self.assertEqual(1.151, nautical_miles_to_statute_miles(1))

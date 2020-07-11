@@ -10,7 +10,7 @@ from main.validation_handling import validate_longitude_latitude
 
 
 def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
-                                 second_file_type):
+                                 second_file_type, height_units):
     try:
         # This will have options in future for different units of measurement
         earth_radius = 3440.065  # in nautical miles
@@ -40,7 +40,8 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
                 # Set start and end points for representation of the earths curvature
                 x1, y1 = 0, 0
                 x2, y2 = great_circle_distance, 0
-                angle_list = np.linspace(c1.calc_start_angle(0, 0), c1.calc_end_angle(0, great_circle_distance), samples)
+                angle_list = np.linspace(c1.calc_start_angle(0, 0), c1.calc_end_angle(0, great_circle_distance),
+                                         samples)
 
                 x_values = np.linspace(x1, x2, samples)
 
@@ -51,8 +52,9 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
                 elevation_data = data_handling_google_api.send_and_receive_data_google_elevation(
                     i.coordinates_lat_long_as_string,
                     x.coordinates_lat_long_as_string,
-                    samples, api_key, y_values)
-                create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder)
+                    samples, api_key, y_values, height_units)
+                create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder,
+                             height_units)
 
                 # Rest for a moment to prevent the api being bombarded with requests.
                 time.sleep(2)

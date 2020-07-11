@@ -60,13 +60,13 @@ def run_application():
     first_file_type = get_radio_1()
     second_file = values['second_file_location']
     second_file_type = get_radio_2()
-    distance_units = values['height_units']
+    height_units = values['height_units']
     output_folder = values['folder_output']
     api = values['api_key']
     amount_samples = int(values['samples'])
     validate_google_sample_number(amount_samples)
     run_graphing_and_kml_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
-                                 second_file_type)
+                                 second_file_type, height_units)
 
 
 while True:
