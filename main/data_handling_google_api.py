@@ -58,6 +58,6 @@ def process_response(return_from_receive_request, earth_surface_values, height_u
         if height_units == "Metres":
             elev_list.append(return_from_receive_request['results'][j]['elevation'] + earth_surface_values[j])
         else:
-            elev_list.append(
-                (metres_to_feet(return_from_receive_request['results'][j]['elevation'])) + earth_surface_values[j])
+            elev_list.append((metres_to_feet(return_from_receive_request['results'][j]['elevation'])) +
+                             metres_to_feet(earth_surface_values[j]))
     return elev_list

@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+from main.unit_conversion import metres_to_feet
+
 
 # Creates the graph displaying the line of sight analysis between the two points
 def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder, height_units):
@@ -7,8 +9,12 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     mean_elev = round((sum(elevation_data) / len(elevation_data)), 3)
     max_elev = max(elevation_data)
 
-    start_los = elevation_data[0] + float(obj_1.height)
-    end_los = elevation_data[-1] + float(obj_2.height)
+    if height_units == "Feet":
+        start_los = elevation_data[0] + metres_to_feet(float(obj_1.height))
+        end_los = elevation_data[-1] + metres_to_feet(float(obj_2.height))
+    else:
+        start_los = elevation_data[0] + float(obj_1.height)
+        end_los = elevation_data[-1] + float(obj_2.height)
 
     base_reg = 0
     plt.figure(figsize=(10, 4))
