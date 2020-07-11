@@ -3,7 +3,7 @@ from unittest import TestCase
 from main.unit_conversion import metres_to_feet, nautical_miles_to_statute_miles, nautical_miles_to_kilometres
 
 
-class test_unit_conversion(TestCase):
+class TestUnitConversion(TestCase):
     def test_value_to_convert(self):
         self.assertEqual(3.281, metres_to_feet(1))
 
