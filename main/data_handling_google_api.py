@@ -1,15 +1,16 @@
 # This file contains functions which will allow the data to be sent to the elevation API
 import json
-
 # This will create the url to be sent to the api
 import urllib
 
+from main.unit_conversion import metres_to_feet
 
-def send_and_receive_data_google_elevation(pos_1, pos_2, number_samples, api_key, y_values):
+
+def send_and_receive_data_google_elevation(pos_1, pos_2, number_samples, api_key, y_values, height_units):
     url = construct_url_google_elevation(pos_1, pos_2, number_samples, api_key)
     sent_request = send_request_google_elevation(url)
     received_data = receive_request_google_elevation(sent_request)
-    elevation_data = process_response(received_data, y_values)
+    elevation_data = process_response(received_data, y_values, height_units)
     return elevation_data
 
 
@@ -47,12 +48,16 @@ def receive_request_google_elevation(response_from_send_request):
 # This method processes received json data from the google elevation api. The method extracts the 'elevation' values
 # and adds the value corresponding to the rise or fall of the pseudo earth ellipsoid created by the Circle class.
 # A list of values are returned representing the final elevation values to be processed.
-def process_response(return_from_receive_request, earth_surface_values):
+def process_response(return_from_receive_request, earth_surface_values, height_units):
     print("Processing and manipulating elevation data...")
     response_len = len(return_from_receive_request['results'])
     elev_list = []
     for j in range(response_len):
         # This manipulates the elevations so that they sit a correct distance above the earth curve
         # In this instance the earth's curve represents the sea-level or '0' in terms of returned elevation values
-        elev_list.append(return_from_receive_request['results'][j]['elevation'] + earth_surface_values[j])
+        if height_units == "Metres":
+            elev_list.append(return_from_receive_request['results'][j]['elevation'] + earth_surface_values[j])
+        else:
+            elev_list.append((metres_to_feet(return_from_receive_request['results'][j]['elevation'])) +
+                             metres_to_feet(earth_surface_values[j]))
     return elev_list

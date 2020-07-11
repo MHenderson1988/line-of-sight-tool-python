@@ -50,5 +50,5 @@ class TestDataHandling(TestCase):
                     }'''
         sample_json_loads = json.loads(sample_json)
         expected_elevation_values = [2, 2]
-        elevation_list = data_handling_google_api.process_response(sample_json_loads, [1, 1])
+        elevation_list = data_handling_google_api.process_response(sample_json_loads, [1, 1], "Metres")
         self.assertListEqual(expected_elevation_values, elevation_list)
