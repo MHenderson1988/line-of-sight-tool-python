@@ -7,13 +7,14 @@ from main import location_reference_converter, circle, data_handling_google_api
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
 from main.validation_handling import validate_longitude_latitude
+from main.unit_conversion import earth_radius_define
 
 
 def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two, second_file_type, height_units,
                                  distance_units, output_folder, api_key, samples):
     try:
         # This will have options in future for different units of measurement
-        earth_radius = 3440.065  # in nautical miles
+        earth_radius = earth_radius_define(distance_units)
 
         # Create a list of location objects from both .csv files
         first_location_list = location_reference_converter.conversion_type(input_file_one, first_file_type)

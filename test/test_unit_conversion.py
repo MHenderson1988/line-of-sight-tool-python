@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from main.unit_conversion import metres_to_feet, nautical_miles_to_statute_miles, nautical_miles_to_kilometres, \
-    nautical_miles_to_feet, nautical_miles_to_metres
+    nautical_miles_to_feet, nautical_miles_to_metres, earth_radius_define
 
 
 class TestUnitConversion(TestCase):
@@ -19,3 +19,6 @@ class TestUnitConversion(TestCase):
 
     def test_nautical_miles_to_kilometres(self):
         self.assertEqual(1.852, nautical_miles_to_kilometres(1))
+
+    def test_earth_radius_define(self):
+        self.assertEqual(3440.065, earth_radius_define("Nautical miles"))
