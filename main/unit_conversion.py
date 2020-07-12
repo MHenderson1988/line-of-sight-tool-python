@@ -25,3 +25,17 @@ def nautical_miles_to_statute_miles(value_in_nautical_miles):
 # Converts the given argument from nautical miles to kilometres assuming 1 nautical mile == 1.852 kilometres
 def nautical_miles_to_kilometres(value_in_nautical_miles):
     return value_in_nautical_miles * 1.852
+
+
+# Convert the x_values to the correct unit measurement, as specified by the user
+def convert_distance_measurement(list_of_x_values, distance_units):
+    if distance_units == "Nautical miles(Nm)":
+        return list_of_x_values
+    elif distance_units == "Miles(Mi)":
+        for i in list_of_x_values:
+            list_of_x_values[i] = nautical_miles_to_statute_miles(list_of_x_values[i])
+    elif distance_units == "Kilometres(Km)":
+        for i in list_of_x_values:
+            list_of_x_values[i] = nautical_miles_to_kilometres(list_of_x_values[i])
+    else:
+        return Exception("No distance units selected, you broke it somehow!!!!")

@@ -9,8 +9,8 @@ from main.kml_generator import create_kml_file
 from main.validation_handling import validate_longitude_latitude
 
 
-def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, api_key, samples, first_file_type,
-                                 second_file_type, height_units):
+def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two, second_file_type, height_units,
+                                 distance_units, output_folder, api_key, samples):
     try:
         # This will have options in future for different units of measurement
         earth_radius = 3440.065  # in nautical miles
@@ -54,7 +54,7 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, output_folder, 
                     x.coordinates_lat_long_as_string,
                     samples, api_key, y_values, height_units)
                 create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder,
-                             height_units)
+                             height_units, distance_units)
 
                 # Rest for a moment to prevent the api being bombarded with requests.
                 time.sleep(2)

@@ -56,14 +56,3 @@ Currently the application has the following limitations -
 * Earth curvature is calculated, assuming that the Earth is a perfect sphere
 * Only Google Elevation API is currently supported
 * Only natural terrain is accounted for.  This application does not take foliage or man-made objects/buildings into account
-
-## Required
-numpy~=1.18.5\
-PySimpleGUI~=4.20.0\
-matplotlib~=3.2.1\
-simplekml~=1.3.5\
-OSGridConverter~=0.1.3\
-pyproj~=2.6.1.post1\
-haversine~=2.2.0\
-mock~=4.0.2\
-requests~=2.24.0

@@ -17,7 +17,7 @@ layout = [
     [sg.Radio('Decimal latitude-longitude', "second_file_type", key='decimal_2', default=True, size=(20, 1)),
      sg.Radio('Eastings-Northings (X,Y)', "second_file_type", key='xy_2', size=(20, 1)),
      sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
-    [sg.Text('Output height as: '), sg.Combo(['Metres', 'Feet'], key='height_units', default_value='Metres')],
+    [sg.Text('Units of height: '), sg.Combo(['Metres (M)', 'Feet (Ft)'], key='height_units', default_value='Metres')],
     [sg.Text('Select and output folder: ')],
     [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
     [sg.Text('Google elevation api key: ')],
@@ -61,12 +61,13 @@ def run_application():
     second_file = values['second_file_location']
     second_file_type = get_radio_2()
     height_units = values['height_units']
+    distance_units = values['distance_units']
     output_folder = values['folder_output']
     api = values['api_key']
     amount_samples = int(values['samples'])
     validate_google_sample_number(amount_samples)
-    run_graphing_and_kml_process(first_file, second_file, output_folder, api, amount_samples, first_file_type,
-                                 second_file_type, height_units)
+    run_graphing_and_kml_process(first_file, first_file_type, second_file, second_file_type, height_units,
+                                 distance_units, output_folder, amount_samples)
 
 
 while True:
