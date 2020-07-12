@@ -26,14 +26,16 @@ def nautical_miles_to_statute_miles(value_in_nautical_miles):
 def nautical_miles_to_kilometres(value_in_nautical_miles):
     return value_in_nautical_miles * 1.852
 
-# This is used to define the radius of the earth, for creating a circle object.  It returns different values depending
-# on what unit of measure the user has specified for distance
-def earth_radius_define(unit_of_distance):
-    if unit_of_distance == "Nautical miles":
-        return 3440.065
-    elif unit_of_distance == "Miles":
-        return 3958.8
-    elif unit_of_distance == "Kilometres":
-        return 6371.0
+
+# Convert the x_values to the correct unit measurement, as specified by the user
+def convert_distance_measurement(list_of_x_values, distance_units):
+    if distance_units == "Nautical miles(Nm)":
+        return list_of_x_values
+    elif distance_units == "Miles(Mi)":
+        for i in list_of_x_values:
+            list_of_x_values[i] = nautical_miles_to_statute_miles(list_of_x_values[i])
+    elif distance_units == "Kilometres(Km)":
+        for i in list_of_x_values:
+            list_of_x_values[i] = nautical_miles_to_kilometres(list_of_x_values[i])
     else:
-        return Exception("No units assigned for distance - how did you break it?!!")
+        return Exception("No distance units selected, you broke it somehow!!!!")
