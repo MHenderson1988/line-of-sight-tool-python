@@ -57,7 +57,7 @@ def process_response(return_from_receive_request, earth_surface_values, height_u
         # In this instance the earth's curve represents the sea-level or '0' in terms of returned elevation values
         if height_units == "Metres":
             elev_list.append(return_from_receive_request['results'][j]['elevation'] + earth_surface_values[j])
-        else:
+        elif height_units:
             elev_list.append((metres_to_feet(return_from_receive_request['results'][j]['elevation'])) +
                              metres_to_feet(earth_surface_values[j]))
     return elev_list

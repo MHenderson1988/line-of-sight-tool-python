@@ -1,11 +1,11 @@
 import time
 
 import numpy as np
-from haversine import haversine, Unit
 
 from main import location_reference_converter, circle, data_handling_google_api
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
+from main.unit_conversion import define_earth_radius, calculate_great_circle_distance
 from main.validation_handling import validate_longitude_latitude
 
 
@@ -13,7 +13,7 @@ def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two
                                  distance_units, output_folder, api_key, samples):
     try:
         # This will have options in future for different units of measurement
-        earth_radius = 3440.065  # in nautical miles
+        earth_radius = define_earth_radius(distance_units)
 
         # Create a list of location objects from both .csv files
         first_location_list = location_reference_converter.conversion_type(input_file_one, first_file_type)
@@ -27,12 +27,13 @@ def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two
             for x in second_location_list:
                 # Retrieve the second Location object and store its coordinates
                 pos_2 = (x.latitude, x.longitude)
+
                 # Validate that both position's lat/long is a valid floating point number.
                 validate_longitude_latitude(pos_1[0], pos_1[1])
                 validate_longitude_latitude(pos_2[0], pos_2[1])
+
                 # Calculate the great circle distance between both locations using the haversine formula
-                # Currently this is returned in Nm but future functionality will allow other values
-                great_circle_distance = haversine(pos_1, pos_2, unit=Unit.NAUTICAL_MILES)
+                great_circle_distance = calculate_great_circle_distance(pos_1, pos_2, distance_units)
 
                 # Create a circle object to simulate curvature of the earth.
                 c1 = circle.Circle(earth_radius, great_circle_distance)
@@ -46,7 +47,7 @@ def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two
                 x_values = np.linspace(x1, x2, samples)
 
                 # Create the y-axis values to draw the earth's curved surface
-                y_values = c1.calculate_earth_surface_y_values(x_values, angle_list)
+                y_values = c1.calculate_earth_surface_y_values(x_values, angle_list, height_units, distance_units)
 
                 # Construct api url and extract the elevation data
                 elevation_data = data_handling_google_api.send_and_receive_data_google_elevation(

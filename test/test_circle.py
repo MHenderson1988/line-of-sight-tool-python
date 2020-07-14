@@ -64,7 +64,7 @@ class TestCircle(TestCase):
         start_angle, end_angle = c1.calc_start_angle(0, 0), c1.calc_end_angle(0, 1)
         x_values = np.linspace(0, 1, 3)
         angles_list = np.linspace(start_angle, end_angle, 3)
-        expected_values = [0.0, 226.42703, -32.44148]
-        actual_values = c1.calculate_earth_surface_y_values(x_values, angles_list)
+        expected_values = [1.0000000e-05, 7.4285671e+02, -1.0643329e+02]
+        actual_values = c1.calculate_earth_surface_y_values(x_values, angles_list, "Feet", "Nautical miles")
         for i in range(len(expected_values)):
             self.assertEqual(expected_values[i], actual_values[i])

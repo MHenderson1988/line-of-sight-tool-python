@@ -28,7 +28,7 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.text(x_values[0], elevation_data[0], obj_1.name)
     plt.text(x_values[-1], elevation_data[-1], obj_2.name)
 
-    plt.xlabel("Distance (Nm)")
+    plt.xlabel("Distance( " + distance_units + ")"),
     plt.ylabel("Elevation(" + height_units + ")"),
     plt.grid()
     plt.legend(fontsize='small')
