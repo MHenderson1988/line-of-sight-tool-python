@@ -1,56 +1,57 @@
 # This class converts from one unit into another.  For example it can convert from metres to feet etc.
 # This will be used to convert output values to the user's desired unit of measurement.
+from typing import Union
 
 from haversine import haversine, Unit
 
 
 # Converts the given argument from metres to feet assuming 1 metre == 3.281 feet
-def metres_to_feet(value_in_metres):
+def metres_to_feet(value_in_metres) -> float:
     return value_in_metres * 3.281
 
 
 # Converts the given argument from miles to metres assuming 1 mile == 1609.34 metres
-def miles_to_metres(value_in_miles):
+def miles_to_metres(value_in_miles) -> float:
     return value_in_miles * 1609.34
 
 
 # Converts the given argument from statue miles to feet assuming 1 mile == 5280 feet
-def miles_to_feet(value_in_miles):
+def miles_to_feet(value_in_miles) -> float:
     return value_in_miles * 5280
 
 
 # Converts the given argument from Kilometres to metres assuming 1 Kilometre == 1000 metres
-def kilometres_to_metres(value_in_kilometres):
+def kilometres_to_metres(value_in_kilometres) -> float:
     return value_in_kilometres * 1000
 
 
 # Converts Kilometres to feet assuming 1 Kilometre == 3281
-def kilometres_to_feet(value_in_kilometres):
+def kilometres_to_feet(value_in_kilometres) -> float:
     return value_in_kilometres * 3281
 
 
 # Converts the given argument from nautical miles to metres assuming 1 nautical mile == 1852 feet.
-def nautical_miles_to_metres(value_in_nautical_miles):
+def nautical_miles_to_metres(value_in_nautical_miles) -> float:
     return value_in_nautical_miles * 1852
 
 
 # Converts the given argument from nautical miles to feet, assuming 1 nautical miles == 6076 feet.
-def nautical_miles_to_feet(value_in_nautical_miles):
+def nautical_miles_to_feet(value_in_nautical_miles) -> float:
     return value_in_nautical_miles * 6076
 
 
 # Converts the given argument from nautical miles to statute miles assuming 1 nautical mile == 1.151 statute miles
-def nautical_miles_to_statute_miles(value_in_nautical_miles):
+def nautical_miles_to_statute_miles(value_in_nautical_miles) -> float:
     return value_in_nautical_miles * 1.151
 
 
 # Converts the given argument from nautical miles to kilometres assuming 1 nautical mile == 1.852 kilometres
-def nautical_miles_to_kilometres(value_in_nautical_miles):
+def nautical_miles_to_kilometres(value_in_nautical_miles) -> float:
     return value_in_nautical_miles * 1.852
 
 
 # Convert the x_values to the correct unit measurement, as specified by the user
-def define_earth_radius(unit_of_distance):
+def define_earth_radius(unit_of_distance) -> Union[float, Exception]:
     if unit_of_distance == "Nautical miles":
         return 3440.065
     elif unit_of_distance == "Miles":
@@ -75,7 +76,7 @@ def calculate_great_circle_distance(pos_1, pos_2, unit_of_distance):
 
 
 # Returns a converted height value based upon the distance and height units of measurement selected by the user
-def convert_y_values(y_value, distance_units, height_units):
+def convert_y_values(y_value, distance_units, height_units) -> Union[float, Exception]:
     if distance_units == "Nautical miles":
         if height_units == "Feet":
             return nautical_miles_to_feet(y_value)

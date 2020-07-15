@@ -48,7 +48,7 @@ def receive_request_google_elevation(response_from_send_request):
 # This method processes received json data from the google elevation api. The method extracts the 'elevation' values
 # and adds the value corresponding to the rise or fall of the pseudo earth ellipsoid created by the Circle class.
 # A list of values are returned representing the final elevation values to be processed.
-def process_response(return_from_receive_request, earth_surface_values, height_units):
+def process_response(return_from_receive_request, earth_surface_values, height_units) -> list:
     print("Processing and manipulating elevation data...")
     response_len = len(return_from_receive_request['results'])
     elev_list = []

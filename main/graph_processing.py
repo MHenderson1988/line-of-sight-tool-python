@@ -21,8 +21,8 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.figure(figsize=(10, 4))
     plt.plot(x_values, elevation_data)
     plt.plot(x_values, y_values)
-    plt.plot([0, distance], [min_elev, min_elev], '--g', label='min: ' + str(min_elev) + ' m')
-    plt.plot([0, distance], [max_elev, max_elev], '--r', label='max: ' + str(max_elev) + ' m')
+    plt.plot([0, distance], [min_elev, min_elev], '--g', label='min: ' + str(min_elev) + height_units)
+    plt.plot([0, distance], [max_elev, max_elev], '--r', label='max: ' + str(max_elev) + height_units)
     plt.plot([0, distance], [start_los, end_los])  # Line of sight line
     plt.fill_between(x_values, elevation_data, base_reg, alpha=0.1)
     plt.text(x_values[0], elevation_data[0], obj_1.name)

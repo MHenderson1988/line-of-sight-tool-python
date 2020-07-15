@@ -2,6 +2,7 @@
 # latitude and longitude.
 
 import csv
+from typing import Union
 
 import OSGridConverter
 from pyproj import Transformer
@@ -12,7 +13,7 @@ from main.validation_handling import validate_longitude_latitude
 
 # This method verifies which conversion method to call.  Returns a list of Location objects in decimal lat-long format.
 
-def conversion_type(file, coordinate_type):
+def conversion_type(file, coordinate_type) -> Union[list, int]:
     if coordinate_type == "decimal":
         list_to_return = convert_decimal_lat_long(file)
         return list_to_return
@@ -29,7 +30,7 @@ def conversion_type(file, coordinate_type):
 # This converts easting and northing grid references to latitude and longitude.  Creates a Location
 # object for each position and returns a list of Location objects.  Currently only tests accurate to 6 decimal degrees
 
-def convert_easting_northing(file):
+def convert_easting_northing(file) -> list:
     location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
@@ -45,7 +46,7 @@ def convert_easting_northing(file):
 # Location class object and WILL NOT undergo any conversion.
 # Returns a list of Location objects
 
-def convert_decimal_lat_long(file):
+def convert_decimal_lat_long(file) -> list:
     location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
@@ -65,7 +66,7 @@ def convert_decimal_lat_long(file):
 # decimal lat and long.  This conversion is then used to make a new Location object which is added to a list.
 # A list of Location objects is returned.  This currently only passes tests to 4 decimal places / 11.1m.
 
-def convert_british_national_grid(file):
+def convert_british_national_grid(file) -> list:
     location_list = []
     with open(file) as csvfile:
         reader = csv.reader(csvfile, delimiter=',', skipinitialspace='true')
