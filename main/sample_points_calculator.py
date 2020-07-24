@@ -8,11 +8,14 @@
 def calculate_intervals(location_one, location_two, amount_of_samples) -> tuple:
     # Calculate the longitude and latitude interval by finding the difference between the end and the starting location
     # values and then dividing by the amount of samples specified by the user
-    interval_latitude = (location_two.latitude - location_one.latitude) / amount_of_samples
-    interval_longitude = (location_two.longitude - location_one.longitude) / amount_of_samples
+    try:
+        interval_latitude = (location_two.latitude - location_one.latitude) / amount_of_samples
+        interval_longitude = (location_two.longitude - location_one.longitude) / amount_of_samples
 
-    # Return the latitude and longitude interval and end the method
-    return interval_latitude, interval_longitude
+        # Return the latitude and longitude interval and end the method
+        return interval_latitude, interval_longitude
+    except Exception:
+        print("An error occured whilst calculating the intervals")
 
 
 # Generate a path of coordinates between the first and second locations.
