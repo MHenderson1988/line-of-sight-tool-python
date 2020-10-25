@@ -22,9 +22,11 @@ def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two
         # Iterate through the locations in the first .csv file
         for i in first_location_list:
             # Retrieve the first Location object and store its coordinates
+            assert len(first_location_list) > 0
             pos_1 = (i.latitude, i.longitude)
             # Iterate through the locations in the second .csv file
             for x in second_location_list:
+                assert len(second_location_list) > 0
                 # Retrieve the second Location object and store its coordinates
                 pos_2 = (x.latitude, x.longitude)
 
