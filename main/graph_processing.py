@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 from main.unit_conversion import metres_to_feet
 
@@ -14,11 +15,14 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
         start_los = elevation_data[0] + float(obj_1.height)
         end_los = elevation_data[-1] + float(obj_2.height)
 
+    # Create a path for the LOS plot
+    los_path = create_los_path(x_values, start_los, end_los)
+
     base_reg = 0
     plt.figure(figsize=(15, 5))
-    plt.plot(x_values, elevation_data)
-    plt.plot(x_values, y_values)
-    plt.plot([0, distance], [start_los, end_los])  # Line of sight line
+    plt.plot(x_values, elevation_data) # Terrain path
+    plt.plot(x_values, y_values) # Earth curvature path
+    plt.plot(x_values, los_path)  # Line of sight path
     plt.fill_between(x_values, elevation_data, base_reg, alpha=0.1)
     plt.text(x_values[0], start_los, obj_1.name + ": " + str(obj_1.height))
     plt.text(x_values[-1], end_los, obj_2.name + ": " + str(obj_2.height))
@@ -33,3 +37,17 @@ def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, out
     plt.savefig(output_folder + '/' + filename)
     plt.close()
     print('Saved.')
+
+
+"""
+This function creates a numpy array for the LOS path.  By creating multiple y values it can be compared with
+the elevation data y values.  This allows us to determine whether or not the lines intersect.
+
+Input is the beginning and ending y values.  They are paired with the spaced x-values and the output is an array of y coordinates.
+"""
+
+
+def create_los_path(x_values, y_start, y_end):
+    x = x_values
+    y = np.linspace(y_start, y_end, len(x))
+    return y
