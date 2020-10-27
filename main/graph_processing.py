@@ -66,7 +66,6 @@ def does_intersect(los_y, terrain_y):
     i = 0
     intercept = False
     while i < len(los_y):
-        print(los_y[i], terrain_y[i])
         if los_y[i] < terrain_y[i]:
             intercept = True
             i += 1
