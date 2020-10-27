@@ -48,7 +48,9 @@ Graphical output will look like this -
 ![An example of the matplotlib output](img/example_output.png)
 
 The green line shows the path taken between the top point of the first and second locations.  Below is the imposed
-elevation data which has been manipulated to the simulated curvature of the earth (shown by the orange arc).  
+elevation data which has been manipulated to the simulated curvature of the earth (shown by the orange arc).
+
+The plotted line which illustrates the line of sight will be coloured green if line of sight exists.  If a disruption to the view is detected then the line will be coloured red.
 
 ## Current limitations
 Currently the application has the following limitations - 
