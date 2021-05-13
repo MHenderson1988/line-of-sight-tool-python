@@ -56,11 +56,11 @@ def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two
                     i.coordinates_lat_long_as_string,
                     x.coordinates_lat_long_as_string,
                     samples, api_key, y_values, height_units)
-                create_graph(x_values, y_values, elevation_data, great_circle_distance, i, x, output_folder,
+                create_graph(x_values, y_values, elevation_data, i, x, output_folder,
                              height_units, distance_units)
 
                 # Rest for a moment to prevent the api being bombarded with requests.
-                time.sleep(2)
+                time.sleep(3)
 
         create_kml_file(first_location_list, second_location_list, "First Locations", "Second Locations", output_folder)
         return "Graphing and .kml processes complete."

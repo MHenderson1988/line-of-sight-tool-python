@@ -77,8 +77,7 @@ while True:
     if event is None or event == 'Exit':
         break
     if event == 'Run':
-        x = threading.Thread(target=run_application())
-        x.start()
+        x = threading.Thread(target=run_application(), daemon=True).start()
     if event is None:
         break
 window.Close()

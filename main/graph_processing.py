@@ -5,7 +5,7 @@ from main.unit_conversion import metres_to_feet
 
 
 # Creates the graph displaying the line of sight analysis between the two points
-def create_graph(x_values, y_values, elevation_data, distance, obj_1, obj_2, output_folder, height_units,
+def create_graph(x_values, y_values, elevation_data, obj_1, obj_2, output_folder, height_units,
                  distance_units):
     # Convert the y (height) values, of the start/end of the line of sight objects, to the user's desired measurement
     if height_units == "Feet":
