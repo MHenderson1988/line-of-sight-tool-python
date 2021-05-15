@@ -10,9 +10,24 @@ from pyproj import Transformer
 from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
+# This method reads the .csv file column headings and outputs the correct conversion
+
+def identify_columns(file):
+    with open(file, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        header = reader.fieldnames
+        for words in header:
+            if words == 'Easting' or words == 'easting':
+                return 'osbg36'
+            if words == 'Latitude' or words == 'latitude':
+                return 'latlong'
+            if words == 'Grid' or words == 'grid':
+                return 'bng'
+            else:
+                return Exception("Did not detect latitude/longitude, eastings/northings or British National Grid "
+                                 "Reference.  Check you have labelled your columns correctly!")
 
 # This method verifies which conversion method to call.  Returns a list of Location objects in decimal lat-long format.
-
 def conversion_type(file, coordinate_type) -> Union[list, int]:
     if coordinate_type == "decimal":
         list_to_return = convert_decimal_lat_long(file)
