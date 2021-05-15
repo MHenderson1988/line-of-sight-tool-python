@@ -18,28 +18,17 @@ def identify_columns(file):
         header = reader.fieldnames
         for words in header:
             if words == 'Easting' or words == 'easting':
-                return 'osbg36'
+                print("Easting/Northings detected... Converting...")
+                return convert_easting_northing(csvfile)
             if words == 'Latitude' or words == 'latitude':
-                return 'latlong'
+                print("Decimal latitude/Longitude detected...")
+                return convert_decimal_lat_long()
             if words == 'Grid' or words == 'grid':
+                print("British national grid detected... Converting...")
                 return 'bng'
             else:
                 return Exception("Did not detect latitude/longitude, eastings/northings or British National Grid "
                                  "Reference.  Check you have labelled your columns correctly!")
-
-# This method verifies which conversion method to call.  Returns a list of Location objects in decimal lat-long format.
-def conversion_type(file, coordinate_type) -> Union[list, int]:
-    if coordinate_type == "decimal":
-        list_to_return = convert_decimal_lat_long(file)
-        return list_to_return
-    elif coordinate_type == "xy":
-        list_to_return = convert_easting_northing(file)
-        return list_to_return
-    elif coordinate_type == "bng":
-        list_to_return = convert_british_national_grid(file)
-        return list_to_return
-    else:
-        return 0
 
 
 # This converts easting and northing grid references to latitude and longitude.  Creates a Location
