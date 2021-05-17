@@ -14,7 +14,7 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class TestLocationReferenceConverter(TestCase):
     def test_identify_columns(self):
-        self.assertEqual(identify_columns('../test/data/test_osbg36.csv'), 'osbg36')
+        self.assertEqual(identify_columns('../test/data/test_osbg36.csv'), 'osbg')
         self.assertEqual(identify_columns('../test/data/test_decimal_degrees.csv'), 'latlong')
         self.assertEqual(identify_columns('../test/data/test_bng.csv'), 'bng')
 

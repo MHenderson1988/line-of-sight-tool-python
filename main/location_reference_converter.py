@@ -19,10 +19,10 @@ def identify_columns(file):
         for words in header:
             if words == 'Easting' or words == 'easting':
                 print("Easting/Northings detected... Converting...")
-                return convert_easting_northing(reader)
+                return 'osbg'
             if words == 'Latitude' or words == 'latitude':
                 print("Decimal latitude/Longitude detected...")
-                return convert_decimal_lat_long(reader)
+                return 'latlong'
             if words == 'Grid' or words == 'grid':
                 print("British national grid detected... Converting...")
                 return 'bng'
@@ -34,9 +34,11 @@ def identify_columns(file):
 # This converts easting and northing grid references to latitude and longitude.  Creates a Location
 # object for each position and returns a list of Location objects.  Currently only tests accurate to 6 decimal degrees
 
-def convert_easting_northing(reader) -> list:
+def convert_easting_northing(file) -> list:
     try:
         location_list = []
+        with open(file, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
         for row in reader:
             try:
                 transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
@@ -60,10 +62,10 @@ def convert_decimal_lat_long(file) -> list:
         with open(file) as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                lat, long = float(row[0]), float(row[1])
+                lat, long = float(row['Latitude']), float(row['Longitude'])
                 # Validate the input
                 validate_longitude_latitude(lat, long)
-                height, name = float(row[2]), row[3]
+                height, name = float(row['Height']), row['Name']
                 # Create a new Locations objects
                 new_location = Location(lat, long, height, name)
                 location_list.append(new_location)
@@ -83,10 +85,10 @@ def convert_british_national_grid(file) -> list:
         with open(file) as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                grid_converter = OSGridConverter.grid2latlong(row[0])
+                grid_converter = OSGridConverter.grid2latlong(row['Grid'])
                 latitude = grid_converter.latitude
                 longitude = grid_converter.longitude
-                height, name = float(row[1]), row[2]
+                height, name = float(row['Height']), row['Name']
                 new_location = Location(latitude, longitude, height, name)
                 location_list.append(new_location)
         return location_list
