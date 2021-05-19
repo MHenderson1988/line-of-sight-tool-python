@@ -9,15 +9,15 @@ from main.unit_conversion import define_earth_radius, calculate_great_circle_dis
 from main.validation_handling import validate_longitude_latitude
 
 
-def run_graphing_and_kml_process(input_file_one, first_file_type, input_file_two, second_file_type, height_units,
+def run_graphing_and_kml_process(input_file_one, input_file_two,  height_units,
                                  distance_units, output_folder, api_key, samples):
     try:
         # This will have options in future for different units of measurement
         earth_radius = define_earth_radius(distance_units)
 
         # Create a list of location objects from both .csv files
-        first_location_list = location_reference_converter.conversion_type(input_file_one, first_file_type)
-        second_location_list = location_reference_converter.conversion_type(input_file_two, second_file_type)
+        first_location_list = location_reference_converter.process_csv(input_file_one)
+        second_location_list = location_reference_converter.process_csv(input_file_two)
 
         # Iterate through the locations in the first .csv file
         for i in first_location_list:
