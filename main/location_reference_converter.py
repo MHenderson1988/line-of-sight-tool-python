@@ -12,21 +12,17 @@ from main.validation_handling import validate_longitude_latitude
 
 
 # This method reads the .csv file column headings and outputs the correct conversion
-# TODO - Alter other methods to work with new identify_columns method
 def identify_columns(file):
     with open(file, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         header = reader.fieldnames
         for words in header:
-            if words == 'Easting' or words == 'easting':
+            if words == 'Easting':
                 print("Easting/Northings detected... Converting...")
                 return 'osbg'
-            if words == 'Latitude' or words == 'latitude':
+            if words == 'Latitude':
                 print("Decimal latitude/Longitude detected...")
                 return 'latlong'
-            if words == 'Grid' or words == 'grid':
-                print("British national grid detected... Converting...")
-                return 'bng'
             else:
                 return Exception("Did not detect latitude/longitude, eastings/northings or British National Grid "
                                  "Reference.  Check you have labelled your columns correctly!")
@@ -39,16 +35,16 @@ def convert_easting_northing(file) -> list:
     try:
         location_list = []
         with open(file, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-        for row in reader:
-            try:
-                transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
-                x, y = transformer.transform(row['Easting'], row['Northing'])
-                location = Location(round(x, 6), round(y, 6), row['Height'], row['Name'])
-                location_list.append(location)
-            except Exception:
-                print("Exceptions at row converting xy to decimal lat/long")
-        return location_list
+            reader = csv.DictReader(csvfile, skipinitialspace=True)
+            for row in reader:
+                try:
+                    transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
+                    x, y = transformer.transform(row['Easting'], row['Northing'])
+                    location = Location(round(x, 6), round(y, 6), row['Height'], row['Name'])
+                    location_list.append(location)
+                except Exception:
+                    print("Exceptions at row converting xy to decimal lat/long")
+            return location_list
     except Exception:
         print("An error occured converting eastings and northings to decimal lat/long")
 
@@ -61,7 +57,7 @@ def convert_decimal_lat_long(file) -> list:
     try:
         location_list = []
         with open(file) as csvfile:
-            reader = csv.DictReader(csvfile)
+            reader = csv.DictReader(csvfile, skipinitialspace=True)
             for row in reader:
                 lat, long = float(row['Latitude']), float(row['Longitude'])
                 # Validate the input
