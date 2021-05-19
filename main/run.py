@@ -16,8 +16,8 @@ def run_graphing_and_kml_process(input_file_one, input_file_two,  height_units,
         earth_radius = define_earth_radius(distance_units)
 
         # Create a list of location objects from both .csv files
-        first_location_list = location_reference_converter.identify_columns(input_file_one)
-        second_location_list = location_reference_converter.identify_columns(input_file_two)
+        first_location_list = location_reference_converter.process_csv(input_file_one)
+        second_location_list = location_reference_converter.process_csv(input_file_two)
 
         # Iterate through the locations in the first .csv file
         for i in first_location_list:
