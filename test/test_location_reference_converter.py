@@ -5,7 +5,6 @@ from main.location import Location
 from main.location_reference_converter import convert_decimal_lat_long, convert_easting_northing, identify_columns
 
 DECIMAL_DEGREES_FILE_NAME = "test_decimal_degrees.csv"
-BNG_FILE_NAME = "test_bng.csv"
 OSBG_FILE_NAME = "test_osbg36.csv"
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,8 +12,8 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class TestLocationReferenceConverter(TestCase):
     def test_identify_columns(self):
-        self.assertEqual(identify_columns('../test/data/test_osbg36.csv'), 'osbg')
-        self.assertEqual(identify_columns('../test/data/test_decimal_degrees.csv'), 'latlong')
+        self.assertEqual(identify_columns(self.create_test_file_path(OSBG_FILE_NAME)), 'osbg')
+        self.assertEqual(identify_columns(self.create_test_file_path(DECIMAL_DEGREES_FILE_NAME)), 'latlong')
 
     def test_convert_easting_northing(self):
         list_to_test = [Location(54.906163, -1.381980, 150, "Fawcett street")]
