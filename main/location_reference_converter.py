@@ -10,6 +10,7 @@ from pyproj import Transformer
 from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
+
 # This method reads the .csv file column headings and outputs the correct conversion
 # TODO - Alter other methods to work with new identify_columns method
 def identify_columns(file):
@@ -73,24 +74,3 @@ def convert_decimal_lat_long(file) -> list:
         return location_list
     except Exception:
         print("An error occured writing the decimal lat/long")
-
-
-# This function takes an Ordinance Survey National Grid Reference (British National Grid) and converts it to a
-# decimal lat and long.  This conversion is then used to make a new Location object which is added to a list.
-# A list of Location objects is returned.  This currently only passes tests to 4 decimal places / 11.1m.
-
-def convert_british_national_grid(file) -> list:
-    try:
-        location_list = []
-        with open(file) as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                grid_converter = OSGridConverter.grid2latlong(row['Grid'])
-                latitude = grid_converter.latitude
-                longitude = grid_converter.longitude
-                height, name = float(row['Height']), row['Name']
-                new_location = Location(latitude, longitude, height, name)
-                location_list.append(new_location)
-        return location_list
-    except Exception:
-        print("An error occured converting BNG to decimal latitude/longitude")

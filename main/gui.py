@@ -10,13 +10,11 @@ layout = [
     [sg.Text('First batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='first_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "first_file_type", key='decimal_1', default=True, size=(20, 1)),
-     sg.Radio('Eastings-Northings (X,Y)', "first_file_type", key='xy_1', size=(20, 1)),
-     sg.Radio('OS Grid Reference', "first_file_type", key='bng_1', size=(20, 1))],
+     sg.Radio('Eastings-Northings (X,Y)', "first_file_type", key='xy_1', size=(20, 1))],
     [sg.Text('Second batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='second_file_location'), sg.FileBrowse()],
     [sg.Radio('Decimal latitude-longitude', "second_file_type", key='decimal_2', default=True, size=(20, 1)),
-     sg.Radio('Eastings-Northings (X,Y)', "second_file_type", key='xy_2', size=(20, 1)),
-     sg.Radio('OS Grid Reference', "second_file_type", key='bng_2', size=(20, 1))],
+     sg.Radio('Eastings-Northings (X,Y)', "second_file_type", key='xy_2', size=(20, 1))],
     [sg.Text('Units of height: '), sg.Combo(['Metres', 'Feet'], key='height_units', default_value='Metres'),
      sg.Text('Units of distance: '), sg.Combo(['Nautical miles', 'Miles', 'Kilometres'], key='distance_units',
                                               default_value='Nautical miles')],
@@ -40,8 +38,6 @@ def get_radio_1():
         return "decimal"
     if values['xy_1']:
         return "xy"
-    if values['bng_1']:
-        return "bng"
 
 
 # This method confirms the user's declared coordinate data type for the first locations .csv file and returns
@@ -52,8 +48,6 @@ def get_radio_2():
         return "decimal"
     if values['xy_2']:
         return "xy"
-    if values['bng_2']:
-        return "bng"
 
 
 # This method requires all fields to be completed and runs the google api graphing process only.
