@@ -27,9 +27,11 @@ Currently the application can convert between the following -
  
 * Decimal latitude/longitude\
 * Eastings and Northings\
-* British national grid (OSBG36)
 
 ### Example .csv file
+Update - May 2021
+All csv processing is now automated for Eastings and Northings and decimal degrees.  OS Grid no longer supported due to inaccuracy.  
+Accepted csv headings - 'Latitude, Longitude, Height, Name' or 'Easting, Northing, Height, Name' (in any order).
 ![An example of a valid .csv file using decimal latitude/longitude](img/csv_example.png)
 
 The above example uses decimal latitude/longitude.  
@@ -39,7 +41,6 @@ Row 2 - Longitude (Float)\
 Row 3 - Height, in metres (int/float)\
 Row 4 - Unique name (String)
 
-Note - if using OSBG36, the .csv file should only use 3 rows.  The grid reference, the height and the unique name.
 
 ### Example output
 
