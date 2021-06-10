@@ -13,6 +13,9 @@ class Circle:
     def __init__(self, radius_of_circle, length_of_arc):
         self.radius = radius_of_circle
         self.arc_length = length_of_arc
+        self.radians = self.arc_length / self.radius
+        self.chord_length = 2 * self.radius * np.sin(self.radians() / 2)
+        self.
 
     # Define Circle class methods
 
@@ -22,17 +25,6 @@ class Circle:
     def calc_degrees(self) -> float:
         return self.calc_radians() * 180 / np.pi
 
-    # Calculate the central angle in radians, between two points on the circle
-    # Returns floating point
-    def calc_radians(self) -> float:  # Where theta is the angle between both points at the centre of the circle
-        return self.arc_length / self.radius  # Convert degrees to radians to work with chord_length formula
-
-    # Returns the chord lengths of the arc, taking theta (angle in radians) as it's argument
-    # The chord is the horizontal line which separates the arc segment from the rest of the circle
-    # Formula for theta (radians) only, not degrees #confirmed using http://www.ambrsoft.com/Trigocalc/Sphere/Arc_.htm
-    # Returns floating point
-    def calc_chord_length(self) -> float:
-        return 2 * self.radius * np.sin(self.calc_radians() / 2)
 
     # Calculates the length of arc, taking theta (angle in radians) as its argument.
     # Confirmed using http://www.ambrsoft.com/Trigocalc/Sphere/Arc_.htm
