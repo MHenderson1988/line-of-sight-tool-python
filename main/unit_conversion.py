@@ -12,11 +12,11 @@ def metres_to_feet(value_in_metres) -> float:
 
 # Convert the x_values to the correct unit measurement, as specified by the user
 def define_earth_radius(unit_of_distance) -> Union[float, Exception]:
-    if unit_of_distance == "Nautical miles":
+    if unit_of_distance == "NAUTICAL MILES":
         return 3440.065
-    elif unit_of_distance == "Miles":
+    elif unit_of_distance == "MILES":
         return 3958.8
-    elif unit_of_distance == "Kilometres":
+    elif unit_of_distance == "KILOMETRES":
         return 6371.0
     else:
         return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
@@ -25,36 +25,12 @@ def define_earth_radius(unit_of_distance) -> Union[float, Exception]:
 # Returns the great circle distance in the correct units of measurement, depending on what the user specified on the GUI
 # Takes arguments of units of distance and two positions with long/lat
 def calculate_great_circle_distance(pos_1, pos_2, unit_of_distance):
-    if unit_of_distance == "Nautical miles":
+    if unit_of_distance == "NAUTICAL MILES":
         return haversine(pos_1, pos_2, unit=Unit.NAUTICAL_MILES)
-    elif unit_of_distance == "Miles":
+    elif unit_of_distance == "MILES":
         return haversine(pos_1, pos_2, unit=Unit.MILES)
-    elif unit_of_distance == "Kilometres":
+    elif unit_of_distance == "KILOMETRES":
         return haversine(pos_1, pos_2, unit=Unit.KILOMETERS)
     else:
         return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
 
-
-# Returns a converted height value based upon the distance and height units of measurement selected by the user
-def convert_y_values(y_value, distance_units, height_units) -> Union[float, Exception]:
-    if distance_units == "Nautical miles":
-        if height_units == "Feet":
-            return y_value * 6076
-        if height_units == "Metres":
-            return y_value * 1852
-        else:
-            return Exception("Something went wrong converting nautical miles to the selected height units")
-    elif distance_units == "Kilometres":
-        if height_units == "Feet":
-            return y_value * 3281
-        if height_units == "Metres":
-            return y_value * 1000
-        else:
-            return Exception("Something went wrong converting Kilometres to the selected height units")
-    elif distance_units == "Miles":
-        if height_units == "Feet":
-            return y_value * 5280
-        if height_units == "Metres":
-            return y_value * 1609.34
-    else:
-        return Exception("Something went wrong converting y values from the distance units to the height units.")

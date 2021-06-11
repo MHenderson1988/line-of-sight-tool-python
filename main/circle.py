@@ -5,86 +5,81 @@
 
 import numpy as np
 
-from main.unit_conversion import convert_y_values
+
+# Returns a converted height unit based upon the distance and height units of measurement input by the user
+
+def convert_y_values(y_value, distance_units, height_units):
+    if distance_units == "NAUTICAL MILES":
+        if height_units == "FEET":
+            return y_value * 6076
+        if height_units == "METRES":
+            return y_value * 1852
+        else:
+            return Exception("Something went wrong converting nautical miles to the selected height units")
+    elif distance_units == "KILOMETRES":
+        if height_units == "FEET":
+            return y_value * 3281
+        if height_units == "METRES":
+            return y_value * 1000
+        else:
+            return Exception("Something went wrong converting Kilometres to the selected height units")
+    elif distance_units == "MILES":
+        if height_units == "FEET":
+            return y_value * 5280
+        if height_units == "METRES":
+            return y_value * 1609.34
+    else:
+        return Exception("Something went wrong converting y values from the distance units to the height units.")
 
 
-class Circle:
+class ArcSolver:
 
-    def __init__(self, radius_of_circle, length_of_arc):
-        self.radius = radius_of_circle
-        self.arc_length = length_of_arc
+    # ArcSolver class accepts two required arguments of radius and arc_length (Representing the great circle distance
+    # between two positions on the perimeter of the circle).  Optional kwargs of sample and distance/height units.
+
+    def __init__(self, *args, **kwargs):
+        self.radius = args[0]
+        self.arc_length = args[1]
+        self.samples = kwargs.get("samples", 150)
+        self.distance_units = kwargs.get("distance", "NAUTICAL MILES")
+        self.height_units = kwargs.get("height", "FEET")
         self.radians = self.arc_length / self.radius
-        self.chord_length = 2 * self.radius * np.sin(self.radians() / 2)
-        self.
-
-    # Define Circle class methods
-
-    # Calculate the central angle, in degrees, by using the arc_length
-    # Gives angle in degrees at centre of the circle between the two points (beginning and end points of arc_length)
-    # Returns floating point
-    def calc_degrees(self) -> float:
-        return self.calc_radians() * 180 / np.pi
-
-
-    # Calculates the length of arc, taking theta (angle in radians) as its argument.
-    # Confirmed using http://www.ambrsoft.com/Trigocalc/Sphere/Arc_.htm
-    # Returns floating point
-    def calc_arc_length(self) -> float:
-        return self.arc_length
-
-    # Calculates the Sagitta of the arc segment.  The Sagitta is the distance from the centre of the arc
-    # to the centre of the chord
-    # Confirmed correct against online calculator https://www.liutaiomottola.com/formulae/sag.htm
-    def calc_sagitta(self) -> float:
-        return self.radius - (np.sqrt((self.radius ** 2) - ((self.calc_chord_length() / 2) ** 2)))
-
-    # Calculate the distance between the chord of the segment and the centre of the circle
-    # Returns floating point
-    def calc_arc_apothem(self) -> float:
-        return round(self.radius - self.calc_sagitta(), 8)
-
-    # Calculate centre point of circle
-    # Returns floating point
-    def calc_circular_centre_x(self) -> float:
-        return self.calc_chord_length() / 2
-
-    # Calculate centre point of circle
-    # Returns a floating point number
-    def calc_circular_centre_y(self) -> float:
-        return self.calc_sagitta() - self.radius
-
-    # Calculate the diameter of the circle
-    # Returns a floating point number which is double the radius.
-    def calc_diameter(self) -> float:
-        return self.radius * 2
-
-    # Returns the starting angle of the circular arc as float in radians
-    # Takes two arguments, starting y and x coordinates
-    def calc_start_angle(self, start_y, start_x) -> float:
-        centre_y = self.calc_circular_centre_y()
-        centre_x = self.calc_circular_centre_x()
-        return np.arctan2(start_y - centre_y, start_x - centre_x)
-
-    # Returns the ending angle of the circular arc as float in radians
-    # Takes two arguments, ending y and x coordinates
-    def calc_end_angle(self, end_y, end_x) -> float:
-        centre_y = self.calc_circular_centre_y()
-        centre_x = self.calc_circular_centre_x()
-        return np.arctan2(end_y - centre_y, end_x - centre_x)
+        self.chord_length = 2 * self.radius * np.sin(self.radians / 2)
+        self.degrees = self.radians * 180 / np.pi
+        self.sagitta = float(self.radius - (np.sqrt((self.radius ** 2) - ((self.chord_length / 2) ** 2))))
+        self.arc_apothem = self.radius - self.sagitta
+        self.circular_centre_x = self.chord_length / 2
+        self.circular_centre_y = self.sagitta - self.radius
+        self.diameter = self.radius * 2
+        self.start_angle = np.arctan2(0 - self.circular_centre_y, 0 - self.circular_centre_x)
+        self.end_angle = np.arctan2(0 - self.circular_centre_y, self.arc_length - self.circular_centre_x)
+        self.angles_list = np.linspace(self.start_angle, self.end_angle, self.samples).tolist()
+        self.x_coordinates = np.linspace(0, self.arc_length, self.samples).tolist()
+        self.y_coordinates = self.calculate_earth_surface_y_values().tolist()
 
     # Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
     # in nautical miles.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
     # effects line of sight visibility.
-    def calculate_earth_surface_y_values(self, list_of_x_axis_values, list_of_angles, height_units, distance_units) \
-            -> np.ndarray:
-        earth_radius = self.radius
+    def calculate_earth_surface_y_values(self) -> np.ndarray:
+        assert self.samples == len(self.x_coordinates)
         y_values_list = []
-        for j in range(len(list_of_x_axis_values)):
+        for j in self.angles_list:
             # Calculate the y axis value (height) for the corresponding x value (distance).  Subtract the apothem
             # of the circle to ensure the arc starts at coordinates 0,0 and ends at zero again on the y axis
-            y = earth_radius * np.sin(list_of_angles[j]) - self.calc_arc_apothem()
-            y = round(convert_y_values(y, distance_units, height_units), 5)
+            y = self.radius * np.sin(j) - self.arc_apothem
+            y = round(convert_y_values(y, self.distance_units, self.height_units), 5)
             y_values_list.append(y)
         y_values_np = np.array(y_values_list)
 
         return y_values_np
+
+    # Returns true if arc length and radius are identical to another instance
+    def __eq__(self, o: object) -> bool:
+        if isinstance(o, ArcSolver):
+            if (o.radius == self.radius) & (o.arc_length == self.arc_length):
+                return True
+            return False
+
+    # Returns the string value of the object
+    def __str__(self) -> str:
+        return 'A circle with a radius of {self.radius} and an arc length of {self.arc_length}'.format(self=self)
