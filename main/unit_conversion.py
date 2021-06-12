@@ -33,4 +33,3 @@ def calculate_great_circle_distance(pos_1, pos_2, unit_of_distance):
         return haversine(pos_1, pos_2, unit=Unit.KILOMETERS)
     else:
         return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
-

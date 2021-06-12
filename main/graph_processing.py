@@ -8,7 +8,7 @@ from main.unit_conversion import metres_to_feet
 def create_graph(x_values, y_values, elevation_data, obj_1, obj_2, output_folder, height_units,
                  distance_units):
     # Convert the y (height) values, of the start/end of the line of sight objects, to the user's desired measurement
-    if height_units == "Feet":
+    if height_units == "FEET":
         start_los = elevation_data[0] + metres_to_feet(float(obj_1.height))
         end_los = elevation_data[-1] + metres_to_feet(float(obj_2.height))
     else:
@@ -32,7 +32,6 @@ def create_graph(x_values, y_values, elevation_data, obj_1, obj_2, output_folder
     plt.xlabel("Distance (" + distance_units + ")"),
     plt.ylabel("Elevation (" + height_units + ")"),
     plt.grid()
-    plt.legend(fontsize='small')
 
     filename = obj_1.name + ' to ' + obj_2.name
     print('Saving  ' + filename + '...')

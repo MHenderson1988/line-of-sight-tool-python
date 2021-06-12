@@ -2,16 +2,18 @@
 # latitude and longitude.
 
 import csv
+
 from pyproj import Transformer
 
 from main.location import Location
 from main.validation_handling import validate_longitude_latitude
 
+
 def process_csv(file):
-    type = identify_columns(file)
-    if type == 'osbg':
+    coord_type = identify_columns(file)
+    if coord_type == 'osbg':
         return convert_easting_northing(file)
-    elif type == 'latlong':
+    elif coord_type == 'latlong':
         return convert_decimal_lat_long(file)
     else:
         return Exception("Neither OSBG or decimal lat/long detected, please check your csv file.")

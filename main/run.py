@@ -1,7 +1,5 @@
 import time
 
-import numpy as np
-
 from main import location_reference_converter, circle, data_handling_google_api
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
@@ -9,7 +7,7 @@ from main.unit_conversion import define_earth_radius, calculate_great_circle_dis
 from main.validation_handling import validate_longitude_latitude
 
 
-def run_graphing_and_kml_process(input_file_one, input_file_two,  height_units,
+def run_graphing_and_kml_process(input_file_one, input_file_two, height_units,
                                  distance_units, output_folder, api_key, samples):
     try:
         # This will have options in future for different units of measurement
@@ -38,7 +36,8 @@ def run_graphing_and_kml_process(input_file_one, input_file_two,  height_units,
                 great_circle_distance = calculate_great_circle_distance(pos_1, pos_2, distance_units)
 
                 # Create a circle object to simulate curvature of the earth.
-                c1 = circle.ArcSolver(earth_radius, great_circle_distance, samples=samples, distance=distance_units,
+                c1 = circle.ArcSolver(earth_radius, great_circle_distance, samples=int(samples),
+                                      distance=distance_units,
                                       height=height_units)
 
                 # Construct api url and extract the elevation data
@@ -60,3 +59,9 @@ def run_graphing_and_kml_process(input_file_one, input_file_two,  height_units,
         print("Mathematical error, number too large to compute.  Developer - round your output")
     except TypeError:
         print("Type error")
+
+
+if __name__ == "__main__":
+    # For testing minus gui.  You will need to input your api key if you want to use this yourself.  WARNING DO NOT COMMIT OR PUSH ETC WITH YOUR API CREDENTIALS IN THE CODE!
+    run_graphing_and_kml_process('../test/data/test_decimal_degrees.csv', '../test/data/test_osbg36.csv', "FEET",
+                                 "NAUTICAL MILES", "../test/data", "test", "30")

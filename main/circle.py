@@ -52,9 +52,9 @@ class ArcSolver:
         self.circular_centre_x = self.chord_length / 2
         self.circular_centre_y = self.sagitta - self.radius
         self.diameter = self.radius * 2
-        self.start_angle = np.arctan2(0 - self.circular_centre_y, 0 - self.circular_centre_x)
-        self.end_angle = np.arctan2(0 - self.circular_centre_y, self.arc_length - self.circular_centre_x)
-        self.angles_list = np.linspace(self.start_angle, self.end_angle, self.samples).tolist()
+        self.start_angle = math.atan2(0 - self.circular_centre_y, 0 - self.circular_centre_x)
+        self.end_angle = math.atan2(0 - self.circular_centre_y, self.arc_length - self.circular_centre_x)
+        self.angles_list = np.linspace(self.start_angle, self.end_angle, self.samples)
         self.x_coordinates = np.linspace(0, self.arc_length, self.samples).tolist()
         self.y_coordinates = self.calculate_earth_surface_y_values()
 

@@ -37,7 +37,8 @@ def run_application():
     api = values['api_key']
     amount_samples = int(values['samples'])
     validate_google_sample_number(amount_samples)
-    run_graphing_and_kml_process(first_file, second_file, height_units, distance_units, output_folder, api, amount_samples)
+    run_graphing_and_kml_process(first_file, second_file, height_units, distance_units, output_folder, api,
+                                 amount_samples)
 
 
 while True:
