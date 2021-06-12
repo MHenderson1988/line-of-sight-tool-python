@@ -2,6 +2,7 @@
 # which are being assessed.  This generates a representation of the Earth's curvature which will be represented on the
 # final graph.  This is important to represent as the curvature of the Earth makes a big difference to whether
 # or not, line of sight exists between locations.
+import math
 
 import numpy as np
 
@@ -55,7 +56,7 @@ class ArcSolver:
         self.end_angle = np.arctan2(0 - self.circular_centre_y, self.arc_length - self.circular_centre_x)
         self.angles_list = np.linspace(self.start_angle, self.end_angle, self.samples).tolist()
         self.x_coordinates = np.linspace(0, self.arc_length, self.samples).tolist()
-        self.y_coordinates = self.calculate_earth_surface_y_values().tolist()
+        self.y_coordinates = self.calculate_earth_surface_y_values()
 
     # Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
     # in nautical miles.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
@@ -66,12 +67,11 @@ class ArcSolver:
         for j in self.angles_list:
             # Calculate the y axis value (height) for the corresponding x value (distance).  Subtract the apothem
             # of the circle to ensure the arc starts at coordinates 0,0 and ends at zero again on the y axis
-            y = self.radius * np.sin(j) - self.arc_apothem
-            y = round(convert_y_values(y, self.distance_units, self.height_units), 5)
+            y = self.radius * math.sin(j) - self.arc_apothem
+            y = convert_y_values(y, self.distance_units, self.height_units)
             y_values_list.append(y)
-        y_values_np = np.array(y_values_list)
 
-        return y_values_np
+        return y_values_list
 
     # Returns true if arc length and radius are identical to another instance
     def __eq__(self, o: object) -> bool:
