@@ -10,6 +10,16 @@ class Location(ABC):
         self.distance_units = kwargs.get("distance_units", "NAUTICAL MILES")
         self.height_units = kwargs.get("height_units", "FEET")
 
+    @property
+    @abstractmethod
+    def y(self):
+        return self._y
+
+    @property
+    @abstractmethod
+    def x(self):
+        return self._x
+
     @abstractmethod
     def __str__(self):
         return '{self.name} is a Location at y: {self.y}, x: {self.x}.  With a height of {self.height}' \
