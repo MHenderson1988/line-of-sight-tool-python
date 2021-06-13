@@ -10,7 +10,7 @@ class TestLocation(TestCase):
         # Metres
         self.test2 = DecimalLocation(55.11, -4.11, 500, "Test2", height_units="METRES")
         # For equality test
-        self.test3 = DecimalLocation(55.11, -4.11, 20, "Test 3")
+        self.test3 = DecimalLocation(66.11, -5.11, 20, "Test 3")
 
     def test_string(self):
         # Test Feet
@@ -26,3 +26,6 @@ class TestLocation(TestCase):
     def test_equality(self):
         self.assertTrue(self.test.__eq__(self.test2))
         self.assertFalse(self.test.__eq__(self.test3))
+
+    def test_populate_path(self):
+        self.test.populate_path(self.test3, 20)

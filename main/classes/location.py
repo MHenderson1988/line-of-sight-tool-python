@@ -42,3 +42,11 @@ class Location(ABC):
     @abstractmethod
     def __eq__(self, other):
         pass
+
+    @abstractmethod
+    def calculate_interval(self, aObject, samples):
+        pass
+
+    @abstractmethod
+    def populate_path(self):
+        pass

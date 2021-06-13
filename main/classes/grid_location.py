@@ -44,6 +44,13 @@ class GridLocation(Location, ABC):
     def __eq__(self, other):
         return self._y == other.y and self._x == other.x and self._height == other.height
 
+    def calculate_interval(self, aObject, samples):
+        assert isinstance(aObject, GridLocation),\
+            "Error: calculate_interval is only valid with other DecimalLocation objects"
+        int_north = (aObject.y - self.y) / samples
+        int_east = (aObject.x - self.x) / samples
+        return int_north, int_east
+
     def to_decimal(self):
         try:
             transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
@@ -53,3 +60,4 @@ class GridLocation(Location, ABC):
         except Exception:
             print("An exception occurred when converting a GridLocation to a DecimalLocation")
         return location
+

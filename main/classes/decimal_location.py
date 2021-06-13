@@ -2,6 +2,7 @@
 from abc import ABC
 
 from main.classes.location import Location
+from collections import deque
 
 
 class DecimalLocation(Location, ABC):
@@ -40,3 +41,20 @@ class DecimalLocation(Location, ABC):
 
     def __eq__(self, other):
         return self._y == other.y and self._x == other.x and self._height == other.height
+
+    # Method which returns the lat/long interval between the object and another decimal_location.
+    def calculate_interval(self, aObject, samples):
+        int_lat = (aObject.y - self.y) / samples
+        int_lon = (aObject.x - self.x) / samples
+        return int_lat, int_lon
+
+    def populate_path(self, aObject, samples):
+        assert isinstance(aObject, DecimalLocation), \
+            "Error: calculate_interval is only valid with other DecimalLocation objects"
+        y_int, x_int = self.calculate_interval(aObject, samples)
+        queue = deque([(self.y, self.x)])
+        for i in range(samples):
+            new_y, new_x = (queue[-1][0] + y_int), (queue[-1][1] + x_int)
+            queue.append((new_y, new_x))
+        return queue
+
