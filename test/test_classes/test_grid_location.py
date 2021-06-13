@@ -26,3 +26,9 @@ class TestLocation(TestCase):
     def test_equality(self):
         self.assertTrue(self.test.__eq__(self.test2))
         self.assertFalse(self.test.__eq__(self.test3))
+
+    def test_to_decimal(self):
+        # Tested using - https://webapps.bgs.ac.uk/data/webservices/convertForm.cfm#bngToLatLng
+        newDecimal = self.test.to_decimal()
+        self.assertTrue(54.942772, newDecimal.y)
+        self.assertTrue(-6.052620, newDecimal.x)
