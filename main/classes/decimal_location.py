@@ -54,7 +54,7 @@ class DecimalLocation(Location, ABC):
         y_int, x_int = self.calculate_interval(aObject, samples)
         queue = deque([(self.y, self.x)])
         for i in range(samples):
-            new_y, new_x = (queue[-1][0] + y_int), (queue[-1][1] + x_int)
+            new_y, new_x = round((queue[-1][0] + y_int), 6), round((queue[-1][1] + x_int), 6)
             queue.append((new_y, new_x))
         return queue
 
