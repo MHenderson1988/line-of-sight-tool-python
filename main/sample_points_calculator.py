@@ -6,7 +6,7 @@
 # Calculate the interval latitude between the two locations.
 # Takes two Location objects as arguments and returns two floating point numbers, one for latitude and one for longitude
 def calculate_intervals(location_one, location_two, amount_of_samples) -> tuple:
-    # Calculate the longitude and latitude interval by finding the difference between the end and the starting location
+    # Calculate the longitude and latitude interval by finding the difference between the end and the starting classes
     # values and then dividing by the amount of samples specified by the user
     try:
         interval_latitude = (location_two.latitude - location_one.latitude) / amount_of_samples
@@ -19,7 +19,7 @@ def calculate_intervals(location_one, location_two, amount_of_samples) -> tuple:
 
 
 # Generate a path of coordinates between the first and second locations.
-# Arguments - two location objects and returns a list of coordinates.  The first being the starting coordinates and the
+# Arguments - two classes objects and returns a list of coordinates.  The first being the starting coordinates and the
 # last is the ending coordinates.
 def generate_path_coordinates_list(location_one, location_two, amount_of_samples) -> list:
     try:

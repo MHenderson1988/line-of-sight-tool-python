@@ -5,7 +5,7 @@ import csv
 
 from pyproj import Transformer
 
-from main.location import Location
+from main.classes import Location
 from main.validation_handling import validate_longitude_latitude
 
 

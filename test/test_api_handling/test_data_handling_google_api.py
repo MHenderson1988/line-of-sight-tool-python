@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from mock import patch, Mock
 
-from main import data_handling_google_api
+from main.api_handling import data_handling_google_api
 
 
 class TestDataHandling(TestCase):
@@ -31,7 +31,7 @@ class TestDataHandling(TestCase):
                     "results": [
                         {
                             "elevation": 1,
-                            "location": {
+                            "classes": {
                                 "lat": 39.73915360,
                                 "lng": -104.98470340
                             },
@@ -39,7 +39,7 @@ class TestDataHandling(TestCase):
                         },
                         {
                             "elevation": 1,
-                            "location": {
+                            "classes": {
                                 "lat": 36.4555560,
                                 "lng": -116.8666670
                             },

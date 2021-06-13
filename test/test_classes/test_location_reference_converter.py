@@ -1,8 +1,8 @@
 import os
 from unittest import TestCase
 
-from main.location import Location
-from main.location_reference_converter import convert_decimal_lat_long, convert_easting_northing, identify_columns
+from main.classes import Location
+from main.classes.location_reference_converter import convert_decimal_lat_long, convert_easting_northing, identify_columns
 
 DECIMAL_DEGREES_FILE_NAME = "test_decimal_degrees.csv"
 OSBG_FILE_NAME = "test_osbg36.csv"

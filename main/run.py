@@ -1,6 +1,7 @@
 import time
 
-from main import location_reference_converter, circle, data_handling_google_api
+from main.api_handling import data_handling_google_api
+from main.classes import location_reference_converter, circle
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
 from main.unit_conversion import define_earth_radius, calculate_great_circle_distance
@@ -13,7 +14,7 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, height_units,
         # This will have options in future for different units of measurement
         earth_radius = define_earth_radius(distance_units)
 
-        # Create a list of location objects from both .csv files
+        # Create a list of classes objects from both .csv files
         first_location_list = location_reference_converter.process_csv(input_file_one)
         second_location_list = location_reference_converter.process_csv(input_file_two)
 

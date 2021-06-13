@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 
 from main.kml_generator import initialise_folders, create_points, create_linestrings, create_kml_file
-from main.location import Location
+from main.classes import Location
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 

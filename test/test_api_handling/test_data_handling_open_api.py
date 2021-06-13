@@ -2,9 +2,9 @@ from unittest import TestCase
 
 from mock import patch
 
-from main.data_handling_open_api import construct_json_post_data, construct_url_open_elevation, \
+from main.api_handling.data_handling_open_api import construct_json_post_data, construct_url_open_elevation, \
     send_json_data_to_open_api
-from main.location import Location
+from main.classes import Location
 
 
 class TestDataHandlingOpenApi(TestCase):

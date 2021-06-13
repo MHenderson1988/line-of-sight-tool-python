@@ -1,4 +1,4 @@
-# This class reads both sets of location data from the .csv files and transforms the comparisons into .kml
+# This class reads both sets of classes data from the .csv files and transforms the comparisons into .kml
 # files.  Kml files are for use with Google Earth and will allow you to see 3D representations of the line of
 # sight analysis.  For best results please ensure 3D terrain is enable in Google Earth.
 
@@ -6,7 +6,7 @@ import simplekml
 
 
 # This method returns a new kml object and creates the required folders for the program - one for each set of locations
-# and one for the line of sight lines.  Takes two lists of location objects (The ones to be compared) and the names of
+# and one for the line of sight lines.  Takes two lists of classes objects (The ones to be compared) and the names of
 # folders to store them in, as its arguments.
 
 def create_kml_file(first_location_list, second_location_list, first_folder_name, second_folder_name, output_folder):
@@ -31,7 +31,7 @@ def initialise_folders(first_folder_name, second_folder_name):
     return kml, folder_one, folder_two, line_of_sight_folder
 
 
-# Returns a list of points for the given list of locations.  Takes a list of location objects and the folder in which
+# Returns a list of points for the given list of locations.  Takes a list of classes objects and the folder in which
 # to store the points, as it's arguments.
 
 def create_points(location_list, which_folder):
@@ -47,7 +47,7 @@ def create_points(location_list, which_folder):
 
 
 # Returns a list of linestrings (used to indicate line of sight between the two matched locations).  Takes two lists
-# of location objects and the folder to store the line strings in as its arguments.
+# of classes objects and the folder to store the line strings in as its arguments.
 
 def create_linestrings(location_list_one, location_list_two, linestring_folder):
     linestring_list = []

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from main.location import Location
+from main.classes import Location
 from main.sample_points_calculator import calculate_intervals, generate_path_coordinates_list
 
 
