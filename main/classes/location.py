@@ -3,9 +3,9 @@ from abc import ABC, abstractmethod
 
 class Location(ABC):
     def __init__(self, *args, **kwargs):
-        self.y = args[0]
-        self.x = args[1]
-        self.height = args[2]
+        self._y = args[0]
+        self._x = args[1]
+        self._height = args[2]
         self.name = args[3]
         self.distance_units = kwargs.get("distance_units", "NAUTICAL MILES")
         self.height_units = kwargs.get("height_units", "FEET")
@@ -13,14 +13,32 @@ class Location(ABC):
     @property
     @abstractmethod
     def y(self):
-        return self._y
+        pass
+
+    @y.setter
+    @abstractmethod
+    def y(self, value):
+        pass
 
     @property
     @abstractmethod
     def x(self):
-        return self._x
+        pass
+
+    @x.setter
+    @abstractmethod
+    def x(self, value):
+        pass
+
+    @property
+    @abstractmethod
+    def height(self):
+        pass
 
     @abstractmethod
     def __str__(self):
-        return '{self.name} is a Location at y: {self.y}, x: {self.x}.  With a height of {self.height}' \
-               ' {self.height_units}.'.format(self=self)
+        pass
+
+    @abstractmethod
+    def __eq__(self, other):
+        pass

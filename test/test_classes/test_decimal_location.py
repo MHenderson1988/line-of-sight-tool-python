@@ -9,6 +9,8 @@ class TestLocation(TestCase):
         self.test = DecimalLocation(55.11, -4.11, 500, "Test")
         # Metres
         self.test2 = DecimalLocation(55.11, -4.11, 500, "Test2", height_units="METRES")
+        # For equality test
+        self.test3 = DecimalLocation(55.11, -4.11, 20, "Test 3")
 
     def test_string(self):
         # Test Feet
@@ -20,3 +22,7 @@ class TestLocation(TestCase):
         expected = "Test2 is a location of decimal latitude and longitude at latitude: 55.11, longitude: -4.11," \
                    "at a height of 500 METRES"
         self.assertEqual(expected, self.test2.__str__())
+
+    def test_equality(self):
+        self.assertTrue(self.test.__eq__(self.test2))
+        self.assertFalse(self.test.__eq__(self.test3))
