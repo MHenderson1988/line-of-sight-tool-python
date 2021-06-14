@@ -55,9 +55,9 @@ class GridLocation(Location, ABC):
         try:
             transformer = Transformer.from_crs('epsg:27700', 'epsg:4326')
             x, y = transformer.transform(self.x, self.y)
-            location = DecimalLocation(y, x, self.height, self.name, distance_units=self.distance_units,
+            aLocation = DecimalLocation(y, x, self.height, self.name, distance_units=self.distance_units,
                                        height_units=self.height_units)
+            return aLocation
         except Exception:
             print("An exception occurred when converting a GridLocation to a DecimalLocation")
-        return location
 

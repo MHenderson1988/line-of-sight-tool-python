@@ -1,3 +1,4 @@
+import math
 from unittest import TestCase
 
 from main.classes.decimal_location import DecimalLocation
@@ -14,12 +15,12 @@ class TestLocation(TestCase):
 
     def test_string(self):
         # Test Feet
-        expected = "Test is a location of decimal latitude and longitude at latitude: 55.11, longitude: -4.11," \
+        expected = "Test is a location of decimal latitude and longitude at latitude: 55.111222, longitude: -4.111222," \
                    "at a height of 500 FEET"
         self.assertEqual(expected, self.test.__str__())
 
         # Test Metres
-        expected = "Test2 is a location of decimal latitude and longitude at latitude: 55.11, longitude: -4.11," \
+        expected = "Test2 is a location of decimal latitude and longitude at latitude: 55.111222, longitude: -4.111222," \
                    "at a height of 500 METRES"
         self.assertEqual(expected, self.test2.__str__())
 
@@ -39,3 +40,8 @@ class TestLocation(TestCase):
 
         for i in expected:
             self.assertEqual(i, queue.popleft())
+
+    def test_great_circle(self):
+        expected = 661.0
+        # Assert within 5% tolerance
+        self.assertTrue(math.isclose(expected,  self.test.great_circle(self.test3), rel_tol=0.05))

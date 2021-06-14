@@ -7,7 +7,7 @@ class Location(ABC):
         self._x = args[1]
         self._height = args[2]
         self.name = args[3]
-        self.distance_units = kwargs.get("distance_units", "NAUTICAL MILES")
+        self.distance_units = kwargs.get("distance_units", "NAUTICAL_MILES")
         self.height_units = kwargs.get("height_units", "FEET")
 
     @property
@@ -41,12 +41,4 @@ class Location(ABC):
 
     @abstractmethod
     def __eq__(self, other):
-        pass
-
-    @abstractmethod
-    def calculate_interval(self, aObject, samples):
-        pass
-
-    @abstractmethod
-    def populate_path(self):
         pass

@@ -3,10 +3,10 @@ from abc import ABC
 
 from main.classes.location import Location
 from collections import deque
+from haversine import haversine, Unit
 
 
 class DecimalLocation(Location, ABC):
-
     @property
     def y(self):
         return self._y
@@ -48,6 +48,7 @@ class DecimalLocation(Location, ABC):
         int_lon = (aObject.x - self.x) / samples
         return int_lat, int_lon
 
+    # Returns a queue of y, x values which represent the sampled points between the two locations
     def populate_path(self, aObject, samples):
         assert isinstance(aObject, DecimalLocation), \
             "Error: calculate_interval is only valid with other DecimalLocation objects"
@@ -58,3 +59,7 @@ class DecimalLocation(Location, ABC):
             queue.append((new_y, new_x))
         return queue
 
+    # Returns the great circle distance between the two DecimalLocations.  Used to create the arc_length of the
+    # ArcSolver class.  Distance units are calculated using the calling objects value.
+    def great_circle(self, aObject):
+        return haversine((self.y, self.x), (aObject.y, aObject.x), unit=Unit.__getattr__(self.distance_units))

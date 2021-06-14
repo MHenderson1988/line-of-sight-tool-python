@@ -2,8 +2,6 @@
 # This will be used to convert output values to the user's desired unit of measurement.
 from typing import Union
 
-from haversine import haversine, Unit
-
 
 # Converts the given argument from metres to feet assuming 1 metre == 3.281 feet
 def metres_to_feet(value_in_metres) -> float:
@@ -18,18 +16,5 @@ def define_earth_radius(unit_of_distance) -> Union[float, Exception]:
         return 3958.8
     elif unit_of_distance == "KILOMETRES":
         return 6371.0
-    else:
-        return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
-
-
-# Returns the great circle distance in the correct units of measurement, depending on what the user specified on the GUI
-# Takes arguments of units of distance and two positions with long/lat
-def calculate_great_circle_distance(pos_1, pos_2, unit_of_distance):
-    if unit_of_distance == "NAUTICAL MILES":
-        return haversine(pos_1, pos_2, unit=Unit.NAUTICAL_MILES)
-    elif unit_of_distance == "MILES":
-        return haversine(pos_1, pos_2, unit=Unit.MILES)
-    elif unit_of_distance == "KILOMETRES":
-        return haversine(pos_1, pos_2, unit=Unit.KILOMETERS)
     else:
         return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")

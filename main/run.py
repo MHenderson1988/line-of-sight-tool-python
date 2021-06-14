@@ -1,11 +1,10 @@
 import time
 
 from main.api_handling import data_handling_google_api
-from main.classes import location_reference_converter, circle
+from main.classes import circle
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
-from main.unit_conversion import define_earth_radius, calculate_great_circle_distance
-from main.validation_handling import validate_longitude_latitude
+from main.unit_conversion import define_earth_radius
 
 
 def run_graphing_and_kml_process(input_file_one, input_file_two, height_units,
