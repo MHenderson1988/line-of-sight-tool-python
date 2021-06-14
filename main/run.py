@@ -1,7 +1,7 @@
 import time
 
 from main.api_handling import data_handling_google_api
-from main.classes import circle
+from main.classes import arc_solver
 from main.graph_processing import create_graph
 from main.kml_generator import create_kml_file
 from main.unit_conversion import define_earth_radius
@@ -36,9 +36,9 @@ def run_graphing_and_kml_process(input_file_one, input_file_two, height_units,
                 great_circle_distance = calculate_great_circle_distance(pos_1, pos_2, distance_units)
 
                 # Create a circle object to simulate curvature of the earth.
-                c1 = circle.ArcSolver(earth_radius, great_circle_distance, samples=int(samples),
-                                      distance=distance_units,
-                                      height=height_units)
+                c1 = arc_solver.ArcSolver(earth_radius, great_circle_distance, samples=int(samples),
+                                          distance=distance_units,
+                                          height=height_units)
 
                 # Construct api url and extract the elevation data
                 elevation_data = data_handling_google_api.send_and_receive_data_google_elevation(

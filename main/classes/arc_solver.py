@@ -7,10 +7,25 @@ import math
 import numpy as np
 
 
-# Returns a converted height unit based upon the distance and height units of measurement input by the user
+# Converts the given argument from metres to feet assuming 1 metre == 3.281 feet
+def metres_to_feet(value_in_metres) -> float:
+    return value_in_metres * 3.281
 
+
+# Convert the x_values to the correct unit measurement, as specified by the user
+def define_earth_radius(unit_of_distance):
+    if unit_of_distance == "NAUTICAL_MILES":
+        return 3440.065
+    elif unit_of_distance == "MILES":
+        return 3958.8
+    elif unit_of_distance == "KILOMETRES":
+        return 6371.0
+    else:
+        return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
+
+# Returns a converted height unit based upon the distance and height units of measurement input by the user
 def convert_y_values(y_value, distance_units, height_units):
-    if distance_units == "NAUTICAL MILES":
+    if distance_units == "NAUTICAL_MILES":
         if height_units == "FEET":
             return y_value * 6076
         if height_units == "METRES":
@@ -41,7 +56,7 @@ class ArcSolver:
     def __init__(self, *args, **kwargs):
         self.radius = args[0]
         self.arc_length = args[1]
-        self.samples = kwargs.get("samples", 150)
+        self.samples = args[2]
         self.distance_units = kwargs.get("distance", "NAUTICAL MILES")
         self.height_units = kwargs.get("height", "FEET")
         self.radians = self.arc_length / self.radius

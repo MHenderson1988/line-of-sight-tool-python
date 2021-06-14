@@ -10,7 +10,7 @@ def metres_to_feet(value_in_metres) -> float:
 
 # Convert the x_values to the correct unit measurement, as specified by the user
 def define_earth_radius(unit_of_distance) -> Union[float, Exception]:
-    if unit_of_distance == "NAUTICAL MILES":
+    if unit_of_distance == "NAUTICAL_MILES":
         return 3440.065
     elif unit_of_distance == "MILES":
         return 3958.8
