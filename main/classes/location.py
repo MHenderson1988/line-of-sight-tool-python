@@ -35,10 +35,23 @@ class Location(ABC):
     def height(self):
         pass
 
+    @height.setter
+    @abstractmethod
+    def height(self, aHeight):
+        pass
+
     @abstractmethod
     def __str__(self):
         pass
 
     @abstractmethod
     def __eq__(self, other):
+        pass
+
+    @abstractmethod
+    def calculate_interval(self, aObject, samples):
+        pass
+
+    @abstractmethod
+    def convert_height(self):
         pass

@@ -3,17 +3,16 @@ import threading
 
 import PySimpleGUI as sg
 
-from main.run import run_graphing_and_kml_process
-from main.validation_handling import validate_google_sample_number
+from main.classes.line_of_sight import LineOfSight
 
 layout = [
     [sg.Text('First batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='first_file_location'), sg.FileBrowse()],
     [sg.Text('Second batch of locations to process: ')],
     [sg.InputText('', size=(60, 1), key='second_file_location'), sg.FileBrowse()],
-    [sg.Text('Units of height: '), sg.Combo(['Metres', 'Feet'], key='height_units', default_value='Metres'),
-     sg.Text('Units of distance: '), sg.Combo(['Nautical miles', 'Miles', 'Kilometres'], key='distance_units',
-                                              default_value='Nautical miles')],
+    [sg.Text('Units of height: '), sg.Combo(['METRES', 'FEET'], key='height_units', default_value='METRES'),
+     sg.Text('Units of distance: '), sg.Combo(['NAUTICAL_MILES', 'MILES', 'KILOMETRES'], key='distance_units',
+                                              default_value='NAUTICAL_MILES')],
     [sg.Text('Select and output folder: ')],
     [sg.InputText('', size=(60, 1), key='folder_output'), sg.FolderBrowse()],
     [sg.Text('Google elevation api key: ')],
@@ -36,9 +35,10 @@ def run_application():
     output_folder = values['folder_output']
     api = values['api_key']
     amount_samples = int(values['samples'])
-    validate_google_sample_number(amount_samples)
-    run_graphing_and_kml_process(first_file, second_file, height_units, distance_units, output_folder, api,
-                                 amount_samples)
+
+    los = LineOfSight(first_file, second_file, samples=amount_samples, key=api, height_units=height_units,
+                      distance_units=distance_units, output=output_folder)
+    los.get_los()
 
 
 while True:

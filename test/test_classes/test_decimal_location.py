@@ -29,7 +29,7 @@ class TestLocation(TestCase):
         self.assertFalse(self.test.__eq__(self.test3))
 
     def test_calculate_interval(self):
-        expected_lat, expected_lon = 11.0/4, -1.0/4
+        expected_lat, expected_lon = 11.0 / 4, -1.0 / 4
         actual_lat, actual_lon = self.test.calculate_interval(self.test3, 4)
         self.assertEqual(expected_lat, actual_lat)
         self.assertEqual(expected_lon, actual_lon)
@@ -44,4 +44,4 @@ class TestLocation(TestCase):
     def test_great_circle(self):
         expected = 661.0
         # Assert within 5% tolerance
-        self.assertTrue(math.isclose(expected,  self.test.great_circle(self.test3), rel_tol=0.05))
+        self.assertTrue(math.isclose(expected, self.test.great_circle(self.test3), rel_tol=0.05))

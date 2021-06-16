@@ -1,15 +1,17 @@
-import collections
 import csv
 import traceback
-
 from collections import deque
+
 from main.classes.decimal_location import DecimalLocation
 from main.classes.grid_location import GridLocation
 
 
-class LocationFactory():
+class LocationFactory:
     def __init__(self, *args, **kwargs):
         self._file = args[0]
+        self.distance_units = kwargs.get('distance', "NAUTICAL_MILES")
+        self.height_units = kwargs.get('height', "FEET")
+        self.locations = self.process_data()
 
     @property
     def file(self):
@@ -22,9 +24,6 @@ class LocationFactory():
         else:
             traceback.print_exc()
             return ValueError("Files must be in .csv format")
-
-    def process(self):
-        queue = deque(self.process_data())
 
     def process_data(self):
         with open(self.file, newline='') as f:
@@ -40,12 +39,12 @@ class LocationFactory():
                     return ValueError("Did not detect OSBG or Decimal Latitude/Longitude.  Please check headers are"
                                       "correctly labelled in the .csv file supplied")
 
-
     def process_decimal(self, aReader):
-        queue = collections.deque()
+        queue = deque()
         for row in aReader:
             try:
-                loc = DecimalLocation(row['latitude'], row['longitude'], row['height'], row['name'])
+                loc = DecimalLocation(row['latitude'], row['longitude'], row['height'], row['name'],
+                                      distance_units=self.distance_units, height_units=self.height_units)
                 queue.append(loc)
             except Exception:
                 print("Exception occured creating a DecimalLocation object and appending it to the queue in the"
@@ -54,10 +53,11 @@ class LocationFactory():
         return queue
 
     def process_osbg(self, aReader):
-        queue = collections.deque()
+        queue = deque()
         for row in aReader:
             try:
-                loc = GridLocation(row['northing'], row['easting'], row['height'], row['name'])
+                loc = GridLocation(row['northing'], row['easting'], row['height'], row['name'],
+                                   distance_units=self.distance_units, height_units=self.height_units)
                 dec_loc = loc.to_decimal()
                 queue.append(dec_loc)
             except Exception:
