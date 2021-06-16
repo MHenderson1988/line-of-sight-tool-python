@@ -3,34 +3,9 @@
 # final graph.  This is important to represent as the curvature of the Earth makes a big difference to whether
 # or not, line of sight exists between locations.
 import math
+from collections import deque
 
 import numpy as np
-
-
-# Returns a converted height unit based upon the distance and height units of measurement input by the user
-
-def convert_y_values(y_value, distance_units, height_units):
-    if distance_units == "NAUTICAL MILES":
-        if height_units == "FEET":
-            return y_value * 6076
-        if height_units == "METRES":
-            return y_value * 1852
-        else:
-            return Exception("Something went wrong converting nautical miles to the selected height units")
-    elif distance_units == "KILOMETRES":
-        if height_units == "FEET":
-            return y_value * 3281
-        if height_units == "METRES":
-            return y_value * 1000
-        else:
-            return Exception("Something went wrong converting Kilometres to the selected height units")
-    elif distance_units == "MILES":
-        if height_units == "FEET":
-            return y_value * 5280
-        if height_units == "METRES":
-            return y_value * 1609.34
-    else:
-        return Exception("Something went wrong converting y values from the distance units to the height units.")
 
 
 class ArcSolver:
@@ -42,7 +17,7 @@ class ArcSolver:
         self.radius = args[0]
         self.arc_length = args[1]
         self.samples = kwargs.get("samples", 150)
-        self.distance_units = kwargs.get("distance", "NAUTICAL MILES")
+        self.distance_units = kwargs.get("distance", "NAUTICAL_MILES")
         self.height_units = kwargs.get("height", "FEET")
         self.radians = self.arc_length / self.radius
         self.chord_length = 2 * self.radius * np.sin(self.radians / 2)
@@ -59,19 +34,43 @@ class ArcSolver:
         self.y_coordinates = self.calculate_earth_surface_y_values()
 
     # Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
-    # in nautical miles.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
+    # in NAUTICAL_MILES.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
     # effects line of sight visibility.
-    def calculate_earth_surface_y_values(self) -> np.ndarray:
+    def calculate_earth_surface_y_values(self):
         assert self.samples == len(self.x_coordinates)
-        y_values_list = []
+        y_values_list = deque()
         for j in self.angles_list:
             # Calculate the y axis value (height) for the corresponding x value (distance).  Subtract the apothem
             # of the circle to ensure the arc starts at coordinates 0,0 and ends at zero again on the y axis
             y = self.radius * math.sin(j) - self.arc_apothem
-            y = convert_y_values(y, self.distance_units, self.height_units)
+            y = self.convert_y_values(y)
             y_values_list.append(y)
 
         return y_values_list
+
+    # Returns a converted height unit based upon the distance and height units of measurement input by the user
+    def convert_y_values(self, y_value):
+        if self.distance_units == "NAUTICAL_MILES":
+            if self.height_units == "FEET":
+                return y_value * 6076
+            if self.height_units == "METRES":
+                return y_value * 1852
+            else:
+                return Exception("Something went wrong converting NAUTICAL_MILES to the selected height units")
+        elif self.distance_units == "KILOMETRES":
+            if self.height_units == "FEET":
+                return y_value * 3281
+            if self.height_units == "METRES":
+                return y_value * 1000
+            else:
+                return Exception("Something went wrong converting Kilometres to the selected height units")
+        elif self.distance_units == "MILES":
+            if self.height_units == "FEET":
+                return y_value * 5280
+            if self.height_units == "METRES":
+                return y_value * 1609.34
+        else:
+            return Exception("Something went wrong converting y values from the distance units to the height units.")
 
     # Returns true if arc length and radius are identical to another instance
     def __eq__(self, o: object) -> bool:
