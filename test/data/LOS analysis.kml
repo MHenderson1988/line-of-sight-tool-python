@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <open>1</open>
+        <Folder id="2">
+            <name>First locations</name>
+            <Placemark id="6">
+                <name>House 1</name>
+                <Point id="5">
+                    <coordinates>-1.6918945,55.053203,200</coordinates>
+                    <extrude>1</extrude>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                </Point>
+            </Placemark>
+        </Folder>
+        <Folder id="3">
+            <name>Second locations</name>
+            <Placemark id="8">
+                <name>Fawcett street</name>
+                <Point id="7">
+                    <coordinates>-1.3819796963744007,54.906163249976245,150</coordinates>
+                    <extrude>1</extrude>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                </Point>
+            </Placemark>
+        </Folder>
+        <Folder id="4">
+            <name>LOS vectors</name>
+            <Placemark id="10">
+                <name>House 1, Fawcett street</name>
+                <LineString id="9">
+                    <coordinates>-1.6918945,55.053203,200 -1.3819796963744007,54.906163249976245,150</coordinates>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                </LineString>
+            </Placemark>
+        </Folder>
+    </Document>
+</kml>

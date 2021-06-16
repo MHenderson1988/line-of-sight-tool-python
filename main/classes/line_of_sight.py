@@ -5,6 +5,7 @@ from main.api_handling.google_handler import GoogleHandler
 from main.classes.LocationFactory import LocationFactory
 from main.classes.arc_solver import ArcSolver
 from main.classes.graph import Graph
+from main.classes.kml import Kml
 
 DESKTOP = os.path.expanduser("~/Desktop")
 
@@ -47,3 +48,8 @@ class LineOfSight:
                     los_graph.build()
                 except Exception:
                     traceback.print_exc()
+        try:
+            kml = Kml(self.locations_1.locations, self.locations_2.locations, output=self.output_fol)
+            kml.create()
+        except Exception:
+            traceback.print_exc()

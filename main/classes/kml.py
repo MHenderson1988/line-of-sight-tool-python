@@ -1,5 +1,5 @@
 import os
-from collections import deque
+import traceback
 
 import simplekml
 
@@ -17,14 +17,16 @@ class Kml:
         self.output_path = kwargs.get('output', DESKTOP)
 
     def create(self):
-        self.create_points()
-        self.create_linestrings()
-        save_string = self.output_path + "/LOS analysis"
-        self.kml_obj.save(save_string)
-        return print(".KML creation complete")
+        try:
+            self.create_points()
+            self.create_linestrings()
+            save_string = self.output_path + "/LOS analysis.kml"
+            self.kml_obj.save(save_string)
+            return print(".KML creation complete")
+        except Exception:
+            traceback.print_exc()
 
     def create_points(self):
-        points = deque()
         for i in self.loc1:
             point = self.fol1.newpoint(name=i.name, coords=[(i.x, i.y, i.height)])
             point.altitudemode = simplekml.AltitudeMode.relativetoground
@@ -35,19 +37,12 @@ class Kml:
             point.altitudemode = simplekml.AltitudeMode.relativetoground
             point.extrude = 1
 
-        return points
-
     def create_linestrings(self):
         locs1 = self.loc1
         locs2 = self.loc2
 
-        linestrings = deque()
-
         for i in locs1:
             for j in locs2:
                 linestring = self.lsfol.newlinestring(name=i.name + ', ' + j.name)
-                linestring.coords = [(i.y, i.x, i.height), (j.y, j.x, j.height)]
+                linestring.coords = [(i.x, i.y, i.height), (j.x, j.y, j.height)]
                 linestring.altitudemode = simplekml.AltitudeMode.relativetoground
-                linestrings.append(linestring)
-
-        return linestrings

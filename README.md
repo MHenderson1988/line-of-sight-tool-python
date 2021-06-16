@@ -18,7 +18,7 @@ original to be used for any generic location or object you desire. I hope this h
 
 ```git clone https://github.com/MHenderson1988/line-of-sight-analysis.git```
 
-Run gui.py and follow the on-screen instructions.
+Run main/view/gui.py and follow the on-screen instructions.
 
 ### Before you start
 
@@ -31,21 +31,25 @@ To run the application, in it's current form, you will require -
 
 Currently the application can convert between the following -
 
-* Decimal latitude/longitude\
-* Eastings and Northings\
+* Decimal latitude/longitude
+* Eastings and Northings (OSBG36)
 
 ### Example .csv file
 
-Update - May 2021 All csv processing is now automated for Eastings and Northings and decimal degrees. OS Grid no longer
-supported due to inaccuracy.  
-Accepted csv headings - 'Latitude, Longitude, Height, Name' or 'Easting, Northing, Height, Name' (in any order).
 ![An example of a valid .csv file using decimal latitude/longitude](img/csv_example.png)
+
+.csv files must use valid headers of -
+
+* latitude/easting
+* longitude/northing
+* height
+* name
 
 The above example uses decimal latitude/longitude.
 
-Row 1 - Latitude (Float)\
-Row 2 - Longitude (Float)\
-Row 3 - Height, in metres (int/float)\
+Row 1 - Latitude (Float)
+Row 2 - Longitude (Float)
+Row 3 - Height, in metres (int/float)
 Row 4 - Unique name (String)
 
 ### Example output
