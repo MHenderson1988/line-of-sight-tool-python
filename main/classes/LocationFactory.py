@@ -30,14 +30,15 @@ class LocationFactory:
             reader = csv.DictReader(f, skipinitialspace=True)
             header = reader.fieldnames
             for words in header:
-                if words == 'easting':
-                    return self.process_osbg(reader)
-                if words == 'latitude':
-                    return self.process_decimal(reader)
-                else:
-                    traceback.print_exc()
+                try:
+                    if words == 'easting':
+                        return self.process_osbg(reader)
+                    if words == 'latitude':
+                        return self.process_decimal(reader)
+                except Exception:
                     return ValueError("Did not detect OSBG or Decimal Latitude/Longitude.  Please check headers are"
                                       "correctly labelled in the .csv file supplied")
+                    traceback.print_exc()
 
     def process_decimal(self, aReader):
         queue = deque()
