@@ -23,7 +23,7 @@ class LineOfSight:
 
     def earth_radius(self):
         if self.distance_units == "NAUTICAL_MILES":
-            return 3440.065
+            return 3443.92
         elif self.distance_units == "MILES":
             return 3958.8
         elif self.distance_units == "KILOMETRES":

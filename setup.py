@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="geographic-line-of-sight",  # Replace with your own username
-    version="1.0-alpha",
+    version="1.0.2",
     author="Mark Henderson",
     author_email="mark.henderson1988@gmail.com",
     description="A tool which uses google elevation API to batch process geographical"
