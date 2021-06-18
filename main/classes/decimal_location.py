@@ -1,4 +1,5 @@
 # Decimal classes is used for decimal latitude and longitude locations
+import traceback
 from abc import ABC
 from collections import deque
 
@@ -40,18 +41,41 @@ class DecimalLocation(Location, ABC):
     def height(self, aHeight):
         self._height = aHeight
 
+    """
+    Returns a string representation of the object, including the name, y and x coordinates and the height with
+    specified units.
+    """
+
     def __str__(self):
         return "{self.name} is a location of decimal latitude and longitude at latitude: {self.y}, longitude: {self.x}," \
                "at a height of {self.height} {self.height_units}".format(self=self)
 
+    """
+    Returns true when compared to another decimal location with identical y and x coordinates and height.
+    """
+
     def __eq__(self, other):
         return self._y == other.y and self._x == other.x and self._height == other.height
 
+    """
+    Returns the incremental value of the difference between two sets of decimal degree coordinates.  This is found by
+    subtracting the instances latitude and longitude from the object passed as the argument.  Accepts another 
+    DecimalLocation object as it's argument or throws an AttributeError
+    """
+
     # Method which returns the lat/long interval between the object and another decimal_location.
     def calculate_interval(self, aObject, samples):
-        int_lat = (aObject.y - self.y) / samples
-        int_lon = (aObject.x - self.x) / samples
-        return int_lat, int_lon
+        try:
+            int_lat = (aObject.y - self.y) / samples
+            int_lon = (aObject.x - self.x) / samples
+            return int_lat, int_lon
+        except TypeError:
+            traceback.print_exc()
+            print("calculate_interval() only must have a valid DecimalLocation object passed as it's argument.")
+
+    """
+    Converts the objects height attribute to another value depending on the supplied height_units upon creation.
+    """
 
     def convert_height(self):
         if self.distance_units == "NAUTICAL_MILES":
@@ -77,19 +101,37 @@ class DecimalLocation(Location, ABC):
             return Exception(
                 "Something went wrong converting y values from the distance units to the height units.")
 
-    # Returns a queue of y, x values which represent the sampled points between the two locations
+    """
+    Returns a queue of coordinates in decimal degree format.  These are sampled at evenly distributed distances on the
+    path between the object and the other DecimalLocation object which is passed as it's argument.  
+    
+    Note - this currently isn't used in the running of application due to the 'path' function supplied by Google
+    Elevation API however it was included as a means to an end should it ever need to be utilised.
+    """
+
     def populate_path(self, aObject, samples):
-        assert isinstance(aObject, DecimalLocation), \
-            "Error: calculate_interval is only valid with other DecimalLocation objects"
-        y_int, x_int = self.calculate_interval(aObject, samples)
-        queue = deque([(self.y, self.x)])
-        for i in range(samples):
-            new_y, new_x = round((queue[-1][0] + y_int), 6), round((queue[-1][1] + x_int), 6)
-            queue.append((new_y, new_x))
-        return queue
+        try:
+            y_int, x_int = self.calculate_interval(aObject, samples)
+            queue = deque([(self.y, self.x)])
+            for i in range(samples):
+                new_y, new_x = round((queue[-1][0] + y_int), 6), round((queue[-1][1] + x_int), 6)
+                queue.append((new_y, new_x))
+            return queue
+        except TypeError:
+            traceback.print_exc()
+            print("populate_path() accepts only valid DecimalDegree instances as it's argument.")
+
+    """
+    Returns a floating point number representing the great circle distance between the object and the argument.  
+    Only accepts valid DecimalLocation objects as it's argument.
+    """
 
     # Returns the great circle distance between the two DecimalLocations.  Used to create the arc_length of the
     # ArcSolver class.  Distance units are calculated using the calling objects value.
     def great_circle(self, aObject):
-        return haversine((float(self.y), float(self.x)), (float(aObject.y), float(aObject.x)),
-                         unit=Unit.__getattr__(self.distance_units))
+        try:
+            return haversine((float(self.y), float(self.x)), (float(aObject.y), float(aObject.x)),
+                             unit=Unit.__getattr__(self.distance_units))
+        except TypeError:
+            traceback.print_exc()
+            print("great_circle() only accepts valid DecimalLocation objects as it's argument.")

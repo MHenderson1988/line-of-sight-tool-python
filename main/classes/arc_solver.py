@@ -14,9 +14,9 @@ class ArcSolver:
     # between two positions on the perimeter of the circle).  Optional kwargs of sample and distance/height units.
 
     def __init__(self, *args, **kwargs):
-        self.radius = args[0]
-        self.arc_length = args[1]
-        self.samples = kwargs.get("samples", 150)
+        self.radius = float(args[0])
+        self.arc_length = float(args[1])
+        self.samples = int(kwargs.get("samples", 150))
         self.distance_units = kwargs.get("distance", "NAUTICAL_MILES")
         self.height_units = kwargs.get("height", "FEET")
         self.radians = self.arc_length / self.radius
