@@ -16,6 +16,11 @@ class Graph:
         self.output_path = kwargs.get('output', DESKTOP)
         self.los_line = self.get_los_line()
 
+    """
+    Saves an image of the graph which is created using ArcSolver x and y values to draw the curvature of the earth.
+    The Y values provided from the elevation data are then overlaid above the ArcSolver data.
+    """
+
     def build(self):
         try:
             assert len(self.earth.y_coordinates) == len(self.elevation_data), \
@@ -40,10 +45,21 @@ class Graph:
         except Exception:
             traceback.print_exc()
 
+    """
+    Returns a NDArray of y-axis values which will be used to draw a straight line between the first and second location.
+    These values will also be used to look for locations along the path where the terrain data is of a higher value
+    at each sample point which indicates terrain is blocking the line of sight.
+    """
+
     def get_los_line(self):
         loc_1 = float(self.loc1.height) + self.elevation_data[0]
         loc_2 = float(self.loc2.height) + self.elevation_data[-1]
         return np.linspace(loc_1, loc_2, len(self.elevation_data))
+
+    """
+    Returns true if at the sampled point, the terrain elevation value is greater than the line of sight value between
+    two locations.  Returns false if each point is of greater value than the terrain data.
+    """
 
     def does_intersect(self):
         i = 0
@@ -53,6 +69,10 @@ class Graph:
             else:
                 i += 1
         return False
+
+    """
+    Returns red if LOS line intersects with the terrain data and green if not.
+    """
 
     def select_colour(self):
         if self.does_intersect():

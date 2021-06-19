@@ -9,14 +9,15 @@ import numpy as np
 
 
 class ArcSolver:
-
-    # ArcSolver class accepts two required arguments of radius and arc_length (Representing the great circle distance
-    # between two positions on the perimeter of the circle).  Optional kwargs of sample and distance/height units.
+    """
+    ArcSolver class accepts two required arguments of radius and arc_length (Representing the great circle distance
+    between two positions on the perimeter of the circle).  Optional kwargs of sample and distance/height units.
+    """
 
     def __init__(self, *args, **kwargs):
-        self.radius = args[0]
-        self.arc_length = args[1]
-        self.samples = kwargs.get("samples", 150)
+        self.radius = float(args[0])
+        self.arc_length = float(args[1])
+        self.samples = int(kwargs.get("samples", 150))
         self.distance_units = kwargs.get("distance", "NAUTICAL_MILES")
         self.height_units = kwargs.get("height", "FEET")
         self.radians = self.arc_length / self.radius
@@ -33,9 +34,12 @@ class ArcSolver:
         self.x_coordinates = np.linspace(0, self.arc_length, self.samples).tolist()
         self.y_coordinates = self.calculate_earth_surface_y_values()
 
-    # Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
-    # in NAUTICAL_MILES.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
-    # effects line of sight visibility.
+    """ 
+    Returns a numpy array of y-axis values for mapping on matplotlib graph.  x values list is a list of distances
+    in NAUTICAL_MILES.  Each y-axis value represents the rising and falling of the earth to simulate 'curvature' which
+    effects line of sight visibility.
+    """
+
     def calculate_earth_surface_y_values(self):
         assert self.samples == len(self.x_coordinates)
         y_values_list = deque()
@@ -48,7 +52,12 @@ class ArcSolver:
 
         return y_values_list
 
-    # Returns a converted height unit based upon the distance and height units of measurement input by the user
+    """
+    Returns a converted height unit based upon the distance and height units of measurement input by the user.
+    This ensures that it will later be represented correctly on any graph software relative to the height units 
+    provided for the terrain data.
+    """
+
     def convert_y_values(self, y_value):
         if self.distance_units == "NAUTICAL_MILES":
             if self.height_units == "FEET":
@@ -72,13 +81,19 @@ class ArcSolver:
         else:
             return Exception("Something went wrong converting y values from the distance units to the height units.")
 
-    # Returns true if arc length and radius are identical to another instance
+    """
+    Returns true if arc length and radius are identical to another instance
+    """
+
     def __eq__(self, o: object) -> bool:
         if isinstance(o, ArcSolver):
             if (o.radius == self.radius) & (o.arc_length == self.arc_length):
                 return True
             return False
 
-    # Returns the string value of the object
+    """
+    Returns the string value of the object
+    """
+
     def __str__(self) -> str:
         return 'A circle with a radius of {self.radius} and an arc length of {self.arc_length}'.format(self=self)
