@@ -13,17 +13,32 @@ class DecimalLocation(Location, ABC):
     def y(self):
         return self._y
 
+    """
+    Sets the value of the y coordinate to the value provided.  Will attempt to cast non-floating point numbers
+    """
     @y.setter
     def y(self, value):
         if 90.0 < value < -90.0:
             exc_str = "%f must be less than %f and greater than %f" % (value, 90.0, -90.0)
             raise ValueError(exc_str)
         else:
-            self._y = value
+            if isinstance(value, float):
+                self._y = value
+            else:
+                try:
+                    self._y = float(value)
+                except ValueError:
+                    traceback.print_exc()
+                    print("y must be a floating point number or castable type.")
 
     @property
     def x(self):
         return self._x
+
+    """
+    Sets the x coordinate to the desired value.  If not a floating point number will attempt to cast or throw an
+    exception if the value is not castable.
+    """
 
     @x.setter
     def x(self, value):
@@ -31,15 +46,34 @@ class DecimalLocation(Location, ABC):
             exc_str = "%f must be less than %f and greater than %f" % (value, 180.0, -180.0)
             raise ValueError(exc_str)
         else:
-            self._y = value
+            if isinstance(value, float):
+                self._y = value
+            else:
+                try:
+                    self._y = float(value)
+                except ValueError:
+                    traceback.print_exc()
+                    print("X must be a floating point number or other castable type.")
 
     @property
     def height(self):
         return self._height
 
+    """
+    Sets the height to the specified floating point number.  If a floating point number is not provided it will attempt
+    to cast to float.  Throws an exception if the type is not castable.
+    """
+
     @height.setter
     def height(self, aHeight):
-        self._height = aHeight
+        if isinstance(aHeight, float):
+            self._height = aHeight
+        else:
+            try:
+                self._height = float(aHeight)
+            except ValueError:
+                traceback.print_exc()
+                print("Height must be a floating point number or other castable type.")
 
     """
     Returns a string representation of the object, including the name, y and x coordinates and the height with
