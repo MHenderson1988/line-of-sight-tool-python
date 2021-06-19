@@ -16,6 +16,7 @@ class DecimalLocation(Location, ABC):
     """
     Sets the value of the y coordinate to the value provided.  Will attempt to cast non-floating point numbers
     """
+
     @y.setter
     def y(self, value):
         if 90.0 < value < -90.0:
@@ -97,7 +98,6 @@ class DecimalLocation(Location, ABC):
     DecimalLocation object as it's argument or throws an AttributeError
     """
 
-    # Method which returns the lat/long interval between the object and another decimal_location.
     def calculate_interval(self, aObject, samples):
         try:
             int_lat = (aObject.y - self.y) / samples

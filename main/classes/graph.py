@@ -60,6 +60,7 @@ class Graph:
     Returns true if at the sampled point, the terrain elevation value is greater than the line of sight value between
     two locations.  Returns false if each point is of greater value than the terrain data.
     """
+
     def does_intersect(self):
         i = 0
         while i < len(self.los_line):

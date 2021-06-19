@@ -9,7 +9,6 @@ import numpy as np
 
 
 class ArcSolver:
-
     """
     ArcSolver class accepts two required arguments of radius and arc_length (Representing the great circle distance
     between two positions on the perimeter of the circle).  Optional kwargs of sample and distance/height units.

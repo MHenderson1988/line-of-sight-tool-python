@@ -1,5 +1,4 @@
 import os
-import traceback
 
 import simplekml
 
@@ -16,15 +15,20 @@ class Kml:
         self.lsfol = self.kml_obj.newfolder(name="LOS vectors")
         self.output_path = kwargs.get('output', DESKTOP)
 
+    """
+    Saves the .kml file and returns a message to tell you when complete
+    """
+
     def create(self):
-        try:
-            self.create_points()
-            self.create_linestrings()
-            save_string = self.output_path + "/LOS analysis.kml"
-            self.kml_obj.save(save_string)
-            return print(".KML creation complete")
-        except Exception:
-            traceback.print_exc()
+        self.create_points()
+        self.create_linestrings()
+        save_string = self.output_path + "/LOS analysis.kml"
+        self.kml_obj.save(save_string)
+        return print(".KML creation complete")
+
+    """
+    Creates a point on the kml file for each location supplied
+    """
 
     def create_points(self):
         for i in self.loc1:
@@ -36,6 +40,11 @@ class Kml:
             point = self.fol2.newpoint(name=i.name, coords=[(i.x, i.y, i.height)])
             point.altitudemode = simplekml.AltitudeMode.relativetoground
             point.extrude = 1
+
+    """
+    Creates a linestring between each location in each list.  Ie - every location in list one will be connected to each
+    location in list 2.
+    """
 
     def create_linestrings(self):
         locs1 = self.loc1

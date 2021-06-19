@@ -17,28 +17,44 @@ class LocationFactory:
     def file(self):
         return self._file
 
+    """
+    Returns a value error if a file not ending in .csv is supplied.  Else sets the file attribute to the given value
+    """
+
     @file.setter
     def file(self, aFile):
         if aFile.endswith('.csv'):
             self._file = aFile
         else:
-            traceback.print_exc()
             return ValueError("Files must be in .csv format")
+
+    """
+    Returns a dequeue of DecimalLocation objects, attributes of which are populated using the appropriate csv headings
+    """
 
     def process_data(self):
         with open(self.file, newline='') as f:
             reader = csv.DictReader(f, skipinitialspace=True)
             header = reader.fieldnames
             for words in header:
-                try:
-                    if words == 'easting':
+                if words == 'easting':
+                    try:
                         return self.process_osbg(reader)
-                    if words == 'latitude':
+                    except TypeError:
+                        print("A valid DictReader was not provided")
+                if words == 'latitude':
+                    try:
                         return self.process_decimal(reader)
-                except Exception:
+                    except TypeError:
+                        print("A valid DictReader was not provided")
+                else:
                     return ValueError("Did not detect OSBG or Decimal Latitude/Longitude.  Please check headers are"
                                       "correctly labelled in the .csv file supplied")
-                    traceback.print_exc()
+
+    """
+    Returns a deque of DecimalLocation instances.  Attributes are parsed from the .csv file DictReader provided as an
+    argument.  
+    """
 
     def process_decimal(self, aReader):
         queue = deque()
@@ -47,11 +63,16 @@ class LocationFactory:
                 loc = DecimalLocation(row['latitude'], row['longitude'], row['height'], row['name'],
                                       distance_units=self.distance_units, height_units=self.height_units)
                 queue.append(loc)
-            except Exception:
+            except ValueError:
                 print("Exception occured creating a DecimalLocation object and appending it to the queue in the"
                       "LocationFactory")
                 traceback.print_exc()
         return queue
+
+    """
+    Returns a deque of DecimalLocation instances which are created from GridLocations using the to_decimal() method.
+    Attributes are parsed from the .csv file DictReader provided as an argument.  
+    """
 
     def process_osbg(self, aReader):
         queue = deque()
@@ -61,7 +82,7 @@ class LocationFactory:
                                    distance_units=self.distance_units, height_units=self.height_units)
                 dec_loc = loc.to_decimal()
                 queue.append(dec_loc)
-            except Exception:
+            except ValueError:
                 print("Exception occured creating a DecimalLocation object and appending it to the queue in the"
                       "LocationFactory")
                 traceback.print_exc()

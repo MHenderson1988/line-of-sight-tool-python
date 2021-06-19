@@ -21,6 +21,10 @@ class LineOfSight:
         self.api_key = kwargs.get("key", "NULL")
         self.earth_radius = self.earth_radius()
 
+    """
+    Returns the appropriate value of the earth's radius, dependant upon the 'distance units' specified by the user
+    """
+
     def earth_radius(self):
         if self.distance_units == "NAUTICAL_MILES":
             return 3443.92
@@ -29,8 +33,12 @@ class LineOfSight:
         elif self.distance_units == "KILOMETRES":
             return 6371.0
         else:
-            traceback.print_exc()
             return Exception("A unit of distance was not specified or there was a type in the gui/code.  Get help!")
+
+    """
+    Compares each location in the first list to each in the second and saves a LOS graph using matplotlib and a 
+    .kml file for representation in Google Earth.
+    """
 
     def get_los(self):
         # Analyse each location in the first .csv of locations
@@ -46,10 +54,10 @@ class LineOfSight:
                                              distance=self.distance_units)
                     los_graph = Graph(handler.elevation_data, loc, loc2, pseudo_earth, output=self.output_fol)
                     los_graph.build()
-                except Exception:
+                except TypeError:
                     traceback.print_exc()
         try:
             kml = Kml(self.locations_1.locations, self.locations_2.locations, output=self.output_fol)
             kml.create()
-        except Exception:
+        except TypeError:
             traceback.print_exc()
