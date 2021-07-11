@@ -30,8 +30,8 @@ class TestGraph(TestCase):
             i += 1
 
     def test_does_intersect(self):
-        self.assertFalse(self.graph.does_intersect())
-        self.assertTrue(self.graph2.does_intersect())
+        self.assertFalse(self.graph.check_intersect())
+        self.assertTrue(self.graph2.check_intersect())
 
     def test_select_colour(self):
         self.assertEqual('green', self.graph.select_colour())
