@@ -1,5 +1,6 @@
 import csv
 import traceback
+import re
 from collections import deque
 
 from main.classes.decimal_location import DecimalLocation
@@ -37,19 +38,16 @@ class LocationFactory:
             reader = csv.DictReader(f, skipinitialspace=True)
             header = reader.fieldnames
             for words in header:
-                if words == 'easting':
+                if re.match("^[e|E]asting[s]*", words):
                     try:
                         return self.process_osbg(reader)
                     except TypeError:
                         print("A valid DictReader was not provided")
-                if words == 'latitude':
+                if re.match("^[l|L]atitude[s]*", words):
                     try:
                         return self.process_decimal(reader)
                     except TypeError:
                         print("A valid DictReader was not provided")
-                else:
-                    return ValueError("Did not detect OSBG or Decimal Latitude/Longitude.  Please check headers are"
-                                      "correctly labelled in the .csv file supplied")
 
     """
     Returns a deque of DecimalLocation instances.  Attributes are parsed from the .csv file DictReader provided as an
