@@ -15,6 +15,7 @@ class Graph:
         self.earth = args[3]
         self.output_path = kwargs.get('output', DESKTOP)
         self.los_line = self.get_los_line()
+        self.los_exists = self.check_intersect()
 
     """
     Saves an image of the graph which is created using ArcSolver x and y values to draw the curvature of the earth.
@@ -39,9 +40,7 @@ class Graph:
             plt.xlabel("Distance (" + self.loc1.distance_units + ")"),
             plt.ylabel("Elevation (" + self.loc1.height_units + ")"),
             plt.grid()
-
-            filename = self.loc1.name + ' to ' + self.loc2.name
-            plt.savefig(self.output_path + '/' + filename)
+            self.save_file(plt)
         except Exception:
             traceback.print_exc()
 
@@ -61,7 +60,7 @@ class Graph:
     two locations.  Returns false if each point is of greater value than the terrain data.
     """
 
-    def does_intersect(self):
+    def check_intersect(self):
         i = 0
         while i < len(self.los_line):
             if self.los_line[i] < self.elevation_data[i]:
@@ -75,7 +74,14 @@ class Graph:
     """
 
     def select_colour(self):
-        if self.does_intersect():
+        if self.los_exists:
             return 'red'
         else:
             return 'green'
+
+    def save_file(self, a_plt):
+        filename = self.loc1.name + ' to ' + self.loc2.name
+        if self.los_exists:
+            a_plt.savefig(self.output_path + '/' + filename + " positive LOS")
+        else:
+            a_plt.savefig(self.output_path + '/' + filename + " negative LOS")
