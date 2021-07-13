@@ -23,14 +23,11 @@ class DecimalLocation(Location, ABC):
             exc_str = "%f must be less than %f and greater than %f" % (value, 90.0, -90.0)
             raise ValueError(exc_str)
         else:
-            if isinstance(value, float):
-                self._y = value
-            else:
-                try:
-                    self._y = float(value)
-                except ValueError:
-                    traceback.print_exc()
-                    print("y must be a floating point number or castable type.")
+            try:
+                self._y = float(value)
+            except ValueError:
+                traceback.print_exc()
+                print("y must be a floating point number or castable type.")
 
     @property
     def x(self):
@@ -47,14 +44,11 @@ class DecimalLocation(Location, ABC):
             exc_str = "%f must be less than %f and greater than %f" % (value, 180.0, -180.0)
             raise ValueError(exc_str)
         else:
-            if isinstance(value, float):
-                self._y = value
-            else:
-                try:
-                    self._y = float(value)
-                except ValueError:
-                    traceback.print_exc()
-                    print("X must be a floating point number or other castable type.")
+            try:
+                self._y = float(value)
+            except ValueError:
+                traceback.print_exc()
+                print("X must be a floating point number or other castable type.")
 
     @property
     def height(self):

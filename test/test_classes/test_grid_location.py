@@ -23,6 +23,16 @@ class TestLocation(TestCase):
                    " at a height of 500 METRES"
         self.assertEqual(expected, self.test2.__str__())
 
+    def test_regex(self):
+        regex_string = "-?[0-9]{6,7}"
+        self.assertRegex("-222111", regex_string)
+        self.assertRegex("222111", regex_string)
+        self.assertRegex("1111111", regex_string)
+        self.assertRegex("-1111999", regex_string)
+
+        self.assertNotRegex("dfaskjhfadskjlafds", regex_string)
+        self.assertNotRegex("-09999", regex_string)
+
     def test_equality(self):
         self.assertTrue(self.test.__eq__(self.test2))
         self.assertFalse(self.test.__eq__(self.test3))

@@ -1,6 +1,6 @@
 import csv
-import traceback
 import re
+import traceback
 from collections import deque
 
 from main.classes.decimal_location import DecimalLocation
