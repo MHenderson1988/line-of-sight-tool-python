@@ -1,4 +1,5 @@
 # Grid is used for Easting and Northing locations
+import re
 import traceback
 from abc import ABC
 
@@ -21,18 +22,11 @@ class GridLocation(NonDecimalLocation, ABC):
 
     @y.setter
     def y(self, value):
-        if 999999 < value < -999999:
-            exc_str = "%f must be less than %f and greater than %f" % (value, 999999, 999999)
-            raise ValueError(exc_str)
+        if re.match("-?[0-9]{6,7}", value):
+            self._y = int(value)
         else:
-            if isinstance(value, int):
-                self._y = value
-            else:
-                try:
-                    self._y = int(value)
-                except ValueError:
-                    traceback.print_exc()
-                    print("Y accepts value of type int or other castable type")
+            exc_str = "Northing not valid - OSBG grid references must be given as a 6 or 7 digit integer."
+            raise ValueError(exc_str)
 
     @property
     def x(self):
@@ -45,18 +39,11 @@ class GridLocation(NonDecimalLocation, ABC):
 
     @x.setter
     def x(self, value):
-        if 999999 < value < -999999:
-            exc_str = "%f must be less than %f and greater than %f" % (value, 999999, 999999)
-            raise ValueError(exc_str)
+        if re.match("-?[0-9]{6,7}", value):
+            self._x = int(value)
         else:
-            if isinstance(value, int):
-                self._x = value
-            else:
-                try:
-                    self._x = int(value)
-                except ValueError:
-                    traceback.print_exc()
-                    print("X accepts value of type int or other castable type")
+            exc_str = "Easting not valid - OSBG grid references must be given as a 6 or 7 digit integer."
+            raise ValueError(exc_str)
 
     @property
     def height(self):
