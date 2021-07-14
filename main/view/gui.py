@@ -6,6 +6,22 @@ import PySimpleGUI as sg
 from main.classes.line_of_sight import LineOfSight
 
 
+# This is the main window which will greet the user on first start up
+def main():
+    layout = [
+        []
+    ]
+
+    window = sg.Window("Main window", layout)
+
+    while True:
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        if event == 'new comparison':
+            new_comparison_window()
+
+
 # This window is for creating a new analysis between two sets of locations
 def new_comparison_window():
     layout = [
@@ -50,22 +66,6 @@ def new_comparison_window():
             x = threading.Thread(target=run_application(), daemon=True).start()
 
     window.close()
-
-
-# This is the main window which will greet the user on first start up
-def main():
-    layout = [
-        [sg.Text('Hello world!'), sg.Button('new comparison')]
-    ]
-
-    window = sg.Window("Main window", layout)
-
-    while True:
-        event, values = window.read()
-        if event == "Exit" or event == sg.WIN_CLOSED:
-            break
-        if event == 'new comparison':
-            new_comparison_window()
 
 
 if __name__ == '__main__':
