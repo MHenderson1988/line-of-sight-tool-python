@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from sqlite3 import Error
 
@@ -5,7 +6,7 @@ from sqlite3 import Error
 def connect_db():
     conn = None
     try:
-        conn = sqlite3.connect('test.db')
+        conn = sqlite3.connect(create_db_file_path())
         print(sqlite3.version)
     except Error as e:
         print(e)
@@ -39,6 +40,25 @@ def insert_location(conn, location_data):
     return cur.lastrowid
 
 
+def get_all_projects():
+    conn = connect_db()
+    cur = conn.cursor()
+    sql = ''' SELECT name FROM projects '''
+    cur.execute(sql)
+
+    rows = cur.fetchall()
+    return rows
+
+
+def get_all_locations():
+
+
+# Used to quickly find the database file
+def create_db_file_path():
+    CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(CURRENT_DIR, "../db/test.db")
+
+
 if __name__ == '__main__':
 
     create_projects_sql = """
@@ -66,7 +86,7 @@ if __name__ == '__main__':
         create_table(conn, create_projects_sql)
         create_table(conn, create_locations_sql)
 
-        project_1 = ("Sandy Knowe", )
+        project_1 = ("Sandy Knowe",)
         location_1 = ("Sandy Knowe", "-4.231212", "56.32312", "149.9", "1")
 
         insert_location(conn, location_1)

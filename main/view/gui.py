@@ -1,15 +1,18 @@
 # Very basic window.  Return values as a list
+import os
 import threading
 
 import PySimpleGUI as sg
 
 from main.classes.line_of_sight import LineOfSight
+from main.db.db_logic import get_all_projects
 
 
 # This is the main window which will greet the user on first start up
 def main():
     layout = [
-        []
+        [sg.Table(values=get_all_projects(), headings=["Project name"])]
+        [sg.Table(values)]
     ]
 
     window = sg.Window("Main window", layout)
@@ -66,6 +69,12 @@ def new_comparison_window():
             x = threading.Thread(target=run_application(), daemon=True).start()
 
     window.close()
+
+
+# Used to quickly find the database file
+def create_db_file_path():
+    CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(CURRENT_DIR, "../db/test.db")
 
 
 if __name__ == '__main__':
