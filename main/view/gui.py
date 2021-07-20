@@ -5,14 +5,13 @@ import threading
 import PySimpleGUI as sg
 
 from main.classes.line_of_sight import LineOfSight
-from main.db.db_logic import get_all_projects
+from main.db.db_logic import get_data_from_table
 
 
 # This is the main window which will greet the user on first start up
 def main():
     layout = [
-        [sg.Table(values=get_all_projects(), headings=["Project name"])]
-        [sg.Table(values)]
+        [sg.Table(values=get_data_from_table("name", table='projects'), headings=["Project name"])]
     ]
 
     window = sg.Window("Main window", layout)

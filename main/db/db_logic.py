@@ -16,41 +16,47 @@ def connect_db():
 
 def create_table(conn, create_table_sql):
     try:
-        cur = conn.cursor()
-        cur.execute(create_table_sql)
+        conn.execute(create_table_sql)
     except Error as e:
         print(e)
 
 
 def insert_project(conn, project_data):
-    sql = ''' INSERT INTO projects(name) VALUES(?) '''
-    cur = conn.cursor()
-    cur.execute(sql, project_data)
+    sql = ''' INSERT INTO projects (name, locations) SELECT ?, COUNT (*) FROM locations WHERE project_id = ? '''
+    conn.execute(sql, project_data)
     conn.commit()
+    curr = conn.cursor()
 
-    return cur.lastrowid
+    return curr.lastrowid
 
 
 def insert_location(conn, location_data):
-    sql = ''' INSERT INTO locations(project_id, x, y, height, name) VALUES(?,?,?,?,?)'''
-    cur = conn.cursor()
-    cur.execute(sql, location_data)
+    sql = ''' INSERT INTO locations (project_id, x, y, height, name) VALUES(?,?,?,?,?) '''
+    conn.execute(sql, location_data)
     conn.commit()
+    curr = conn.cursor()
 
-    return cur.lastrowid
+    return curr.lastrowid
 
 
-def get_all_projects():
+"""
+Method to retrieve specified data from a specified table.  Column names are passed via args and kwarg accepts
+'table ='.  If no args are declared the query will return all columns from the specified table.
+"""
+
+
+def get_data_from_table(*args, **kwargs):
+    table = kwargs.get('table', '*')
+
     conn = connect_db()
     cur = conn.cursor()
-    sql = ''' SELECT name FROM projects '''
+
+    sql = f''' SELECT {','.join(args)} FROM {table} '''
+
     cur.execute(sql)
-
     rows = cur.fetchall()
+
     return rows
-
-
-def get_all_locations():
 
 
 # Used to quickly find the database file
@@ -60,17 +66,18 @@ def create_db_file_path():
 
 
 if __name__ == '__main__':
-
     create_projects_sql = """
         CREATE TABLE IF NOT EXISTS projects (
-            name TEXT PRIMARY KEY
+            name TEXT PRIMARY KEY,
+            locations INTEGER,
+            folder TEXT
         );
     """
 
     create_locations_sql = """
         CREATE TABLE IF NOT EXISTS locations (
             id INTEGER PRIMARY KEY,
-            project_name TEXT NOT NULL,
+            project_id TEXT NOT NULL,
             x TEXT NOT NULL,
             y TEXT NOT NULL,
             height TEXT NOT NULL,
@@ -79,17 +86,3 @@ if __name__ == '__main__':
             FOREIGN KEY (project_id) REFERENCES projects(name)
         );
     """
-
-    conn = connect_db()
-
-    if conn is not None:
-        create_table(conn, create_projects_sql)
-        create_table(conn, create_locations_sql)
-
-        project_1 = ("Sandy Knowe",)
-        location_1 = ("Sandy Knowe", "-4.231212", "56.32312", "149.9", "1")
-
-        insert_location(conn, location_1)
-
-    else:
-        print("Error! Cannot create the database connection")
