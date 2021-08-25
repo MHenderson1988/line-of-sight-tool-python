@@ -12,14 +12,14 @@ DESKTOP = os.path.expanduser("~/Desktop")
 
 class LineOfSight:
     def __init__(self, *args, **kwargs):
-        self.locations_1 = LocationFactory(args[0])
-        self.locations_2 = LocationFactory(args[1])
         self.samples = kwargs.get("samples", 150)
         self.output_fol = kwargs.get("output", )
         self.distance_units = kwargs.get("distance_units", "NAUTICAL_MILES")
         self.height_units = kwargs.get("height_units", "FEET")
         self.api_key = kwargs.get("key", "NULL")
         self.earth_radius = self.earth_radius()
+        self.locations_1 = LocationFactory(args[0], height=self.height_units)
+        self.locations_2 = LocationFactory(args[1], height=self.height_units)
 
     """
     Returns the appropriate value of the earth's radius, dependant upon the 'distance units' specified by the user
