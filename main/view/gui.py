@@ -50,3 +50,7 @@ while True:
     if event is None:
         break
 window.Close()
+
+
+if __name__ == '__main__':
+    run_application()
