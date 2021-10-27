@@ -1,0 +1,1 @@
+web: gunicorn main/view/gui.py run_application()
