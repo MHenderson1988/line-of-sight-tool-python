@@ -13,6 +13,7 @@ class Graph:
         self.loc1 = args[1]
         self.loc2 = args[2]
         self.earth = args[3]
+        self.final_elevation = self.elevation_plus_curvature()
         self.output_path = kwargs.get('output', DESKTOP)
         self.los_line = self.get_los_line()
         self.los_intersect = self.check_intersect()
@@ -21,6 +22,10 @@ class Graph:
     Saves an image of the graph which is created using ArcSolver x and y values to draw the curvature of the earth.
     The Y values provided from the elevation data are then overlaid above the ArcSolver data.
     """
+
+    def elevation_plus_curvature(self):
+        final_elevation_values = [x + y for x, y in zip(self.elevation_data, self.earth.y_coordinates)]
+        return final_elevation_values
 
     def build(self):
         try:
@@ -31,10 +36,10 @@ class Graph:
 
             base_reg = 0
             plt.figure(figsize=(15, 5))
-            plt.plot(self.earth.x_coordinates, self.elevation_data)  # Terrain path
+            plt.plot(self.earth.x_coordinates, self.final_elevation)  # Terrain path
             plt.plot(self.earth.x_coordinates, self.earth.y_coordinates)  # Earth curvature path
             plt.plot(self.earth.x_coordinates, los_line, color=self.select_colour())  # Line of sight path
-            plt.fill_between(self.earth.x_coordinates, self.elevation_data, base_reg, alpha=0.1)
+            plt.fill_between(self.earth.x_coordinates, self.final_elevation, base_reg, alpha=0.1)
             plt.text(self.earth.x_coordinates[0], los_line[0], self.loc1.name + ": " + str(self.loc1.height))
             plt.text(self.earth.x_coordinates[-1], los_line[-1], self.loc2.name + ": " + str(self.loc2.height))
             plt.xlabel("Distance (" + self.loc1.distance_units + ")"),
